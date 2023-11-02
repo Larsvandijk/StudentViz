@@ -1,0 +1,74 @@
+<script>
+  import FinanceCategory from "./financeCategory.svelte";
+  import Studiefinanciering from "./studiefinanciering.svelte";
+  import { pageIndex, incomeList, totalIncomeCategories, totalIncome } from "./stores";
+
+  function addIncomeCategory() {
+    let newCategory = {
+      id: Math.random(),
+      name: "",
+      value: 0,
+      editable: true,
+    };
+    $incomeList = [...$incomeList, newCategory];
+  }
+
+  function fillInIncomeAverages() {
+    $incomeList[0].value = 508;
+    $incomeList[1].value = 0;
+    $incomeList[2].value = 154;
+    $incomeList[3].value = 150;
+  }
+</script>
+
+<div class="container">
+  <h1>Monthly Income</h1>
+
+  <Studiefinanciering></Studiefinanciering>
+
+  <p>
+    Enter your income manually, or use the national averages with the button
+    below.
+  </p>
+  <button class="button-1" on:click={fillInIncomeAverages}
+    >Use national averages</button
+  >
+  <div class="form-container">
+    <form>
+      <div class="incomecontainer">
+        {#each $incomeList as category, index (category.id)}
+          <FinanceCategory
+            name={category.name}
+            value={category.value}
+            editable={category.editable}
+            id={category.id}
+          />
+        {/each}
+      </div>
+      <p>Total income per month: €{$totalIncome}</p>
+
+      <button class="button-1" on:click|preventDefault={addIncomeCategory}
+        >Add new category</button
+      >
+      <button class="button-3" on:click={() => ($pageIndex += 1)}
+        >Go to expenses</button
+      >
+    </form>
+  </div>
+</div>
+
+<style>
+  .incomecontainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+  }
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+</style>
