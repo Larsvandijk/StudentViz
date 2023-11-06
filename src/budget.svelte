@@ -17,44 +17,21 @@
 
 
   } from "./stores";
+  import AdditionalInformation from "./AdditionalInformation.svelte";
+  import BudgetOverview from "./BudgetOverview.svelte"
 
-  function goToIncome(){
-    $pageIndex = 0
-  }
-
-  function goToExpenses(){
-    $pageIndex = 1
-  }
-
-  $: totalNeeded = $totalIncomeCategories - $totalExpenses;
 </script>
 
-<div class="budgetoverview">
-  <p>Your total income included student grant is €{$totalIncome} <button on:click={goToIncome}>Edit</button></p>
-  <p>Your total expenses are €{$totalExpenses} <button on:click={goToExpenses}>Edit</button></p>
-  <p>you need {$moneyNeeded}</p>
-</div>
+<BudgetOverview></BudgetOverview>
 
-<label>
-  Interest Rate
-  <input type="number" bind:value={$interestRate}/>
-</label>
-
-<label>
-  Principal
-  <input type="number" bind:value={$principal}/>
-</label>
-
-<label>
-  repayment term
-  <input type="number" bind:value={$repaymentTerm}/>
-</label>
+<AdditionalInformation></AdditionalInformation>
 
 
 <ul>
-  <li>r = {$r}</li>
-  <li>X = {$X}</li>
-  <li>Y = {$Y}</li>
-  <li>Z = {$Z}</li>
   <li>Mothly amount = {$monthlyRepaymentAmount}</li>
+  <li>Repayment term = {$repaymentTerm}</li>
 </ul>
+
+<style>
+
+</style>

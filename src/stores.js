@@ -71,13 +71,22 @@ export const totalExpenses = derived(expenseList, ($expenseList) =>
 );
 
 export const interestRate = writable(2.56);
+export const chosenMonthlyAmount = writable(0);
 export const interestRateDecimal = derived(
   interestRate,
   ($interestRate) => $interestRate / 100
 );
 export const currentDebt = writable(0);
 export const repaymentTerm = writable(35);
-export const principal = writable(0);
+export const remainderLoanPeriod = writable(0);
+export const principal = derived(
+  [currentDebt, chosenMonthlyAmount, remainderLoanPeriod],
+  ([$currentDebt, $chosenMonthlyAmount, $remainderLoanPeriod]) => {
+    return $currentDebt + $chosenMonthlyAmount * $remainderLoanPeriod;
+  }
+);
+
+// CALCULATIONS OF MONTHLY REPAYMENT AMOUNT ---------------------------------------------------------------------
 export const r = derived(
   interestRateDecimal,
   ($interestRateDecimal) => $interestRateDecimal / 12
@@ -96,13 +105,14 @@ export const monthlyRepaymentAmount = derived(
   ([$principal, $Z]) => $principal / $Z
 );
 
-export const remainderStudyPeriod = writable(0);
-export const basisbeursPeriod = writable(0);
+// END OF MONTHLY REPAYMENT AMOUNT ---------------------------------------------------------------------
 
+
+export const basisbeursPeriod = writable(0);
 export const selectedEducation = writable();
 export const selectedLivingSituation = writable();
-
 export const studentGrant = writable(0);
+
 export const totalIncome = derived(
   [studentGrant, totalIncomeCategories],
   ([$studentGrant, $totalIncomeCategories]) =>
@@ -111,5 +121,13 @@ export const totalIncome = derived(
 
 export const moneyNeeded = derived(
   [totalIncome, totalExpenses],
-  ([$totalIncome, $totalExpenses]) => $totalIncome - $totalExpenses
+  ([$totalIncome, $totalExpenses]) => ($totalExpenses - $totalIncome).toFixed(2)
+);
+
+export const futureSalary = writable(30000);
+
+export const totalMoneySpend = derived(
+  [monthlyRepaymentAmount, repaymentTerm],
+  ([$monthlyRepaymentAmount, $repaymentTerm]) =>
+    $monthlyRepaymentAmount * ($repaymentTerm * 12)
 );

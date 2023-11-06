@@ -92,13 +92,21 @@
       living situation <strong>"{$selectedLivingSituation}"</strong> is entitled
       to a studdent grant of €{$studentGrant}
     </p>
+  {:else}
+    <p>
+      <s>
+        A student with education <strong>"{$selectedEducation}"</strong> and
+        living situation <strong>"{$selectedLivingSituation}"</strong> is
+        entitled to a studdent grant of €{$studentGrant}
+      </s>
+    </p>
   {/if}
 </div>
 
 <style>
   .studiefinanciering {
     border: 1px solid black;
-    width: 500px;
+    width: 400px;
   }
 
   p {

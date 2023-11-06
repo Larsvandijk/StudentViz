@@ -251,3 +251,12 @@ input:focus[type=number] {
   display: flex;
   flex-direction: column;
 }
+
+.additionalinformationcontainer{
+  display: flex;
+  flex-direction: column;
+}
+
+input.topdown, label.topdown{
+  display: block;
+}
