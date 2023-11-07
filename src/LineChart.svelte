@@ -6,9 +6,11 @@
     const width = 800;
     const height = 600;
 
-    const xScale = d3.scaleLinear()
+    const padding = { top: 20, right: 15, bottom: 20, left: 25 };
 
-    const yScale = d3.scaleLinear(
+    $: xScale = d3.scaleTime().domain().range([0, width])
+
+    $: yScale = d3.scaleLinear(
     [0, d3.max(data, (d) => d.close)],
     [height - marginBottom, marginTop]
   );

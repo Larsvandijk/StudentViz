@@ -28,7 +28,7 @@
 
 
 <ul>
-  <li>Mothly amount = {$monthlyRepaymentAmount}</li>
+  <li>Monthly amount = {$monthlyRepaymentAmount}</li>
   <li>Repayment term = {$repaymentTerm}</li>
 </ul>
 

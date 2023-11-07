@@ -107,11 +107,11 @@ export const monthlyRepaymentAmount = derived(
 
 // END OF MONTHLY REPAYMENT AMOUNT ---------------------------------------------------------------------
 
-
 export const basisbeursPeriod = writable(0);
 export const selectedEducation = writable();
 export const selectedLivingSituation = writable();
 export const studentGrant = writable(0);
+export const aflossingsVrijePeriode = writable(2);
 
 export const totalIncome = derived(
   [studentGrant, totalIncomeCategories],
@@ -130,4 +130,31 @@ export const totalMoneySpend = derived(
   [monthlyRepaymentAmount, repaymentTerm],
   ([$monthlyRepaymentAmount, $repaymentTerm]) =>
     $monthlyRepaymentAmount * ($repaymentTerm * 12)
+);
+
+export const totalInterestPaid = derived(
+  [totalMoneySpend, principal],
+  ([$totalMoneySpend, $principal]) => $totalMoneySpend - $principal
+);
+
+function addXYear(date, n) {
+  date.setFullYear(date.getFullYear() + n);
+  return date;
+}
+
+export const data = derived(
+  [monthlyRepaymentAmount, repaymentTerm, aflossingsVrijePeriode, principal, interestRateDecimal],
+  ([$monthlyRepaymentAmount, $repaymentTerm, $aflossingsVrijePeriode, $principal, $interestRateDecimal]) =>{
+    let data = [];
+    // ADDING FIRST DATA ENTRY WITH CURRENT DATE AND PRINCIPAL
+    data.push({date: Date.now(), amount: $principal})
+
+    // lOOP OVER AFLOSSINGSVRIJEPERIODE TO ADD THE INTEREST IN THE FIRST YEARS THAT YOU DONT REPAY YET
+    // for(let i =0; i < $aflossingsVrijePeriode; i++){
+    //   data.push({date: })
+    // }
+
+    // LOOP OVER 
+    return data;
+  }
 );
