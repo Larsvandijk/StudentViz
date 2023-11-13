@@ -1,5 +1,5 @@
 <script>
-  import { currentDebt, remainderLoanPeriod, repaymentTerm, futureSalary, chosenMonthlyAmount } from "./stores";
+  import { currentDebt, remainderLoanPeriod, repaymentTerm, futureSalary, chosenMonthlyAmount, interestRateYearly } from "./stores";
 
 </script>
 
@@ -39,6 +39,14 @@
   <label class="topdown"
     >Chosen monthly loan amount<input
       bind:value={$chosenMonthlyAmount}
+      class="topdown"
+      type="number"
+    /></label
+  >
+
+  <label class="topdown"
+    >Interest Rate<input
+      bind:value={$interestRateYearly}
       class="topdown"
       type="number"
     /></label

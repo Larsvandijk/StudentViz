@@ -4,6 +4,7 @@
     totalExpenses,
     totalIncome,
     interestRateYearly,
+    interestRateDecimalMonthly,
     currentDebt,
     repaymentTerm,
     principal,
@@ -21,6 +22,8 @@
   import BudgetOverview from "./BudgetOverview.svelte"
 
   $: $data, console.log($data)
+  $: $interestRateDecimalMonthly, console.log($interestRateDecimalMonthly)
+
 
 </script>
 

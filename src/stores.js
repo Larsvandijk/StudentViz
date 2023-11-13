@@ -184,18 +184,20 @@ export const data = derived(
     data.push({ date: new Date(Date.now()), amount: get(currentDebt) });
 
     // ADDING DATA OF REMAINING BORROWING PERIOD
-    for (let i = 1; i < get(remainderLoanPeriod); i++) {
-      let lastElement = data[data.length - 1].amount;
+    for (let i = 1; i <= get(remainderLoanPeriod); i++) {
+      let newDate = addMonths(new Date(Date.now()), i);
+      let lastAmount = data[data.length - 1].amount;
+      console.log(lastAmount);
       data.push({
-        date: addMonths(Date.now(), i),
+        date: newDate,
         amount:
-          (lastElement + get(chosenMonthlyAmount)) *
-          $interestRateDecimalMonthly,
+          (lastAmount + get(chosenMonthlyAmount)) *
+          (get(interestRateDecimalMonthly) + 1),
       });
     }
 
     // lOOP OVER AFLOSSINGSVRIJEPERIODE TO ADD THE INTEREST IN THE FIRST YEARS THAT YOU DONT REPAY YET
-    // for(let i =0; i < $aflossingsVrijePeriode; i++){
+    // for(let i =0; i < get(aflossingsVrijePeriode); i++){
     //   data.push({date: })
     // }
 
