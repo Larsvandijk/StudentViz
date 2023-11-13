@@ -90,18 +90,29 @@ export const repaymentTerm = writable(35);
 export const remainderLoanPeriod = writable(0);
 export const aflossingsVrijePeriode = writable(12);
 
-
 export const principal = derived(
-  [currentDebt, chosenMonthlyAmount, interestRateDecimalMonthly, remainderLoanPeriod, aflossingsVrijePeriode],
-  ([$currentDebt, $chosenMonthlyAmount, $interestRateDecimalMonthly, $remainderLoanPeriod, $aflossingsVrijePeriode]) => {
-    let principal = 0
-    principal += $currentDebt
-    for(let i = 1; i <= $remainderLoanPeriod; i++){
+  [
+    currentDebt,
+    chosenMonthlyAmount,
+    interestRateDecimalMonthly,
+    remainderLoanPeriod,
+    aflossingsVrijePeriode,
+  ],
+  ([
+    $currentDebt,
+    $chosenMonthlyAmount,
+    $interestRateDecimalMonthly,
+    $remainderLoanPeriod,
+    $aflossingsVrijePeriode,
+  ]) => {
+    let principal = 0;
+    principal += $currentDebt;
+    for (let i = 1; i <= $remainderLoanPeriod; i++) {
       principal += $chosenMonthlyAmount;
-      principal *= (1+ $interestRateDecimalMonthly)
+      principal *= 1 + $interestRateDecimalMonthly;
     }
-    for(let i = 1; i <= $aflossingsVrijePeriode; i++){
-      principal *= (1+ $interestRateDecimalMonthly)
+    for (let i = 1; i <= $aflossingsVrijePeriode; i++) {
+      principal *= 1 + $interestRateDecimalMonthly;
     }
     return principal;
   }
@@ -132,7 +143,6 @@ export const basisbeursPeriod = writable(0);
 export const selectedEducation = writable();
 export const selectedLivingSituation = writable();
 export const studentGrant = writable(0);
-
 
 export const totalIncome = derived(
   [studentGrant, totalIncomeCategories],
@@ -220,7 +230,7 @@ export const data = derived(
       let newDate = addMonths(new Date(lastDate), 1);
       let lastAmount = data[data.length - 1].amount;
       let newAmount =
-        lastAmount * (1+ get(interestRateDecimalMonthly)) -
+        lastAmount * (1 + get(interestRateDecimalMonthly)) -
         get(monthlyRepaymentAmount);
       data.push({ date: newDate, amount: newAmount });
     }
@@ -228,8 +238,6 @@ export const data = derived(
     return data;
   }
 );
-
-
 
 export const totalInterestPaid = derived(
   [totalMoneySpend, principal],

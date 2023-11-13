@@ -5,7 +5,7 @@
 
 <div class="additionalinformationcontainer">
   <h2>Additional Information</h2>
-  <label for="repaymentterm">Choose your repayment term</label>
+  <!-- <label for="repaymentterm">Choose your repayment term</label>
   <select
     bind:value={$repaymentTerm}
     name="Educational Level"
@@ -13,7 +13,7 @@
   >
     <option value=35>35 years (SF35)</option>
     <option value=15>15 years (SF15)</option>
-  </select>
+  </select> -->
 
   <label class="topdown"
     >Current Debt

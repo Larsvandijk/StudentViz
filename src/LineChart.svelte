@@ -1,17 +1,43 @@
 <script>
-    import * as d3 from "d3";
+ import { scaleLinear, scaleTime } from "d3-scale";
 
-    export let data = {};
+  export let data;
 
-    const width = 800;
-    const height = 600;
+  const chartWidth = 800;
+  const chartHeight = 600;
 
-    const padding = { top: 20, right: 15, bottom: 20, left: 25 };
+  const paddings = {
+    top: 50,
+    left: 50,
+    right: 50,
+    bottom: 50,
+  };
 
-    $: xScale = d3.scaleTime().domain().range([0, width])
+  // $: xScale  =  scaleTime()
+  //   .domain(extent(data, (d)  =>  d.date))
+  //   .range([0, chartWidth]);
 
-    $: yScale = d3.scaleLinear(
-    [0, d3.max(data, (d) => d.close)],
-    [height - marginBottom, marginTop]
-  );
+  // $: yScale = scaleLinear().domain().range()
+
 </script>
+
+<svg width={chartWidth} height={chartHeight}>
+  <g>
+    <line
+      x1={paddings.left}
+      x2={chartWidth - paddings.right}
+      y1={chartHeight - paddings.bottom}
+      y2={chartHeight - paddings.bottom}
+      stroke="black"
+      stroke-width="2"
+    />
+    <line
+      x1={paddings.left}
+      x2={paddings.left}
+      y1={paddings.top}
+      y2={chartHeight - paddings.bottom}
+      stroke="black"
+      stroke-width="2"
+    />
+  </g>
+</svg>

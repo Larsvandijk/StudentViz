@@ -19,6 +19,7 @@
   } from "./stores";
   import AdditionalInformation from "./AdditionalInformation.svelte";
   import BudgetOverview from "./BudgetOverview.svelte";
+  import LineChart from "./LineChart.svelte";
 
   $: $data, console.log($data);
 </script>
@@ -32,6 +33,8 @@
   <li>Repayment term = {$repaymentTerm}</li>
   <li>Principal = {$principal}</li>
 </ul>
+
+<LineChart></LineChart>
 
 <style>
 </style>
