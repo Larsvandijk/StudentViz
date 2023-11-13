@@ -120,7 +120,7 @@ export const basisbeursPeriod = writable(0);
 export const selectedEducation = writable();
 export const selectedLivingSituation = writable();
 export const studentGrant = writable(0);
-export const aflossingsVrijePeriode = writable(2);
+export const aflossingsVrijePeriode = writable(12);
 
 export const totalIncome = derived(
   [studentGrant, totalIncomeCategories],
@@ -146,9 +146,10 @@ export const totalInterestPaid = derived(
   ([$totalMoneySpend, $principal]) => $totalMoneySpend - $principal
 );
 
-function addXYear(date, n) {
-  var newDate = date.setFullYear(date.getFullYear() + n);
-  return newDate;
+function addYears(date, years) {
+  date.setYear(date.getYear() + years);
+
+  return date;
 }
 
 function addMonths(date, months) {
@@ -187,7 +188,6 @@ export const data = derived(
     for (let i = 1; i <= get(remainderLoanPeriod); i++) {
       let newDate = addMonths(new Date(Date.now()), i);
       let lastAmount = data[data.length - 1].amount;
-      console.log(lastAmount);
       data.push({
         date: newDate,
         amount:
@@ -196,10 +196,14 @@ export const data = derived(
       });
     }
 
+
     // lOOP OVER AFLOSSINGSVRIJEPERIODE TO ADD THE INTEREST IN THE FIRST YEARS THAT YOU DONT REPAY YET
-    // for(let i =0; i < get(aflossingsVrijePeriode); i++){
-    //   data.push({date: })
-    // }
+    for(let i =1; i <= get(aflossingsVrijePeriode); i++){
+      let lastDate = data[data.length - 1].date;
+      let newDate = addMonths(new Date(lastDate), 1);
+      let lastAmount = data[data.length - 1].amount;
+      data.push({date: newDate, amount: lastAmount * (get(interestRateDecimalMonthly) + 1)})
+    }
 
     // LOOP OVER
     return data;

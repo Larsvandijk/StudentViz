@@ -1,5 +1,5 @@
 <script>
-  import { currentDebt, remainderLoanPeriod, repaymentTerm, futureSalary, chosenMonthlyAmount, interestRateYearly } from "./stores";
+  import { currentDebt, remainderLoanPeriod, repaymentTerm, futureSalary, chosenMonthlyAmount, interestRateYearly, aflossingsVrijePeriode } from "./stores";
 
 </script>
 
@@ -51,6 +51,15 @@
       type="number"
     /></label
   >
+
+  <label class="topdown"
+    >Aflossingsvrije periode<input
+      bind:value={$aflossingsVrijePeriode}
+      class="topdown"
+      type="number"
+    /></label
+  >
+
 </div>
 
 <style>

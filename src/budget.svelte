@@ -15,30 +15,22 @@
     pageIndex,
     monthlyRepaymentAmount,
     moneyNeeded,
-    data
-
+    data,
   } from "./stores";
   import AdditionalInformation from "./AdditionalInformation.svelte";
-  import BudgetOverview from "./BudgetOverview.svelte"
+  import BudgetOverview from "./BudgetOverview.svelte";
 
-  $: $data, console.log($data)
-  $: $interestRateDecimalMonthly, console.log($interestRateDecimalMonthly)
-
-
+  $: $data, console.log($data);
 </script>
 
-<BudgetOverview></BudgetOverview>
+<BudgetOverview />
 
-<AdditionalInformation></AdditionalInformation>
-
+<AdditionalInformation />
 
 <ul>
   <li>Monthly amount = {$monthlyRepaymentAmount}</li>
   <li>Repayment term = {$repaymentTerm}</li>
 </ul>
 
-
-
 <style>
-
 </style>
