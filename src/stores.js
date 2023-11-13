@@ -1,6 +1,6 @@
-import { derived, writable } from "svelte/store";
+import { derived, writable, get } from "svelte/store";
 
-export const pageIndex = writable(0);
+export const pageIndex = writable(2);
 
 export const incomeList = writable([
   { id: Math.random(), name: "Side job", value: 0, editable: false },
@@ -70,13 +70,22 @@ export const totalExpenses = derived(expenseList, ($expenseList) =>
   $expenseList.reduce((prev, next) => prev + next.value, 0)
 );
 
-export const interestRate = writable(2.56);
 export const chosenMonthlyAmount = writable(0);
-export const interestRateDecimal = derived(
-  interestRate,
-  ($interestRate) => $interestRate / 100
+
+// INTEREST RATES
+export const interestRateYearly = writable(2.56);
+
+export const interestRateDecimalYearly = derived(
+  interestRateYearly,
+  ($interestRateYearly) => $interestRateYearly / 100
 );
-export const currentDebt = writable(0);
+export const interestRateDecimalMonthly = derived(
+  interestRateDecimalYearly,
+  ($interestRateDecimalYearly) =>
+    Math.pow(1 + $interestRateDecimalYearly, 1 / 12) - 1
+);
+
+export const currentDebt = writable(10000);
 export const repaymentTerm = writable(35);
 export const remainderLoanPeriod = writable(0);
 export const principal = derived(
@@ -88,8 +97,8 @@ export const principal = derived(
 
 // CALCULATIONS OF MONTHLY REPAYMENT AMOUNT ---------------------------------------------------------------------
 export const r = derived(
-  interestRateDecimal,
-  ($interestRateDecimal) => $interestRateDecimal / 12
+  interestRateDecimalYearly,
+  ($interestRateDecimalYearly) => $interestRateDecimalYearly / 12
 );
 export const X = derived([repaymentTerm, r], ([$repaymentTerm, $r]) => {
   return Math.pow(1 + $r, $repaymentTerm * 12) - 1;
@@ -138,23 +147,59 @@ export const totalInterestPaid = derived(
 );
 
 function addXYear(date, n) {
-  date.setFullYear(date.getFullYear() + n);
+  var newDate = date.setFullYear(date.getFullYear() + n);
+  return newDate;
+}
+
+function addMonths(date, months) {
+  date.setMonth(date.getMonth() + months);
+
   return date;
 }
 
 export const data = derived(
-  [monthlyRepaymentAmount, repaymentTerm, aflossingsVrijePeriode, principal, interestRateDecimal],
-  ([$monthlyRepaymentAmount, $repaymentTerm, $aflossingsVrijePeriode, $principal, $interestRateDecimal]) =>{
+  [
+    monthlyRepaymentAmount,
+    remainderLoanPeriod,
+    chosenMonthlyAmount,
+    repaymentTerm,
+    aflossingsVrijePeriode,
+    principal,
+    interestRateDecimalYearly,
+    currentDebt,
+  ],
+  ([
+    $monthlyRepaymentAmount,
+    $repaymentTerm,
+    $aflossingsVrijePeriode,
+    $principal,
+    $interestRateDecimalYearly,
+    $interestRateDecimalMonthly,
+    $currentDebt,
+    $chosenMonthlyAmount,
+    $remainderLoanPeriod,
+  ]) => {
     let data = [];
-    // ADDING FIRST DATA ENTRY WITH CURRENT DATE AND PRINCIPAL
-    data.push({date: Date.now(), amount: $principal})
+    // ADDING FIRST DATA ENTRY WITH CURRENT DATE AND CURRENT DEBT
+    data.push({ date: new Date(Date.now()), amount: get(currentDebt) });
+
+    // ADDING DATA OF REMAINING BORROWING PERIOD
+    for (let i = 1; i < get(remainderLoanPeriod); i++) {
+      let lastElement = data[data.length - 1].amount;
+      data.push({
+        date: addMonths(Date.now(), i),
+        amount:
+          (lastElement + get(chosenMonthlyAmount)) *
+          $interestRateDecimalMonthly,
+      });
+    }
 
     // lOOP OVER AFLOSSINGSVRIJEPERIODE TO ADD THE INTEREST IN THE FIRST YEARS THAT YOU DONT REPAY YET
     // for(let i =0; i < $aflossingsVrijePeriode; i++){
     //   data.push({date: })
     // }
 
-    // LOOP OVER 
+    // LOOP OVER
     return data;
   }
 );

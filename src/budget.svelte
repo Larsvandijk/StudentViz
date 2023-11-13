@@ -3,7 +3,7 @@
     totalIncomeCategories,
     totalExpenses,
     totalIncome,
-    interestRate,
+    interestRateYearly,
     currentDebt,
     repaymentTerm,
     principal,
@@ -14,11 +14,13 @@
     pageIndex,
     monthlyRepaymentAmount,
     moneyNeeded,
-
+    data
 
   } from "./stores";
   import AdditionalInformation from "./AdditionalInformation.svelte";
   import BudgetOverview from "./BudgetOverview.svelte"
+
+  $: $data, console.log($data)
 
 </script>
 
@@ -31,6 +33,8 @@
   <li>Monthly amount = {$monthlyRepaymentAmount}</li>
   <li>Repayment term = {$repaymentTerm}</li>
 </ul>
+
+
 
 <style>
 
