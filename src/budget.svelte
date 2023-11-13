@@ -30,6 +30,7 @@
 <ul>
   <li>Monthly amount = {$monthlyRepaymentAmount}</li>
   <li>Repayment term = {$repaymentTerm}</li>
+  <li>Principal = {$principal}</li>
 </ul>
 
 <style>

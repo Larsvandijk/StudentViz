@@ -88,10 +88,22 @@ export const interestRateDecimalMonthly = derived(
 export const currentDebt = writable(10000);
 export const repaymentTerm = writable(35);
 export const remainderLoanPeriod = writable(0);
+export const aflossingsVrijePeriode = writable(12);
+
+
 export const principal = derived(
-  [currentDebt, chosenMonthlyAmount, remainderLoanPeriod],
-  ([$currentDebt, $chosenMonthlyAmount, $remainderLoanPeriod]) => {
-    return $currentDebt + $chosenMonthlyAmount * $remainderLoanPeriod;
+  [currentDebt, chosenMonthlyAmount, interestRateDecimalMonthly, remainderLoanPeriod, aflossingsVrijePeriode],
+  ([$currentDebt, $chosenMonthlyAmount, $interestRateDecimalMonthly, $remainderLoanPeriod, $aflossingsVrijePeriode]) => {
+    let principal = 0
+    principal += $currentDebt
+    for(let i = 1; i <= $remainderLoanPeriod; i++){
+      principal += $chosenMonthlyAmount;
+      principal *= (1+ $interestRateDecimalMonthly)
+    }
+    for(let i = 1; i <= $aflossingsVrijePeriode; i++){
+      principal *= (1+ $interestRateDecimalMonthly)
+    }
+    return principal;
   }
 );
 
@@ -120,7 +132,7 @@ export const basisbeursPeriod = writable(0);
 export const selectedEducation = writable();
 export const selectedLivingSituation = writable();
 export const studentGrant = writable(0);
-export const aflossingsVrijePeriode = writable(12);
+
 
 export const totalIncome = derived(
   [studentGrant, totalIncomeCategories],
@@ -139,11 +151,6 @@ export const totalMoneySpend = derived(
   [monthlyRepaymentAmount, repaymentTerm],
   ([$monthlyRepaymentAmount, $repaymentTerm]) =>
     $monthlyRepaymentAmount * ($repaymentTerm * 12)
-);
-
-export const totalInterestPaid = derived(
-  [totalMoneySpend, principal],
-  ([$totalMoneySpend, $principal]) => $totalMoneySpend - $principal
 );
 
 function addYears(date, years) {
@@ -196,16 +203,35 @@ export const data = derived(
       });
     }
 
-
     // lOOP OVER AFLOSSINGSVRIJEPERIODE TO ADD THE INTEREST IN THE FIRST YEARS THAT YOU DONT REPAY YET
-    for(let i =1; i <= get(aflossingsVrijePeriode); i++){
+    for (let i = 1; i <= get(aflossingsVrijePeriode); i++) {
       let lastDate = data[data.length - 1].date;
       let newDate = addMonths(new Date(lastDate), 1);
       let lastAmount = data[data.length - 1].amount;
-      data.push({date: newDate, amount: lastAmount * (get(interestRateDecimalMonthly) + 1)})
+      data.push({
+        date: newDate,
+        amount: lastAmount * (get(interestRateDecimalMonthly) + 1),
+      });
     }
 
-    // LOOP OVER
+    // ADDING DATA OF REPAYMENTS OF THE LOAN
+    for (let i = 1; i <= get(repaymentTerm) * 12; i++) {
+      let lastDate = data[data.length - 1].date;
+      let newDate = addMonths(new Date(lastDate), 1);
+      let lastAmount = data[data.length - 1].amount;
+      let newAmount =
+        lastAmount * (1+ get(interestRateDecimalMonthly)) -
+        get(monthlyRepaymentAmount);
+      data.push({ date: newDate, amount: newAmount });
+    }
+
     return data;
   }
+);
+
+
+
+export const totalInterestPaid = derived(
+  [totalMoneySpend, principal],
+  ([$totalMoneySpend, $principal]) => $totalMoneySpend - $principal
 );
