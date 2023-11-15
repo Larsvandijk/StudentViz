@@ -1,5 +1,9 @@
 <script>
-  import { chosenMonthlyRepaymentAmount, use35years } from "./stores";
+  import {
+    chosenMonthlyRepaymentAmount,
+    monthlyRepaymentAmount,
+    use35years,
+  } from "./stores";
 
   let options = [
     { text: "I want to repay in 35 years.", value: "35years" },
@@ -7,10 +11,8 @@
   ];
   let selected = options[0];
 
-  $: if(selected === options[0]) $use35years = true
-  else $use35years = false
-
-
+  $: if (selected === options[0]) $use35years = true;
+  else $use35years = false;
 </script>
 
 {#each options as option}
@@ -26,6 +28,7 @@
 
 <label class="topdown"
   >Monthly repayment amount<input
+    min={monthlyRepaymentAmount}
     disabled={selected === options[0]}
     bind:value={$chosenMonthlyRepaymentAmount}
     class="topdown"
@@ -33,3 +36,4 @@
   /></label
 >
 
+{$use35years}

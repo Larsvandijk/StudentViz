@@ -86,7 +86,7 @@ export const interestRateDecimalMonthly = derived(
 );
 
 export const currentDebt = writable(10000);
-export const chosenMonthlyRepaymentAmount = writable(0)
+export const chosenMonthlyRepaymentAmount = writable(100);
 export const repaymentTerm = writable(35);
 export const remainderLoanPeriod = writable(0);
 export const aflossingsVrijePeriode = writable(12);
@@ -189,7 +189,7 @@ export const data = derived(
     principal,
     interestRateDecimalYearly,
     currentDebt,
-    use35years
+    use35years,
   ],
   ([
     $monthlyRepaymentAmount,
@@ -201,7 +201,7 @@ export const data = derived(
     $currentDebt,
     $chosenMonthlyAmount,
     $remainderLoanPeriod,
-    $use35years
+    $use35years,
   ]) => {
     let data = [];
     // ADDING FIRST DATA ENTRY WITH CURRENT DATE AND CURRENT DEBT
@@ -230,8 +230,10 @@ export const data = derived(
       });
     }
 
+    console.log(get(use35years))
     // ADDING DATA OF REPAYMENTS OF THE LOAN
-    if(use35years){
+    if (get(use35years)) {
+      console.log("35 years do")
       for (let i = 1; i <= get(repaymentTerm) * 12; i++) {
         let lastDate = data[data.length - 1].date;
         let newDate = addMonths(new Date(lastDate), 1);
@@ -241,8 +243,18 @@ export const data = derived(
           get(monthlyRepaymentAmount);
         data.push({ date: newDate, amount: newAmount });
       }
+    } else if (!get(use35years)) {
+      console.log("custom do")
+      while (data[data.length - 1].amount > 0) {
+        let lastDate = data[data.length - 1].date;
+        let newDate = addMonths(new Date(lastDate), 1);
+        let lastAmount = data[data.length - 1].amount;
+        let newAmount =
+          lastAmount * (1 + get(interestRateDecimalMonthly)) -
+          get(chosenMonthlyRepaymentAmount);
+        data.push({ date: newDate, amount: newAmount });
+      }
     }
-    
 
     return data;
   }
@@ -252,4 +264,3 @@ export const totalInterestPaid = derived(
   [totalMoneySpend, principal],
   ([$totalMoneySpend, $principal]) => $totalMoneySpend - $principal
 );
-
