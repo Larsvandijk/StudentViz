@@ -30,14 +30,39 @@
   $: d3.select(yAxis).call(d3.axisLeft(yScale));
   $: d3.select(xAxis).call(d3.axisBottom(xScale));
 
-  // const line = d3
-  //   .line()
-  //   .x((d) => xScale(parseTime(d.date)))
-  //   .y((d) => yScale(d.value))
-  //   .curve(d3.curveCatmullRom);
+  const idContainer = "svg-container-" + Math.random() * 1000000;
+  let mousePosition = { x: null, y: null };
+  function followMouse(event) {
+    const svg = document.getElementById(idContainer);
+    if (svg === null) return;
+    const dim = svg.getBoundingClientRect();
+    const positionInSVG = {
+      x: event.clientX - dim.left,
+      y: event.clientY - dim.top,
+    };
+    mousePosition =
+      positionInSVG.x > paddings.left &&
+      positionInSVG.x < chartWidth - paddings.right &&
+      positionInSVG.y > paddings.top &&
+      positionInSVG.y < chartHeight - paddings.bottom
+        ? { x: positionInSVG.x, y: positionInSVG.y }
+        : { x: null, y: null };
+  }
+  function removePointer() {
+    mousePosition = { x: null, y: null };
+  }
+  function computeSelectedXValue(value) {
+    return data.filter((d) => xScale(d[xVar]) >= value)[0][xVar];
+  }
 </script>
 
-<svg class="graph" width={chartWidth} height={chartHeight}>
+<svg
+  class="graph"
+  width={chartWidth}
+  height={chartHeight}
+  on:mousemove={followMouse}
+  on:mouseleave={removePointer}
+>
   <!-- X AND Y SCALE LINES -->
   <g>
     <line
@@ -67,9 +92,12 @@
 
   <!-- AXIS LABELS -->
   <g>
-    <text x={paddings.left} y={chartHeight}>Time</text>
-    <text x="0" y="150" transform="rotate(-90 20,130)" alignment-baseline="middle"
-      >Total Debt</text
+    <text x={paddings.left} y={chartHeight} text-anchor="middle">Time</text>
+    <text
+      x="0"
+      y="150"
+      transform="rotate(-90 20,130)"
+      alignment-baseline="middle">Total Debt</text
     >
   </g>
 
@@ -78,9 +106,9 @@
     {#each data as point, i}
       {#if i != data.length - 1}
         <line
-          x1={xScale(data[i].date)}
+          x1={xScale(point.date)}
           x2={xScale(data[i + 1].date)}
-          y1={yScale(data[i].amount)}
+          y1={yScale(point.amount)}
           y2={yScale(data[i + 1].amount)}
           stroke="black"
           stroke-width="2"
@@ -88,4 +116,6 @@
       {/if}
     {/each}
   </g>
+
+  
 </svg>

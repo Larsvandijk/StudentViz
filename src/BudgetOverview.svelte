@@ -1,5 +1,5 @@
 <script>
-  import { totalExpenses, totalIncome, moneyNeeded, pageIndex } from "./stores";
+  import { totalExpenses, totalIncome, moneyNeeded, pageIndex, chosenMonthlyAmount } from "./stores";
 
   function goToIncome() {
     $pageIndex = 0;
@@ -8,32 +8,46 @@
   function goToExpenses() {
     $pageIndex = 1;
   }
+
+  function handleClick(){
+    $chosenMonthlyAmount = Math.round($moneyNeeded);
+  }
 </script>
 
-<div class="budgetoverview">
-  <p>
-    Your total income included student grant is €{$totalIncome}
-    <button on:click={goToIncome}>Edit</button>
-  </p>
-  <p>
-    Your total expenses are €{$totalExpenses}
-    <button on:click={goToExpenses}>Edit</button>
-  </p>
+<div class="container">
+  <h2>Recommendation</h2>
+  <div class="income-expenses">
+    <p>
+      Income: <span style="color: green"><strong>€{$totalIncome}</strong></span>
+      <button on:click={goToIncome}>Edit</button>
+    </p>
+    <p>
+      Expenses: <span style="color: red"><strong>€{$totalExpenses}</strong></span>
+      <button on:click={goToExpenses}>Edit</button>
+    </p>
+
+  </div>
+
+  <hr>
   {#if $moneyNeeded > 0}
     <p>
-      You are €{$moneyNeeded} short to pay your expenses.
-      <button>Use this estimate</button>
+      <span style="color: red"><strong>-€{$moneyNeeded}</strong></span>
+      <button on:click={handleClick}>Use this estimate</button>
     </p>
   {:else}
     <p>
-      You have enough income to pay for your expenses. There is no need to
-      borrow money.
+      <span style="color: green"><strong>+€{Math.abs($moneyNeeded)}</strong></span>
     </p>
   {/if}
 </div>
 
 <style>
-  .budgetoverview {
-    width: 500px;
+  .container {
+    width: 300px;
+  }
+
+  p{
+    margin-bottom: 0;
+    margin-top: 0;
   }
 </style>

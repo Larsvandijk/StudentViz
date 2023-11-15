@@ -8,10 +8,6 @@
     currentDebt,
     repaymentTerm,
     principal,
-    r,
-    X,
-    Y,
-    Z,
     pageIndex,
     monthlyRepaymentAmount,
     moneyNeeded,
@@ -20,6 +16,7 @@
   import AdditionalInformation from "./AdditionalInformation.svelte";
   import BudgetOverview from "./BudgetOverview.svelte";
   import LineChart from "./LineChart.svelte";
+  import Repayment from "./Repayment.svelte";
 
   $: $data, console.log($data);
 </script>
@@ -29,6 +26,8 @@
     <BudgetOverview />
 
     <AdditionalInformation />
+
+    <Repayment></Repayment>
 
     <ul>
       <li>Monthly amount = {$monthlyRepaymentAmount}</li>

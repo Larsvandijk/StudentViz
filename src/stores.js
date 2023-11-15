@@ -86,6 +86,7 @@ export const interestRateDecimalMonthly = derived(
 );
 
 export const currentDebt = writable(10000);
+export const chosenMonthlyRepaymentAmount = writable(0)
 export const repaymentTerm = writable(35);
 export const remainderLoanPeriod = writable(0);
 export const aflossingsVrijePeriode = writable(12);
@@ -109,26 +110,27 @@ export const principal = derived(
     principal += $currentDebt;
     for (let i = 1; i <= $remainderLoanPeriod; i++) {
       principal += $chosenMonthlyAmount;
-      principal *= (1 + $interestRateDecimalMonthly);
+      principal *= 1 + $interestRateDecimalMonthly;
     }
     for (let i = 1; i <= $aflossingsVrijePeriode; i++) {
-      principal *= (1 + $interestRateDecimalMonthly);
+      principal *= 1 + $interestRateDecimalMonthly;
     }
     return principal;
   }
 );
 
 // CALCULATIONS OF MONTHLY REPAYMENT AMOUNT ---------------------------------------------------------------------
-export const r = derived(
-  interestRateDecimalYearly,
-  ($interestRateDecimalYearly) => $interestRateDecimalYearly / 12
+export const X = derived(
+  [repaymentTerm, interestRateDecimalMonthly],
+  ([$repaymentTerm, $interestRateDecimalMonthly]) => {
+    return Math.pow(1 + $interestRateDecimalMonthly, $repaymentTerm * 12) - 1;
+  }
 );
-export const X = derived([repaymentTerm, interestRateDecimalMonthly], ([$repaymentTerm, $interestRateDecimalMonthly]) => {
-  return Math.pow(1 + $interestRateDecimalMonthly, $repaymentTerm * 12) - 1;
-});
 export const Y = derived(
   [repaymentTerm, interestRateDecimalMonthly],
-  ([$repaymentTerm, $interestRateDecimalMonthly]) => Math.pow(1 + $interestRateDecimalMonthly, $repaymentTerm * 12) * $interestRateDecimalMonthly
+  ([$repaymentTerm, $interestRateDecimalMonthly]) =>
+    Math.pow(1 + $interestRateDecimalMonthly, $repaymentTerm * 12) *
+    $interestRateDecimalMonthly
 );
 export const Z = derived([X, Y], ([$X, $Y]) => $X / $Y);
 
@@ -175,6 +177,8 @@ function addMonths(date, months) {
   return date;
 }
 
+export const use35years = writable(true);
+
 export const data = derived(
   [
     monthlyRepaymentAmount,
@@ -185,6 +189,7 @@ export const data = derived(
     principal,
     interestRateDecimalYearly,
     currentDebt,
+    use35years
   ],
   ([
     $monthlyRepaymentAmount,
@@ -196,6 +201,7 @@ export const data = derived(
     $currentDebt,
     $chosenMonthlyAmount,
     $remainderLoanPeriod,
+    $use35years
   ]) => {
     let data = [];
     // ADDING FIRST DATA ENTRY WITH CURRENT DATE AND CURRENT DEBT
@@ -225,15 +231,18 @@ export const data = derived(
     }
 
     // ADDING DATA OF REPAYMENTS OF THE LOAN
-    for (let i = 1; i <= get(repaymentTerm) * 12; i++) {
-      let lastDate = data[data.length - 1].date;
-      let newDate = addMonths(new Date(lastDate), 1);
-      let lastAmount = data[data.length - 1].amount;
-      let newAmount =
-        lastAmount * (1 + get(interestRateDecimalMonthly)) -
-        get(monthlyRepaymentAmount);
-      data.push({ date: newDate, amount: newAmount });
+    if(use35years){
+      for (let i = 1; i <= get(repaymentTerm) * 12; i++) {
+        let lastDate = data[data.length - 1].date;
+        let newDate = addMonths(new Date(lastDate), 1);
+        let lastAmount = data[data.length - 1].amount;
+        let newAmount =
+          lastAmount * (1 + get(interestRateDecimalMonthly)) -
+          get(monthlyRepaymentAmount);
+        data.push({ date: newDate, amount: newAmount });
+      }
     }
+    
 
     return data;
   }
@@ -243,3 +252,4 @@ export const totalInterestPaid = derived(
   [totalMoneySpend, principal],
   ([$totalMoneySpend, $principal]) => $totalMoneySpend - $principal
 );
+
