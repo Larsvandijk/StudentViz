@@ -24,17 +24,26 @@
   $: $data, console.log($data);
 </script>
 
-<BudgetOverview />
+<div class="maincontainer">
+  <div class="left-side">
+    <BudgetOverview />
 
-<AdditionalInformation />
+    <AdditionalInformation />
 
-<ul>
-  <li>Monthly amount = {$monthlyRepaymentAmount}</li>
-  <li>Repayment term = {$repaymentTerm}</li>
-  <li>Principal = {$principal}</li>
-</ul>
-
-<LineChart></LineChart>
+    <ul>
+      <li>Monthly amount = {$monthlyRepaymentAmount}</li>
+      <li>Repayment term = {$repaymentTerm}</li>
+      <li>Principal = {$principal}</li>
+    </ul>
+  </div>
+  <div class="right-side">
+    <LineChart data={$data} />
+  </div>
+</div>
 
 <style>
+  .maincontainer{
+    display: flex;
+    
+  }
 </style>
