@@ -230,10 +230,8 @@ export const data = derived(
       });
     }
 
-    console.log(get(use35years))
     // ADDING DATA OF REPAYMENTS OF THE LOAN
     if (get(use35years)) {
-      console.log("35 years do")
       for (let i = 1; i <= get(repaymentTerm) * 12; i++) {
         let lastDate = data[data.length - 1].date;
         let newDate = addMonths(new Date(lastDate), 1);
@@ -244,7 +242,6 @@ export const data = derived(
         data.push({ date: newDate, amount: newAmount });
       }
     } else if (!get(use35years)) {
-      console.log("custom do")
       while (data[data.length - 1].amount > 0) {
         let lastDate = data[data.length - 1].date;
         let newDate = addMonths(new Date(lastDate), 1);
