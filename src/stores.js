@@ -109,10 +109,10 @@ export const principal = derived(
     principal += $currentDebt;
     for (let i = 1; i <= $remainderLoanPeriod; i++) {
       principal += $chosenMonthlyAmount;
-      principal *= 1 + $interestRateDecimalMonthly;
+      principal *= (1 + $interestRateDecimalMonthly);
     }
     for (let i = 1; i <= $aflossingsVrijePeriode; i++) {
-      principal *= 1 + $interestRateDecimalMonthly;
+      principal *= (1 + $interestRateDecimalMonthly);
     }
     return principal;
   }
@@ -123,12 +123,12 @@ export const r = derived(
   interestRateDecimalYearly,
   ($interestRateDecimalYearly) => $interestRateDecimalYearly / 12
 );
-export const X = derived([repaymentTerm, r], ([$repaymentTerm, $r]) => {
-  return Math.pow(1 + $r, $repaymentTerm * 12) - 1;
+export const X = derived([repaymentTerm, interestRateDecimalMonthly], ([$repaymentTerm, $interestRateDecimalMonthly]) => {
+  return Math.pow(1 + $interestRateDecimalMonthly, $repaymentTerm * 12) - 1;
 });
 export const Y = derived(
-  [repaymentTerm, r],
-  ([$repaymentTerm, $r]) => Math.pow(1 + $r, $repaymentTerm * 12) * $r
+  [repaymentTerm, interestRateDecimalMonthly],
+  ([$repaymentTerm, $interestRateDecimalMonthly]) => Math.pow(1 + $interestRateDecimalMonthly, $repaymentTerm * 12) * $interestRateDecimalMonthly
 );
 export const Z = derived([X, Y], ([$X, $Y]) => $X / $Y);
 
