@@ -135,15 +135,18 @@ export const Y = derived(
 export const Z = derived([X, Y], ([$X, $Y]) => $X / $Y);
 
 export const monthlyRepaymentAmount = derived(
-  [principal, Z],
-  ([$principal, $Z]) => $principal / $Z
+  [principal, Z, interestRateYearly, repaymentTerm],
+  ([$principal, $Z, $interestRateYearly, $repaymentTerm]) =>{
+    if($interestRateYearly ===0 || $interestRateYearly === null) return $principal / ($repaymentTerm * 12)
+    else return $principal / $Z
+  }
 );
 
-export const monthlyRepaymentAmountNoInterest = derived(
-  [principal,
-  repaymentTerm],
-  ([$principal, $repaymentTerm]) => {return $principal / ($repaymentTerm * 12)}
-);
+// export const monthlyRepaymentAmountNoInterest = derived(
+//   [principal,
+//   repaymentTerm],
+//   ([$principal, $repaymentTerm]) => {return $principal / ($repaymentTerm * 12)}
+// );
 
 // END OF MONTHLY REPAYMENT AMOUNT ---------------------------------------------------------------------
 
@@ -197,7 +200,6 @@ export const data = derived(
     currentDebt,
     use35years,
     chosenMonthlyRepaymentAmount,
-    monthlyRepaymentAmountNoInterest
   ],
   ([
     $monthlyRepaymentAmount,
@@ -211,7 +213,6 @@ export const data = derived(
     $remainderLoanPeriod,
     $use35years,
     $chosenMonthlyRepaymentAmount,
-    $monthlyRepaymentAmountNoInterest
 
   ]) => {
     let data = [];
@@ -257,14 +258,13 @@ export const data = derived(
       get(chosenMonthlyRepaymentAmount) === null ||
       get(chosenMonthlyRepaymentAmount) <= get(monthlyRepaymentAmount)
     ) {
-      console.log(monthlyRepaymentAmountNoInterest)
       for (let i = 1; i <= get(repaymentTerm) * 12; i++) {
         let lastDate = data[data.length - 1].date;
         let newDate = addMonths(new Date(lastDate), 1);
         let lastAmount = data[data.length - 1].amount;
         let newAmount;
         if (get(interestRateYearly) === null || get(interestRateYearly) === 0)
-          newAmount = lastAmount - get(monthlyRepaymentAmountNoInterest);
+          newAmount = lastAmount - get(monthlyRepaymentAmount);
         else
           newAmount =
             lastAmount * (1 + get(interestRateDecimalMonthly)) -

@@ -8,10 +8,7 @@
     interestRateYearly,
     aflossingsVrijePeriode,
     monthlyRepaymentAmount,
-    monthlyRepaymentAmountNoInterest, 
     principal
-
-
   } from "./stores";
 
 

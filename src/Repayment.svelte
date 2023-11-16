@@ -5,7 +5,6 @@
     use35years,
     data,
     interestRateYearly,
-    monthlyRepaymentAmountNoInterest,
   } from "./stores";
 
   let options = [
@@ -18,7 +17,7 @@
   else $use35years = false;
 
   $: lastDate = $data[$data.length - 1].date;
-  
+
 </script>
 
 <h2>Repayment</h2>
@@ -48,14 +47,6 @@
     <strong
       >Your monthly repayment amount should be at least €{Math.ceil(
         $monthlyRepaymentAmount * 100
-      ) / 100}</strong
-    >
-  </p>
-{:else if $chosenMonthlyRepaymentAmount < $monthlyRepaymentAmountNoInterest && !$use35years && $interestRateYearly === 0}
-  <p class="warning">
-    <strong
-      >Your monthly repayment amount should be at least €{Math.ceil(
-        $monthlyRepaymentAmountNoInterest * 100
       ) / 100}</strong
     >
   </p>
