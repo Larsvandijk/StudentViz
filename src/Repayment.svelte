@@ -3,7 +3,9 @@
     chosenMonthlyRepaymentAmount,
     monthlyRepaymentAmount,
     use35years,
-    data
+    data,
+    interestRateYearly,
+    monthlyRepaymentAmountNoInterest,
   } from "./stores";
 
   let options = [
@@ -16,9 +18,9 @@
   else $use35years = false;
 
   $: lastDate = $data[$data.length - 1].date;
-
-  // $: if ($chosenMonthlyRepaymentAmount <= 0) $chosenMonthlyRepaymentAmount = 50
+  
 </script>
+
 <h2>Repayment</h2>
 {#each options as option}
   <label
@@ -36,19 +38,34 @@
     min={monthlyRepaymentAmount}
     disabled={selected === options[0]}
     bind:value={$chosenMonthlyRepaymentAmount}
-    class="topdown input-euro left"
+    class="topdown"
     type="number"
   /></label
 >
 
-{#if $chosenMonthlyRepaymentAmount < $monthlyRepaymentAmount && !$use35years}
-<p class = "warning"><strong>Your monthly repayment amount should be at least €{Math.ceil($monthlyRepaymentAmount * 100)/100}</strong></p>
+{#if $chosenMonthlyRepaymentAmount < $monthlyRepaymentAmount && !$use35years && $interestRateYearly != 0}
+  <p class="warning">
+    <strong
+      >Your monthly repayment amount should be at least €{Math.ceil(
+        $monthlyRepaymentAmount * 100
+      ) / 100}</strong
+    >
+  </p>
+{:else if $chosenMonthlyRepaymentAmount < $monthlyRepaymentAmountNoInterest && !$use35years && $interestRateYearly === 0}
+  <p class="warning">
+    <strong
+      >Your monthly repayment amount should be at least €{Math.ceil(
+        $monthlyRepaymentAmountNoInterest * 100
+      ) / 100}</strong
+    >
+  </p>
 {/if}
 
-<p>Your final payment will be on {lastDate.toLocaleDateString('en-GB')}</p>
+<p>Your final payment will be on {lastDate.toLocaleDateString("en-GB")}</p>
 
 <style>
-  .warning{
+  .warning {
     color: red;
   }
+
 </style>
