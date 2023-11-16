@@ -29,11 +29,11 @@
 
     <Repayment></Repayment>
 
-    <ul>
+    <!-- <ul>
       <li>Monthly amount = {$monthlyRepaymentAmount}</li>
       <li>Repayment term = {$repaymentTerm}</li>
       <li>Principal = {$principal}</li>
-    </ul>
+    </ul> -->
   </div>
   <div class="right-side">
     <LineChart data={$data} />

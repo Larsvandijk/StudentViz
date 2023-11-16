@@ -8,7 +8,12 @@
     interestRateYearly,
     aflossingsVrijePeriode,
     monthlyRepaymentAmount,
+    monthlyRepaymentAmountNoInterest, 
+    principal
+
+
   } from "./stores";
+
 
 
 </script>
@@ -24,14 +29,6 @@
   <label class="topdown"
     >Remaining months of borrowing money<input
       bind:value={$remainderLoanPeriod}
-      class="topdown"
-      type="number"
-    /></label
-  >
-
-  <label class="topdown"
-    >Expected yearly salary<input
-      bind:value={$futureSalary}
       class="topdown"
       type="number"
     /></label
@@ -54,14 +51,21 @@
   >
 
   <label class="topdown"
-    >Aflossingsvrije periode<input
+    >Months between end of study and repayment (0-24)<input
       bind:value={$aflossingsVrijePeriode}
       class="topdown"
       type="number"
     /></label
   >
 
-  
+  <label class="topdown"
+  >Expected yearly salary<input
+    bind:value={$futureSalary}
+    class="topdown"
+    type="number"
+  /></label
+>
+
 </div>
 
 <style>

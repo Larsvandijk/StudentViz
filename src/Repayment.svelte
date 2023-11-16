@@ -3,6 +3,7 @@
     chosenMonthlyRepaymentAmount,
     monthlyRepaymentAmount,
     use35years,
+    data
   } from "./stores";
 
   let options = [
@@ -13,8 +14,12 @@
 
   $: if (selected === options[0]) $use35years = true;
   else $use35years = false;
-</script>
 
+  $: lastDate = $data[$data.length - 1].date;
+
+  // $: if ($chosenMonthlyRepaymentAmount <= 0) $chosenMonthlyRepaymentAmount = 50
+</script>
+<h2>Repayment</h2>
 {#each options as option}
   <label
     ><input
@@ -31,9 +36,19 @@
     min={monthlyRepaymentAmount}
     disabled={selected === options[0]}
     bind:value={$chosenMonthlyRepaymentAmount}
-    class="topdown"
+    class="topdown input-euro left"
     type="number"
   /></label
 >
 
-{$use35years}
+{#if $chosenMonthlyRepaymentAmount < $monthlyRepaymentAmount && !$use35years}
+<p class = "warning"><strong>Your monthly repayment amount should be at least €{Math.ceil($monthlyRepaymentAmount * 100)/100}</strong></p>
+{/if}
+
+<p>Your final payment will be on {lastDate.toLocaleDateString('en-GB')}</p>
+
+<style>
+  .warning{
+    color: red;
+  }
+</style>

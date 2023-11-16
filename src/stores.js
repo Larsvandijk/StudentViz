@@ -139,6 +139,12 @@ export const monthlyRepaymentAmount = derived(
   ([$principal, $Z]) => $principal / $Z
 );
 
+export const monthlyRepaymentAmountNoInterest = derived(
+  [principal,
+  repaymentTerm],
+  ([$principal, $repaymentTerm]) => {return $principal / ($repaymentTerm * 12)}
+);
+
 // END OF MONTHLY REPAYMENT AMOUNT ---------------------------------------------------------------------
 
 export const basisbeursPeriod = writable(0);
@@ -190,6 +196,8 @@ export const data = derived(
     interestRateDecimalYearly,
     currentDebt,
     use35years,
+    chosenMonthlyRepaymentAmount,
+    monthlyRepaymentAmountNoInterest
   ],
   ([
     $monthlyRepaymentAmount,
@@ -202,6 +210,9 @@ export const data = derived(
     $chosenMonthlyAmount,
     $remainderLoanPeriod,
     $use35years,
+    $chosenMonthlyRepaymentAmount,
+    $monthlyRepaymentAmountNoInterest
+
   ]) => {
     let data = [];
     // ADDING FIRST DATA ENTRY WITH CURRENT DATE AND CURRENT DEBT
@@ -211,11 +222,17 @@ export const data = derived(
     for (let i = 1; i <= get(remainderLoanPeriod); i++) {
       let newDate = addMonths(new Date(Date.now()), i);
       let lastAmount = data[data.length - 1].amount;
+      let newAmount;
+      // CHECKING INTEREST RATE, IF 0 THEN DIFFERENT CALCULATION
+      if (get(interestRateYearly) === null || get(interestRateYearly) === 0)
+        newAmount = lastAmount + get(chosenMonthlyAmount);
+      else
+        newAmount =
+          (lastAmount + get(chosenMonthlyAmount)) *
+          (get(interestRateDecimalMonthly) + 1);
       data.push({
         date: newDate,
-        amount:
-          (lastAmount + get(chosenMonthlyAmount)) *
-          (get(interestRateDecimalMonthly) + 1),
+        amount: newAmount,
       });
     }
 
@@ -224,21 +241,34 @@ export const data = derived(
       let lastDate = data[data.length - 1].date;
       let newDate = addMonths(new Date(lastDate), 1);
       let lastAmount = data[data.length - 1].amount;
+      let newAmount;
+      if (get(interestRateYearly) === null || get(interestRateYearly) === 0)
+        newAmount = lastAmount;
+      else newAmount = lastAmount * (get(interestRateDecimalMonthly) + 1);
       data.push({
         date: newDate,
-        amount: lastAmount * (get(interestRateDecimalMonthly) + 1),
+        amount: newAmount,
       });
     }
 
-    // ADDING DATA OF REPAYMENTS OF THE LOAN
-    if (get(use35years)) {
+    // ADDING DATA OF REPAYMENTS OF THE LOAN, BASED ON WHETHER USER WANTS TO REPAY IN 35 YEARS OR EARLIER
+    if (
+      get(use35years) ||
+      get(chosenMonthlyRepaymentAmount) === null ||
+      get(chosenMonthlyRepaymentAmount) <= get(monthlyRepaymentAmount)
+    ) {
+      console.log(monthlyRepaymentAmountNoInterest)
       for (let i = 1; i <= get(repaymentTerm) * 12; i++) {
         let lastDate = data[data.length - 1].date;
         let newDate = addMonths(new Date(lastDate), 1);
         let lastAmount = data[data.length - 1].amount;
-        let newAmount =
-          lastAmount * (1 + get(interestRateDecimalMonthly)) -
-          get(monthlyRepaymentAmount);
+        let newAmount;
+        if (get(interestRateYearly) === null || get(interestRateYearly) === 0)
+          newAmount = lastAmount - get(monthlyRepaymentAmountNoInterest);
+        else
+          newAmount =
+            lastAmount * (1 + get(interestRateDecimalMonthly)) -
+            get(monthlyRepaymentAmount);
         data.push({ date: newDate, amount: newAmount });
       }
     } else if (!get(use35years)) {
@@ -246,9 +276,13 @@ export const data = derived(
         let lastDate = data[data.length - 1].date;
         let newDate = addMonths(new Date(lastDate), 1);
         let lastAmount = data[data.length - 1].amount;
-        let newAmount =
-          lastAmount * (1 + get(interestRateDecimalMonthly)) -
-          get(chosenMonthlyRepaymentAmount);
+        let newAmount;
+        if (get(interestRateYearly) === null || get(interestRateYearly) === 0)
+          newAmount = lastAmount - get(chosenMonthlyRepaymentAmount);
+        else
+          newAmount =
+            lastAmount * (1 + get(interestRateDecimalMonthly)) -
+            get(chosenMonthlyRepaymentAmount);
         data.push({ date: newDate, amount: newAmount });
       }
     }
