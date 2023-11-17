@@ -42,7 +42,7 @@
   /></label
 >
 
-{#if $chosenMonthlyRepaymentAmount < $monthlyRepaymentAmount && !$use35years && $interestRateYearly != 0}
+{#if $chosenMonthlyRepaymentAmount < $monthlyRepaymentAmount && !$use35years}
   <p class="warning">
     <strong
       >Your monthly repayment amount should be at least €{Math.ceil(

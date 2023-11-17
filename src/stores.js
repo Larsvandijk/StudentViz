@@ -1,4 +1,4 @@
-import { derived, writable, get } from "svelte/store";
+import { derived, writable, readable, get } from "svelte/store";
 
 export const pageIndex = writable(2);
 
