@@ -1,5 +1,7 @@
 import { derived, writable, readable, get } from "svelte/store";
 
+export const minimumWageYearly = readable(23212);
+export const draagvoet = readable(0.04);
 export const pageIndex = writable(2);
 
 export const incomeList = writable([
@@ -136,9 +138,10 @@ export const Z = derived([X, Y], ([$X, $Y]) => $X / $Y);
 
 export const monthlyRepaymentAmount = derived(
   [principal, Z, interestRateYearly, repaymentTerm],
-  ([$principal, $Z, $interestRateYearly, $repaymentTerm]) =>{
-    if($interestRateYearly ===0 || $interestRateYearly === null) return $principal / ($repaymentTerm * 12)
-    else return $principal / $Z
+  ([$principal, $Z, $interestRateYearly, $repaymentTerm]) => {
+    if ($interestRateYearly === 0 || $interestRateYearly === null)
+      return $principal / ($repaymentTerm * 12);
+    else return $principal / $Z;
   }
 );
 
@@ -213,7 +216,6 @@ export const data = derived(
     $remainderLoanPeriod,
     $use35years,
     $chosenMonthlyRepaymentAmount,
-
   ]) => {
     let data = [];
     // ADDING FIRST DATA ENTRY WITH CURRENT DATE AND CURRENT DEBT
@@ -294,4 +296,13 @@ export const data = derived(
 export const totalInterestPaid = derived(
   [totalMoneySpend, principal],
   ([$totalMoneySpend, $principal]) => $totalMoneySpend - $principal
+);
+
+export const maxMonthlyRepaymentAmount = derived(
+  [futureSalary, minimumWageYearly, draagvoet],
+  ([$futureSalary, $minimumWageYearly, $draagvoet]) => {
+    let result;
+    result = (($futureSalary - $minimumWageYearly) * $draagvoet) / 12;
+    return result;
+  }
 );

@@ -5,6 +5,7 @@
     use35years,
     data,
     interestRateYearly,
+    maxMonthlyRepaymentAmount,
   } from "./stores";
 
   let options = [
@@ -53,6 +54,8 @@
 {/if}
 
 <p>Your final payment will be on {lastDate.toLocaleDateString("en-GB")}</p>
+
+<p>Max repay will be  {$maxMonthlyRepaymentAmount}</p>
 
 <style>
   .warning {
