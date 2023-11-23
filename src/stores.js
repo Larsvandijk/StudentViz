@@ -4,6 +4,36 @@ export const minimumWageYearly = readable(23212);
 export const draagvoet = readable(0.04);
 export const pageIndex = writable(2);
 
+export const interestHistory = readable([
+  { year: 1998, interest: 6.09 },
+  { year: 1999, interest: 4.89 },
+  { year: 2000, interest: 5.92 },
+  { year: 2001, interest: 5.18 },
+  { year: 2002, interest: 4.03 },
+  { year: 2003, interest: 3.73 },
+  { year: 2004, interest: 3.35 },
+  { year: 2005, interest: 3.05 },
+  { year: 2006, interest: 2.74 },
+  { year: 2007, interest: 3.7 },
+  { year: 2008, interest: 4.17 },
+  { year: 2009, interest: 3.58 },
+  { year: 2010, interest: 2.39 },
+  { year: 2011, interest: 1.5 },
+  { year: 2012, interest: 1.39 },
+  { year: 2013, interest: 0.6 },
+  { year: 2014, interest: 0.81 },
+  { year: 2015, interest: 0.12 },
+  { year: 2016, interest: 0.01 },
+  { year: 2017, interest: 0 },
+  { year: 2018, interest: 0 },
+  { year: 2019, interest: 0 },
+  { year: 2020, interest: 0 },
+  { year: 2021, interest: 0 },
+  { year: 2022, interest: 0 },
+  { year: 2023, interest: 0.46 },
+  { year: 2024, interest: 2.56 },
+]);
+
 export const incomeList = writable([
   { id: Math.random(), name: "Side job", value: 0, editable: false },
   { id: Math.random(), name: "Rental allowance", value: 0, editable: false },
@@ -72,6 +102,7 @@ export const totalExpenses = derived(expenseList, ($expenseList) =>
   $expenseList.reduce((prev, next) => prev + next.value, 0)
 );
 
+export const dataCollection = writable([]);
 export const chosenMonthlyAmount = writable(0);
 
 // INTEREST RATES
@@ -90,7 +121,7 @@ export const interestRateDecimalMonthly = derived(
 export const currentDebt = writable(10000);
 export const chosenMonthlyRepaymentAmount = writable(100);
 export const repaymentTerm = writable(35);
-export const remainderLoanPeriod = writable(0);
+export const remainderLoanPeriod = writable(12);
 export const aflossingsVrijePeriode = writable(12);
 
 export const principal = derived(
@@ -144,12 +175,6 @@ export const monthlyRepaymentAmount = derived(
     else return $principal / $Z;
   }
 );
-
-// export const monthlyRepaymentAmountNoInterest = derived(
-//   [principal,
-//   repaymentTerm],
-//   ([$principal, $repaymentTerm]) => {return $principal / ($repaymentTerm * 12)}
-// );
 
 // END OF MONTHLY REPAYMENT AMOUNT ---------------------------------------------------------------------
 

@@ -6,6 +6,7 @@
     data,
     interestRateYearly,
     maxMonthlyRepaymentAmount,
+    aflossingsVrijePeriode
   } from "./stores";
 
   let options = [
@@ -22,6 +23,14 @@
 </script>
 
 <h2>Repayment</h2>
+<label class="topdown"
+>Months between end of study and repayment (0-24)<input
+  bind:value={$aflossingsVrijePeriode}
+  class="topdown"
+  type="number"
+/></label
+>
+
 {#each options as option}
   <label
     ><input

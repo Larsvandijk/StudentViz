@@ -48,14 +48,6 @@
   >
 
   <label class="topdown"
-    >Months between end of study and repayment (0-24)<input
-      bind:value={$aflossingsVrijePeriode}
-      class="topdown"
-      type="number"
-    /></label
-  >
-
-  <label class="topdown"
   >Expected yearly salary<input
     bind:value={$futureSalary}
     class="topdown"

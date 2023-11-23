@@ -4,8 +4,8 @@
 
   export let data;
 
-  const chartWidth = 600;
-  const chartHeight = 450;
+  const chartWidth = 800;
+  const chartHeight = 400;
 
   let xAxis;
   let yAxis;
@@ -30,7 +30,7 @@
   $: d3.select(yAxis).call(d3.axisLeft(yScale));
   $: d3.select(xAxis).call(d3.axisBottom(xScale));
 
-  const idContainer = "svg-container-" + Math.random() * 1000000;
+  const idContainer = "svg-container";
   let mousePosition = { x: null, y: null };
   function followMouse(event) {
     const svg = document.getElementById(idContainer);
@@ -47,6 +47,7 @@
       positionInSVG.y < chartHeight - paddings.bottom
         ? { x: positionInSVG.x, y: positionInSVG.y }
         : { x: null, y: null };
+        // console.log(positionInSVG)
   }
   function removePointer() {
     mousePosition = { x: null, y: null };
@@ -58,6 +59,7 @@
 
 <svg
   class="graph"
+  id="svg-container"
   width={chartWidth}
   height={chartHeight}
   on:mousemove={followMouse}
@@ -101,6 +103,8 @@
     >
   </g>
 
+  <path />
+
   <!-- ALL DATA POINTS -->
   <g>
     {#each data as point, i}
@@ -116,6 +120,4 @@
       {/if}
     {/each}
   </g>
-
-  
 </svg>
