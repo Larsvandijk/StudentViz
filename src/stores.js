@@ -331,3 +331,5 @@ export const maxMonthlyRepaymentAmount = derived(
     return result;
   }
 );
+
+export const availableColours = writable(["red", "green", "purple", "yellow", "brown", "blue", "orange"])

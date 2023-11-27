@@ -4,7 +4,7 @@
 
   export let data;
 
-  const chartWidth = 800;
+  const chartWidth = 600;
   const chartHeight = 400;
 
   let xAxis;
@@ -30,31 +30,6 @@
   $: d3.select(yAxis).call(d3.axisLeft(yScale));
   $: d3.select(xAxis).call(d3.axisBottom(xScale));
 
-  const idContainer = "svg-container";
-  let mousePosition = { x: null, y: null };
-  function followMouse(event) {
-    const svg = document.getElementById(idContainer);
-    if (svg === null) return;
-    const dim = svg.getBoundingClientRect();
-    const positionInSVG = {
-      x: event.clientX - dim.left,
-      y: event.clientY - dim.top,
-    };
-    mousePosition =
-      positionInSVG.x > paddings.left &&
-      positionInSVG.x < chartWidth - paddings.right &&
-      positionInSVG.y > paddings.top &&
-      positionInSVG.y < chartHeight - paddings.bottom
-        ? { x: positionInSVG.x, y: positionInSVG.y }
-        : { x: null, y: null };
-        // console.log(positionInSVG)
-  }
-  function removePointer() {
-    mousePosition = { x: null, y: null };
-  }
-  function computeSelectedXValue(value) {
-    return data.filter((d) => xScale(d[xVar]) >= value)[0][xVar];
-  }
 </script>
 
 <svg
@@ -62,8 +37,7 @@
   id="svg-container"
   width={chartWidth}
   height={chartHeight}
-  on:mousemove={followMouse}
-  on:mouseleave={removePointer}
+
 >
   <!-- X AND Y SCALE LINES -->
   <g>

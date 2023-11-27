@@ -6,14 +6,17 @@
     interestRateYearly,
     monthlyRepaymentAmount,
     use35years,
+    interestHistory,
+    availableColours,
   } from "./stores";
   import { get } from "svelte/store";
   import AdditionalInformation from "./AdditionalInformation.svelte";
   import BudgetOverview from "./BudgetOverview.svelte";
   import LineChart from "./LineChart.svelte";
   import Repayment from "./Repayment.svelte";
+  import InterestExplorer from "./InterestExplorer.svelte";
 
-  $: $data, console.log($data);
+  // $: $data, console.log($data);
 
   function addData() {
     let monthlyAmount;
@@ -23,7 +26,9 @@
       data: $data,
       Interest: $interestRateYearly,
       MonthlyRepayment: monthlyAmount,
+      colour: $availableColours[0],
     });
+    $availableColours.shift();
     console.log($dataCollection);
   }
 </script>
@@ -36,15 +41,13 @@
 
       <Repayment />
     </div>
-
-
-
   </div>
 
   <div class="right-side">
     <LineChart data={$data} />
-  </div>
 
+    <InterestExplorer data={$interestHistory} />
+  </div>
 </div>
 <button on:click={addData}>Add data</button>
 
@@ -52,5 +55,4 @@
   .maincontainer {
     display: flex;
   }
-
 </style>
