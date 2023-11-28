@@ -1,6 +1,8 @@
 <script>
   //  import { scaleLinear, scaleTime } from "d3-scale";
   import * as d3 from "d3";
+  import { each, loop_guard } from "svelte/internal";
+  import { dataCollection } from "./stores";
 
   export let data;
 
@@ -29,16 +31,9 @@
 
   $: d3.select(yAxis).call(d3.axisLeft(yScale));
   $: d3.select(xAxis).call(d3.axisBottom(xScale));
-
 </script>
 
-<svg
-  class="graph"
-  id="svg-container"
-  width={chartWidth}
-  height={chartHeight}
-
->
+<svg class="graph" id="svg-container" width={chartWidth} height={chartHeight}>
   <!-- X AND Y SCALE LINES -->
   <g>
     <line
@@ -92,6 +87,23 @@
           stroke-width="2"
         />
       {/if}
+    {/each}
+  </g>
+
+  <g>
+    {#each $dataCollection as datagroup, i}
+      {#each datagroup.data as datapoint, d}
+        {#if d != datagroup.data.length - 1}
+          <line
+            x1={xScale(datapoint.date)}
+            x2={xScale(datagroup.data[d + 1].date)}
+            y1={yScale(datapoint.amount)}
+            y2={yScale(datagroup.data[d + 1].amount)}
+            stroke={datagroup.colour}
+            stroke-width="2"
+          />
+        {/if}
+      {/each}
     {/each}
   </g>
 </svg>
