@@ -22,7 +22,7 @@
 
   $: xScale = d3
     .scaleTime()
-    .domain(d3.extent(data, (d) => d.date))
+    .domain(d3.extent($allDataForAxes, (d) => d.date))
     .range([paddings.left, chartWidth - paddings.right]);
 
   $: yScale = d3
