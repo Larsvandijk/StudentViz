@@ -1,7 +1,7 @@
 <script>
   import * as d3 from "d3";
-  import { interestRateYearly } from "./stores";
-  // import { asDraggable } from 'svelte-drag-and-drop-actions'
+  import { interestRateYearly, dataCollection } from "./stores";
+  import { get } from 'svelte/store'
 
   export let data;
 
@@ -41,6 +41,7 @@
   $: d3.select(yAxis).call(d3.axisLeft(yScale));
   $: d3.select(xAxis).call(d3.axisBottom(xScale));
 
+
   // FOLLOWING MOUSE MOVEMENT
   const idContainer = "interest-container";
   let mousePosition = { x: null, y: null };
@@ -67,8 +68,8 @@
   }
 
   function handleDragLeave() {
-    console.log("Drag leave");
-    draggable = false;
+    // console.log("Drag leave");
+    // draggable = false;
   }
 
   function handleDrag(event, d) {
@@ -97,13 +98,9 @@
     // container.attr("transform", "translate(0, " + mousePosition.y + ")");
   }
 
-  function addLine() {
-    console.log("add");
-  }
-
   function handleDragStart() {
-    console.log("drag start");
-    draggable = true;
+    // console.log("drag start");
+    // draggable = true;
   }
 
   // var drag = d3.drag().on("drag", handleDrag);
@@ -111,10 +108,17 @@
   // let line = d3.select(".draggable");
   // line.call(drag);
 
-  function clicked(event, d) {
-    if (event.defaultPrevented) return;
-  }
 </script>
+
+<h2>Interest Explorer</h2>
+
+<label class="topdown"
+>Interest Rate<input
+  bind:value={$interestRateYearly}
+  class="topdown"
+  type="number"
+/></label
+>
 
 <svg
   class="graph"
@@ -181,14 +185,7 @@
   </g>
 
   <!-- Movable line -->
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <g
-    class="grabbable"
-    on:click={clicked}
-    on:dragstart={handleDragStart}
-    on:drag={handleDrag}
-    on:dragend={handleDragLeave}
-  >
+
     <line
       x1={paddings.left}
       x2={chartWidth - paddings.right}
@@ -199,6 +196,10 @@
     />
 
     <line
+      class="grabbable"
+      on:dragstart={handleDragStart}
+      on:drag={handleDrag}
+      on:dragend={handleDragLeave}
       x1={paddings.left}
       x2={chartWidth - paddings.right}
       y1={y}
@@ -207,7 +208,19 @@
       stroke="black"
       stroke-opacity="0"
     />
-  </g>
+
+
+  <!-- HERE NEW INTEREST LINES -->
+  {#each $dataCollection as datagroup, i}
+    <line
+      x1={paddings.left}
+      x2={chartWidth - paddings.right}
+      y1={yScale(datagroup.interest)}
+      y2={yScale(datagroup.interest)}
+      stroke-width="2"
+      stroke={datagroup.colour}
+    />
+  {/each}
 </svg>
 
 <style>

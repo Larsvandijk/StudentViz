@@ -16,20 +16,19 @@
   import Repayment from "./Repayment.svelte";
   import InterestExplorer from "./InterestExplorer.svelte";
 
-  // $: $data, console.log($data);
-
   function addData() {
     let monthlyAmount;
     if ($use35years) monthlyAmount = $monthlyRepaymentAmount;
     else monthlyAmount = $chosenMonthlyRepaymentAmount;
     $dataCollection.push({
       data: $data,
-      Interest: $interestRateYearly,
-      MonthlyRepayment: monthlyAmount,
+      interest: $interestRateYearly,
+      monthlyRepayment: monthlyAmount,
       colour: $availableColours[0],
     });
+    $dataCollection = $dataCollection;
     $availableColours.shift();
-    console.log($dataCollection);
+    $availableColours = $availableColours;
   }
 </script>
 

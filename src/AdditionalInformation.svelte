@@ -40,14 +40,6 @@
   >
 
   <label class="topdown"
-    >Interest Rate<input
-      bind:value={$interestRateYearly}
-      class="topdown"
-      type="number"
-    /></label
-  >
-
-  <label class="topdown"
   >Expected yearly salary<input
     bind:value={$futureSalary}
     class="topdown"

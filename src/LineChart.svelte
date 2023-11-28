@@ -1,8 +1,7 @@
 <script>
   //  import { scaleLinear, scaleTime } from "d3-scale";
   import * as d3 from "d3";
-  import { each, loop_guard } from "svelte/internal";
-  import { dataCollection } from "./stores";
+  import { dataCollection, allDataForAxes } from "./stores";
 
   export let data;
 
@@ -19,6 +18,8 @@
     bottom: 50,
   };
 
+  $: console.log($allDataForAxes);
+
   $: xScale = d3
     .scaleTime()
     .domain(d3.extent(data, (d) => d.date))
@@ -26,7 +27,7 @@
 
   $: yScale = d3
     .scaleLinear()
-    .domain([0, d3.max(data, (d) => d.amount)])
+    .domain([0, d3.max($allDataForAxes, (d) => d.amount)])
     .range([chartHeight - paddings.bottom, paddings.top]);
 
   $: d3.select(yAxis).call(d3.axisLeft(yScale));

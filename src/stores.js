@@ -102,7 +102,6 @@ export const totalExpenses = derived(expenseList, ($expenseList) =>
   $expenseList.reduce((prev, next) => prev + next.value, 0)
 );
 
-export const dataCollection = writable([]);
 export const chosenMonthlyAmount = writable(0);
 
 // INTEREST RATES
@@ -332,4 +331,24 @@ export const maxMonthlyRepaymentAmount = derived(
   }
 );
 
-export const availableColours = writable(["red", "green", "purple", "yellow", "brown", "blue", "orange"])
+export const availableColours = writable([
+  "red",
+  "green",
+  "purple",
+  "yellow",
+  "brown",
+  "blue",
+  "orange",
+]);
+
+export const dataCollection = writable([]);
+
+export const allDataForAxes = derived(
+  [data, dataCollection],
+  ([$data, $dataCollection]) => {
+    let result = [];
+    result = result.concat($data);
+    $dataCollection.forEach((e) => result = result.concat(e.data));
+    return result;
+  }
+);
