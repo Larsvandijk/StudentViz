@@ -43,7 +43,8 @@
 
 <style>
   .container {
-    width: 300px;
+    width: 150px;
+    text-align: center;
   }
 
   p{

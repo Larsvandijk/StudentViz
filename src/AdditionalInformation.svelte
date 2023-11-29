@@ -8,51 +8,61 @@
     interestRateYearly,
     aflossingsVrijePeriode,
     monthlyRepaymentAmount,
-    principal
+    principal,
   } from "./stores";
-
-
-
 </script>
 
 <div class="additionalinformationcontainer">
   <h2>Additional Information</h2>
 
-  <label class="topdown"
-    >Current Debt
-    <input class="topdown" type="number" bind:value={$currentDebt} />
-  </label>
+  <div class="row">
+    <div class="column">
+      <label class="topdown"
+        >Current Debt
+        <input class="topdown" type="number" bind:value={$currentDebt} />
+      </label>
 
-  <label class="topdown"
-    >Remaining months of borrowing<input
-      bind:value={$remainderLoanPeriod}
-      class="topdown"
-      type="number"
-    /></label
-  >
+      <label class="topdown"
+        >Remaining months of borrowing<input
+          bind:value={$remainderLoanPeriod}
+          class="topdown"
+          type="number"
+        /></label
+      >
+    </div>
 
-  <label class="topdown"
-    >Loan amount each month<input
-      bind:value={$chosenMonthlyAmount}
-      class="topdown"
-      type="number"
-    /></label
-  >
+    <div class="column">
+      <label class="topdown"
+        >Loan amount each month<input
+          bind:value={$chosenMonthlyAmount}
+          class="topdown"
+          type="number"
+        /></label
+      >
 
-  <label class="topdown"
-  >Expected yearly salary<input
-    bind:value={$futureSalary}
-    class="topdown"
-    type="number"
-  /></label
->
-
+      <label class="topdown"
+        >Expected yearly salary<input
+          bind:value={$futureSalary}
+          class="topdown"
+          type="number"
+        /></label
+      >
+    </div>
+  </div>
 </div>
 
 <style>
   .additionalinformationcontainer {
-    width: 400px;
+    text-align: center;
   }
 
+  .row{
+    display: flex;
+    flex-direction: row;
+  }
 
+  .column{
+    display: flex;
+    flex-direction: column;
+  }
 </style>

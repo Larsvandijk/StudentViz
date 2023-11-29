@@ -1,7 +1,7 @@
 <script>
   import * as d3 from "d3";
   import { interestRateYearly, dataCollection } from "./stores";
-  import { get } from 'svelte/store'
+  import { get } from "svelte/store";
 
   export let data;
 
@@ -39,8 +39,7 @@
     .range([chartHeight - paddings.bottom, paddings.top]);
 
   $: d3.select(yAxis).call(d3.axisLeft(yScale));
-  $: d3.select(xAxis).call(d3.axisBottom(xScale));
-
+  $: d3.select(xAxis).call(d3.axisBottom(xScale).ticks(7));
 
   // FOLLOWING MOUSE MOVEMENT
   const idContainer = "interest-container";
@@ -107,84 +106,84 @@
 
   // let line = d3.select(".draggable");
   // line.call(drag);
-
 </script>
 
-<h2>Interest Explorer</h2>
+<div class="container">
+  <h2>Interest Explorer</h2>
 
-<label class="topdown"
->Interest Rate<input
-  bind:value={$interestRateYearly}
-  class="topdown"
-  type="number"
-/></label
->
+  <label class="topdown"
+    >Interest Rate<input
+      bind:value={$interestRateYearly}
+      class="topdown"
+      type="number"
+    /></label
+  >
 
-<svg
-  class="graph"
-  id="interest-container"
-  width={chartWidth}
-  height={chartHeight}
-  on:mousemove={followMouse}
-  on:mouseleave={removePointer}
->
-  <!-- X AND Y SCALE LINES -->
-  <g>
-    <line
-      x1={paddings.left}
-      x2={chartWidth - paddings.right}
-      y1={chartHeight - paddings.bottom}
-      y2={chartHeight - paddings.bottom}
-      stroke="black"
-      stroke-width="2"
+  <svg
+    class="graph"
+    id="interest-container"
+    width={chartWidth}
+    height={chartHeight}
+    on:mousemove={followMouse}
+    on:mouseleave={removePointer}
+  >
+    <!-- X AND Y SCALE LINES -->
+    <g>
+      <line
+        x1={paddings.left}
+        x2={chartWidth - paddings.right}
+        y1={chartHeight - paddings.bottom}
+        y2={chartHeight - paddings.bottom}
+        stroke="black"
+        stroke-width="2"
+      />
+      <line
+        x1={paddings.left}
+        x2={paddings.left}
+        y1={paddings.top}
+        y2={chartHeight - paddings.bottom}
+        stroke="black"
+        stroke-width="2"
+      />
+    </g>
+
+    <!-- x AND Y AXES -->
+    <g
+      bind:this={xAxis}
+      transform="translate(0,{chartHeight - paddings.bottom})"
     />
-    <line
-      x1={paddings.left}
-      x2={paddings.left}
-      y1={paddings.top}
-      y2={chartHeight - paddings.bottom}
-      stroke="black"
-      stroke-width="2"
-    />
-  </g>
+    <g bind:this={yAxis} transform="translate({paddings.left},0)" />
 
-  <!-- x AND Y AXES -->
-  <g
-    bind:this={xAxis}
-    transform="translate(0,{chartHeight - paddings.bottom})"
-  />
-  <g bind:this={yAxis} transform="translate({paddings.left},0)" />
+    <!-- AXIS LABELS -->
+    <g>
+      <text x={paddings.left} y={chartHeight} text-anchor="middle">Time</text>
+      <text
+        x="0"
+        y="150"
+        transform="rotate(-90 20,130)"
+        alignment-baseline="middle">Yearly Interest %</text
+      >
+    </g>
 
-  <!-- AXIS LABELS -->
-  <g>
-    <text x={paddings.left} y={chartHeight} text-anchor="middle">Time</text>
-    <text
-      x="0"
-      y="150"
-      transform="rotate(-90 20,130)"
-      alignment-baseline="middle">Yearly Interest %</text
-    >
-  </g>
+    <path />
 
-  <path />
+    <!-- ALL DATA POINTS -->
+    <g>
+      {#each data as point, i}
+        {#if i != data.length - 1}
+          <line
+            x1={xScale(point.year)}
+            x2={xScale(data[i + 1].year)}
+            y1={yScale(point.interest)}
+            y2={yScale(data[i + 1].interest)}
+            stroke="black"
+            stroke-width="2"
+          />
+        {/if}
+      {/each}
+    </g>
 
-  <!-- ALL DATA POINTS -->
-  <g>
-    {#each data as point, i}
-      {#if i != data.length - 1}
-        <line
-          x1={xScale(point.year)}
-          x2={xScale(data[i + 1].year)}
-          y1={yScale(point.interest)}
-          y2={yScale(data[i + 1].interest)}
-          stroke="black"
-          stroke-width="2"
-        />
-      {/if}
-    {/each}
-  </g>
-
-  <!-- Movable line -->
+    <!-- Movable line -->
 
     <line
       x1={paddings.left}
@@ -209,19 +208,19 @@
       stroke-opacity="0"
     />
 
-
-  <!-- HERE NEW INTEREST LINES -->
-  {#each $dataCollection as datagroup, i}
-    <line
-      x1={paddings.left}
-      x2={chartWidth - paddings.right}
-      y1={yScale(datagroup.interest)}
-      y2={yScale(datagroup.interest)}
-      stroke-width="2"
-      stroke={datagroup.colour}
-    />
-  {/each}
-</svg>
+    <!-- HERE NEW INTEREST LINES -->
+    {#each $dataCollection as datagroup, i}
+      <line
+        x1={paddings.left}
+        x2={chartWidth - paddings.right}
+        y1={yScale(datagroup.interest)}
+        y2={yScale(datagroup.interest)}
+        stroke-width="2"
+        stroke={datagroup.colour}
+      />
+    {/each}
+  </svg>
+</div>
 
 <style>
   svg text {
@@ -252,5 +251,10 @@
     cursor: grabbing;
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
+  }
+
+  .container{
+    display: flex;
+    flex-direction: column;
   }
 </style>
