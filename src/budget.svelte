@@ -15,6 +15,7 @@
   import LineChart from "./LineChart.svelte";
   import Repayment from "./Repayment.svelte";
   import InterestExplorer from "./InterestExplorer.svelte";
+  import TableComparison from "./TableComparison.svelte";
 
   function addData() {
     let monthlyAmount;
@@ -29,6 +30,7 @@
     $dataCollection = $dataCollection;
     $availableColours.shift();
     $availableColours = $availableColours;
+    console.log($dataCollection)
   }
 </script>
 
@@ -40,9 +42,12 @@
     <Repayment />
   </div>
 
-  <div class="bottom-side">
-    <LineChart data={$data} />
-    <InterestExplorer data={$interestHistory} />
+  <div class="top-down">
+    <div class="right-side">
+      <LineChart data={$data} />
+      <InterestExplorer data={$interestHistory} />
+    </div>
+    <TableComparison dataCollection={$dataCollection}></TableComparison>
   </div>
 </div>
 <button on:click={addData}>Add data</button>
@@ -52,6 +57,7 @@
     display: flex;
     flex-direction: row;
     margin-top: 0px;
+    justify-content: space-evenly;
   }
 
   .left-side {
@@ -60,8 +66,13 @@
     justify-content: space-between;
   }
 
-  .bottom-side {
+  .right-side {
     display: flex;
     flex-direction: row;
+  }
+
+  .top-down {
+    display: flex;
+    flex-direction: column;
   }
 </style>

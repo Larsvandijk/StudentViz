@@ -298,9 +298,9 @@ export const data = derived(
         data.push({ date: newDate, amount: newAmount });
       }
     } else if (!get(use35years)) {
-      console.log(get(chosenMonthlyRepaymentAmount) <= get(monthlyRepaymentAmount))
-      console.log(get(chosenMonthlyRepaymentAmount))
-      console.log(get(monthlyRepaymentAmount))
+      // console.log(get(chosenMonthlyRepaymentAmount) <= get(monthlyRepaymentAmount))
+      // console.log(get(chosenMonthlyRepaymentAmount))
+      // console.log(get(monthlyRepaymentAmount))
       while (data[data.length - 1].amount > 0) {
         let lastDate = data[data.length - 1].date;
         let newDate = addMonths(new Date(lastDate), 1);

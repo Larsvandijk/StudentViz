@@ -36,7 +36,7 @@
 
     <div class="column">
       <label class="topdown"
-        >Loan amount each month<input
+        >Borrow each month<input
           bind:value={$chosenMonthlyAmount}
           class="topdown"
           type="number"
