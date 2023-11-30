@@ -12,8 +12,11 @@
   } from "./stores";
 </script>
 
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css"> -->
+
 <div class="additionalinformationcontainer">
-  <h2>Additional Information</h2>
+  <h3>Loan Information</h3>
 
   <div class="row">
     <div class="column">
@@ -23,7 +26,7 @@
       </label>
 
       <label class="topdown"
-        >Remaining months of borrowing<input
+        >Remaining months loan<input
           bind:value={$remainderLoanPeriod}
           class="topdown"
           type="number"
@@ -52,9 +55,7 @@
 </div>
 
 <style>
-  .additionalinformationcontainer {
-    text-align: center;
-  }
+
 
   .row{
     display: flex;
@@ -64,5 +65,9 @@
   .column{
     display: flex;
     flex-direction: column;
+  }
+
+  input{
+    width: 150px;
   }
 </style>

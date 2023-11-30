@@ -1,31 +1,35 @@
 <script>
   import * as d3 from "d3";
-  import { interestRateYearly, dataCollection } from "./stores";
+  import {
+    interestRateYearly,
+    dataCollection,
+    interestHistory,
+  } from "./stores";
   import { get } from "svelte/store";
 
   export let data;
 
   $: $interestRateYearly = Math.round(yScale.invert(y) * 100) / 100;
 
-  const chartWidth = 400;
-  const chartHeight = 400;
+  const chartWidth = 300;
+  const chartHeight = 300;
 
   let xAxis;
   let yAxis;
 
-  let y = 300;
+  let y = 150;
   let draggable = false;
 
   const paddings = {
-    top: 50,
-    left: 100,
-    right: 50,
+    top: 25,
+    left: 50,
+    right: 25,
     bottom: 50,
   };
 
   let parseDate = d3.timeParse("%Y");
   data.forEach(function (d) {
-    d.year = parseDate(d.year);
+    if (!(d.year instanceof Date)) d.year = parseDate(d.year);
   });
 
   $: xScale = d3
@@ -106,18 +110,14 @@
 
   // let line = d3.select(".draggable");
   // line.call(drag);
+
+  $: console.log($interestHistory);
 </script>
 
 <div class="container">
-  <h2>Interest Explorer</h2>
+  <h3>Interest Explorer</h3>
 
-  <label class="topdown"
-    >Interest Rate<input
-      bind:value={$interestRateYearly}
-      class="topdown"
-      type="number"
-    /></label
-  >
+  <input bind:value={$interestRateYearly} class="topdown" type="number" />
 
   <svg
     class="graph"
@@ -158,9 +158,9 @@
     <g>
       <text x={paddings.left} y={chartHeight} text-anchor="middle">Time</text>
       <text
-        x="0"
-        y="150"
-        transform="rotate(-90 20,130)"
+        x="50"
+        y="15"
+        transform="rotate(270) translate(-200, 0)"
         alignment-baseline="middle">Yearly Interest %</text
       >
     </g>
@@ -253,8 +253,12 @@
     cursor: -webkit-grabbing;
   }
 
-  .container{
+  .container {
     display: flex;
     flex-direction: column;
+  }
+
+  input {
+    width: 150px;
   }
 </style>

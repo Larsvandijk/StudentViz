@@ -15,7 +15,7 @@
 </script>
 
 <div class="container">
-  <h2>Recommendation</h2>
+  <h3>Recommendation</h3>
   <div class="income-expenses">
     <p>
       Income: <span style="color: green"><strong>€{$totalIncome}</strong></span>
@@ -43,7 +43,7 @@
 
 <style>
   .container {
-    width: 150px;
+    width: 200px;
     text-align: center;
   }
 

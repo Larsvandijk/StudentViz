@@ -33,18 +33,16 @@
 </script>
 
 <div class="maincontainer">
-  <div class="top-side">
+  <div class="left-side">
     <BudgetOverview />
     <AdditionalInformation />
 
     <Repayment />
-    <InterestExplorer data={$interestHistory} />
   </div>
 
   <div class="bottom-side">
     <LineChart data={$data} />
-
-    
+    <InterestExplorer data={$interestHistory} />
   </div>
 </div>
 <button on:click={addData}>Add data</button>
@@ -52,17 +50,17 @@
 <style>
   .maincontainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-top: 0px;
   }
 
-  .top-side{
+  .left-side {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
   }
 
-  .bottom-side{
+  .bottom-side {
     display: flex;
     flex-direction: row;
   }

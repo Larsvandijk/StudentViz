@@ -10,8 +10,8 @@
   } from "./stores";
 
   let options = [
-    { text: "I want to repay in 35 years.", value: "35years" },
-    { text: "I want to repay earlier than 35 years.", value: "custom" },
+    { text: "Repay in 35 years.", value: "35years" },
+    { text: "Repay sooner than 35 years.", value: "custom" },
   ];
   let selected = options[1];
 
@@ -22,7 +22,7 @@
 </script>
 
 <div class="container">
-  <h2>Repayment</h2>
+  <h3>Repayment</h3>
   <label class="topdown"
     >Months between end of study and repayment (0-24)<input
       bind:value={$aflossingsVrijePeriode}
@@ -77,4 +77,5 @@
     display: flex;
     flex-direction: column;
   }
+
 </style>

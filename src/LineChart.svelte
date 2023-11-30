@@ -18,8 +18,6 @@
     bottom: 50,
   };
 
-  $: console.log($allDataForAxes);
-
   $: xScale = d3
     .scaleTime()
     .domain(d3.extent($allDataForAxes, (d) => d.date))
@@ -32,6 +30,11 @@
 
   $: d3.select(yAxis).call(d3.axisLeft(yScale));
   $: d3.select(xAxis).call(d3.axisBottom(xScale));
+
+  const line = d3
+    .line()
+    .x((d) => xScale(new Date(d.date)))
+    .y((d) => yScale(d.amount));
 </script>
 
 <svg class="graph" id="svg-container" width={chartWidth} height={chartHeight}>
@@ -73,38 +76,16 @@
     >
   </g>
 
-  <path />
+  <!-- Path of movable line -->
+  <path fill="none" stroke="black" stroke-width="1.5" d={line(data)} />
 
-  <!-- ALL DATA POINTS -->
-  <g>
-    {#each data as point, i}
-      {#if i != data.length - 1}
-        <line
-          x1={xScale(point.date)}
-          x2={xScale(data[i + 1].date)}
-          y1={yScale(point.amount)}
-          y2={yScale(data[i + 1].amount)}
-          stroke="black"
-          stroke-width="2"
-        />
-      {/if}
-    {/each}
-  </g>
-
-  <g>
-    {#each $dataCollection as datagroup, i}
-      {#each datagroup.data as datapoint, d}
-        {#if d != datagroup.data.length - 1}
-          <line
-            x1={xScale(datapoint.date)}
-            x2={xScale(datagroup.data[d + 1].date)}
-            y1={yScale(datapoint.amount)}
-            y2={yScale(datagroup.data[d + 1].amount)}
-            stroke={datagroup.colour}
-            stroke-width="2"
-          />
-        {/if}
-      {/each}
-    {/each}
-  </g>
+  <!-- Paths of all data collections lines -->
+  {#each $dataCollection as datagroup, i}
+    <path
+      fill="none"
+      stroke={datagroup.colour}
+      stroke-width="1.5"
+      d={line(datagroup.data)}
+    />
+  {/each}
 </svg>
