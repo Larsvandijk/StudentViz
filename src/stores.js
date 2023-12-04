@@ -342,6 +342,7 @@ export const availableColours = writable([
   "brown",
   "blue",
   "orange",
+  "pink",
 ]);
 
 export const dataCollection = writable([]);

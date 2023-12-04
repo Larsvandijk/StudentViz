@@ -9,12 +9,12 @@
     <th>Index</th>
     <th>Colour</th>
     <th>Interest Rate</th>
-    <th>Final Repayment</th>
+    <th>Final Repayment Date</th>
     <th>Monthly Repayment</th>
     <th>Interest proportion</th>
   </tr>
 
   {#each dataCollection as data, i}
-    <TableRow {data}></TableRow>
+    <TableRow {data} {i}></TableRow>
   {/each}
 </table>

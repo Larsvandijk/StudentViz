@@ -114,6 +114,7 @@
   $: console.log($interestHistory);
 </script>
 
+
 <div class="container">
   <h3>Interest Explorer</h3>
 
@@ -127,6 +128,7 @@
     on:mousemove={followMouse}
     on:mouseleave={removePointer}
   >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 {y} 25 25"  width="25px" height="25px"><path style="fill:#232326" d="M24 12.001H2.914l5.294-5.295-.707-.707L1 12.501l6.5 6.5.707-.707-5.293-5.293H24v-1z" data-name="Left"/></svg>
     <!-- X AND Y SCALE LINES -->
     <g>
       <line
@@ -215,7 +217,7 @@
         x2={chartWidth - paddings.right}
         y1={yScale(datagroup.interest)}
         y2={yScale(datagroup.interest)}
-        stroke-width="2"
+        stroke-width="3"
         stroke={datagroup.colour}
       />
     {/each}

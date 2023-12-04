@@ -69,6 +69,7 @@
   .right-side {
     display: flex;
     flex-direction: row;
+    margin-bottom: 20px;
   }
 
   .top-down {
