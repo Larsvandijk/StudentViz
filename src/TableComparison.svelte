@@ -12,10 +12,11 @@
     <th>Final Repayment Date</th>
     <th>Monthly Repayment</th>
     <th>Interest proportion</th>
+    <th>Delete</th>
   </tr>
 
-  {#each dataCollection as data, i}
-    <TableRow {data} {i}></TableRow>
+  {#each dataCollection as data, i (data.id)}
+    <TableRow {data} {i} id={data.id}></TableRow>
   {/each}
 </table>
 

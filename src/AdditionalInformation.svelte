@@ -22,7 +22,12 @@
     <div class="column">
       <label class="topdown"
         >Current Debt
-        <input class="topdown" type="number" bind:value={$currentDebt} />
+        <input
+          data-type="currency"
+          class="topdown"
+          type="number"
+          bind:value={$currentDebt}
+        />
       </label>
 
       <label class="topdown"
@@ -55,19 +60,17 @@
 </div>
 
 <style>
-
-
-  .row{
+  .row {
     display: flex;
     flex-direction: row;
   }
 
-  .column{
+  .column {
     display: flex;
     flex-direction: column;
   }
 
-  input{
+  input {
     width: 150px;
   }
 </style>

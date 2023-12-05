@@ -27,6 +27,7 @@
     let totalDebtNoInterest =
       $currentDebt + $chosenMonthlyAmount * $remainderLoanPeriod;
     $dataCollection.push({
+      id: Math.random(),
       data: $data,
       interest: $interestRateYearly,
       monthlyRepayment: monthlyAmount,
