@@ -4,7 +4,7 @@
   export let dataCollection;
 </script>
 
-<table>
+<table cellspacing="0">
   <tr>
     <th>Index</th>
     <th>Colour</th>
@@ -18,3 +18,6 @@
     <TableRow {data} {i}></TableRow>
   {/each}
 </table>
+
+<style>
+</style>

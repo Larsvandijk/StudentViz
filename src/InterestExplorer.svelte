@@ -111,7 +111,6 @@
   // let line = d3.select(".draggable");
   // line.call(drag);
 
-  $: console.log($interestHistory);
 </script>
 
 

@@ -8,6 +8,9 @@
     use35years,
     interestHistory,
     availableColours,
+    currentDebt,
+    chosenMonthlyAmount,
+    remainderLoanPeriod,
   } from "./stores";
   import { get } from "svelte/store";
   import AdditionalInformation from "./AdditionalInformation.svelte";
@@ -21,16 +24,19 @@
     let monthlyAmount;
     if ($use35years) monthlyAmount = $monthlyRepaymentAmount;
     else monthlyAmount = $chosenMonthlyRepaymentAmount;
+    let totalDebtNoInterest =
+      $currentDebt + $chosenMonthlyAmount * $remainderLoanPeriod;
     $dataCollection.push({
       data: $data,
       interest: $interestRateYearly,
       monthlyRepayment: monthlyAmount,
       colour: $availableColours[0],
+      totalDebtNoInterest: totalDebtNoInterest,
     });
     $dataCollection = $dataCollection;
     $availableColours.shift();
     $availableColours = $availableColours;
-    console.log($dataCollection)
+    console.log($dataCollection);
   }
 </script>
 
@@ -46,24 +52,25 @@
     <div class="right-side">
       <LineChart data={$data} />
       <InterestExplorer data={$interestHistory} />
+      <button on:click={addData}>Add data</button>
     </div>
     <TableComparison dataCollection={$dataCollection}></TableComparison>
   </div>
 </div>
-<button on:click={addData}>Add data</button>
+
 
 <style>
   .maincontainer {
     display: flex;
     flex-direction: row;
     margin-top: 0px;
-    justify-content: space-evenly;
+    justify-content: space-between;
   }
 
   .left-side {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+
   }
 
   .right-side {

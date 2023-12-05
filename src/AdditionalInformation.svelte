@@ -26,7 +26,7 @@
       </label>
 
       <label class="topdown"
-        >Remaining months loan<input
+        >Remaining months<input
           bind:value={$remainderLoanPeriod}
           class="topdown"
           type="number"
@@ -43,13 +43,13 @@
         /></label
       >
 
-      <label class="topdown"
+      <!-- <label class="topdown"
         >Expected yearly salary<input
           bind:value={$futureSalary}
           class="topdown"
           type="number"
         /></label
-      >
+      > -->
     </div>
   </div>
 </div>

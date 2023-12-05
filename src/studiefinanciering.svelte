@@ -82,8 +82,8 @@
     name="Living situation"
     id="livingsituation"
   >
-    <option value="Living at home">Living at home</option>
-    <option value="Living away from home">Living away from home</option>
+    <option value="Living at home">I live at my own registered adress</option>
+    <option value="Living away from home">I do not live at my own registered adress</option>
   </select>
 
   {#if radioValue === "receive"}

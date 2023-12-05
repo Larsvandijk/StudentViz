@@ -45,7 +45,7 @@ export const incomeList = writable([
   },
   {
     id: Math.random(),
-    name: "Parental contibution",
+    name: "External financial contribution",
     value: 0,
     editable: false,
   },
@@ -343,6 +343,9 @@ export const availableColours = writable([
   "blue",
   "orange",
   "pink",
+  "cyan",
+  "lime",
+  "violet"
 ]);
 
 export const dataCollection = writable([]);
