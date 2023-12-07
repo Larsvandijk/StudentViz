@@ -1,20 +1,18 @@
 <script>
   import * as d3 from "d3";
-  export let data;
   export let totalDebtNoInterest;
+  export let totalInterestPaid;
+  export let totalAmountPaid;
 
-  let interestPaid =
-    (data.data.length - 1) * data.monthlyRepayment - totalDebtNoInterest;
-
-  let residu = Math.abs(data.data[data.data.length - 1].amount);
   const width = 100;
   const height = 100;
   const margin = 0;
 
   let radius = Math.min(width, height) / 2 - margin;
 
+
   const dataDougnut = {
-    interest: interestPaid,
+    interest: totalInterestPaid,
     amortization: totalDebtNoInterest,
   };
   console.log(dataDougnut);
@@ -46,13 +44,6 @@
 
   const data_ready = pie(Object.entries(dataDougnut));
 
-  // svg.append("svg:text")
-  //   .attr("dy", ".35em")
-  //   .attr("text-anchor", "middle")
-  //   .attr("style","font-family:Ubuntu")
-  //   .attr("font-size","40")
-  //   .attr("fill","#5CB85C")
-  //   .text("60%");
 </script>
 
 <div class="container">
@@ -74,7 +65,7 @@
       y="-5"
     >
       Total <tspan text-anchor="middle" y="12" x="-2"
-        >€{Math.round(interestPaid + totalDebtNoInterest - residu)}</tspan
+        >€{Math.round(totalAmountPaid)}</tspan
       >
     </text>
   </g>

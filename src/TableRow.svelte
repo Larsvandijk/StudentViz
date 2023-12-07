@@ -1,13 +1,21 @@
 <script>
+  import { get } from "svelte/store";
   import Colour from "./Colour.svelte";
   import Dougnut from "./Dougnut.svelte";
   import HorizontalBarChart from "./HorizontalBarChart.svelte";
-  import { availableColours, dataCollection } from "./stores";
+  import {
+    availableColours,
+    dataCollection,
+    totalDebtNoInterest,
+    totalInterestPaid,
+    totalAmountPaid,
+  } from "./stores";
   export let data;
   export let i;
   export let id;
 
-  // $: index = $dataCollection.findIndex((x) => x.id === id);
+  console.log("data val", data.totalDebtNoInterest)
+
   function deleteCategory() {
     let itemToDelete = $dataCollection.findIndex((x) => x.id == id);
     $availableColours.push($dataCollection[itemToDelete].colour);
@@ -37,7 +45,11 @@
     ></HorizontalBarChart></td
   > -->
   <td
-    ><Dougnut totalDebtNoInterest={data.totalDebtNoInterest} {data}
+    ><Dougnut
+      totalDebtNoInterest={data.totalDebtNoInterest}
+      totalInterestPaid={data.totalInterestPaid}
+      totalAmountPaid={data.totalAmountPaid}
+
     ></Dougnut></td
   >
   <td>
@@ -61,7 +73,7 @@
     justify-content: center;
   }
 
-  button{
+  button {
     width: 60px;
   }
 </style>

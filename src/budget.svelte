@@ -11,6 +11,9 @@
     currentDebt,
     chosenMonthlyAmount,
     remainderLoanPeriod,
+    totalInterestPaid,
+    totalDebtNoInterest,
+    totalAmountPaid,
   } from "./stores";
   import { get } from "svelte/store";
   import AdditionalInformation from "./AdditionalInformation.svelte";
@@ -24,15 +27,16 @@
     let monthlyAmount;
     if ($use35years) monthlyAmount = $monthlyRepaymentAmount;
     else monthlyAmount = $chosenMonthlyRepaymentAmount;
-    let totalDebtNoInterest =
-      $currentDebt + $chosenMonthlyAmount * $remainderLoanPeriod;
+
     $dataCollection.push({
       id: Math.random(),
       data: $data,
       interest: $interestRateYearly,
       monthlyRepayment: monthlyAmount,
       colour: $availableColours[0],
-      totalDebtNoInterest: totalDebtNoInterest,
+      totalDebtNoInterest: $totalDebtNoInterest,
+      totalInterestPaid: $totalInterestPaid,
+      totalAmountPaid: $totalAmountPaid,
     });
     $dataCollection = $dataCollection;
     $availableColours.shift();
@@ -59,7 +63,6 @@
   </div>
 </div>
 
-
 <style>
   .maincontainer {
     display: flex;
@@ -71,7 +74,6 @@
   .left-side {
     display: flex;
     flex-direction: column;
-
   }
 
   .right-side {

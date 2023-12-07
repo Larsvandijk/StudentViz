@@ -117,7 +117,7 @@ export const interestRateDecimalMonthly = derived(
     Math.pow(1 + $interestRateDecimalYearly, 1 / 12) - 1
 );
 
-export const currentDebt = writable(10000);
+export const currentDebt = writable(0);
 export const chosenMonthlyRepaymentAmount = writable(100);
 export const repaymentTerm = writable(35);
 export const remainderLoanPeriod = writable(12);
@@ -320,11 +320,6 @@ export const data = derived(
   }
 );
 
-export const totalInterestPaid = derived(
-  [totalMoneySpend, principal],
-  ([$totalMoneySpend, $principal]) => $totalMoneySpend - $principal
-);
-
 export const maxMonthlyRepaymentAmount = derived(
   [futureSalary, minimumWageYearly, draagvoet],
   ([$futureSalary, $minimumWageYearly, $draagvoet]) => {
@@ -345,7 +340,7 @@ export const availableColours = writable([
   "pink",
   "cyan",
   "lime",
-  "violet"
+  "violet",
 ]);
 
 export const dataCollection = writable([]);
@@ -355,7 +350,32 @@ export const allDataForAxes = derived(
   ([$data, $dataCollection]) => {
     let result = [];
     result = result.concat($data);
-    $dataCollection.forEach((e) => result = result.concat(e.data));
+    $dataCollection.forEach((e) => (result = result.concat(e.data)));
     return result;
+  }
+);
+
+export const totalDebtNoInterest = derived(
+  [currentDebt, chosenMonthlyAmount, remainderLoanPeriod],
+  ([$currentDebt, $chosenMonthlyAmount, $remainderLoanPeriod]) => {
+    return $currentDebt + $chosenMonthlyAmount * $remainderLoanPeriod;
+  }
+);
+
+export const totalInterestPaid = derived(
+  [totalDebtNoInterest, data, use35years, monthlyRepaymentAmount, chosenMonthlyRepaymentAmount],
+  ([$totalDebtNoInterest, $data, $use35years, $monthlyRepaymentAmount ,$chosenMonthlyRepaymentAmount]) => {
+    let residu = Math.abs($data[$data.length - 1].amount);
+    let monthlyAmount;
+    if ($use35years) monthlyAmount = $monthlyRepaymentAmount;
+    else monthlyAmount = $chosenMonthlyRepaymentAmount;
+    return ($data.length - 2) * monthlyAmount - $totalDebtNoInterest - residu;
+  }
+);
+
+export const totalAmountPaid = derived(
+  [totalInterestPaid, totalDebtNoInterest],
+  ([$totalInterestPaid, $totalDebtNoInterest]) => {
+    return $totalInterestPaid + $totalDebtNoInterest;
   }
 );

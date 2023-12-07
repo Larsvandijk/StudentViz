@@ -7,28 +7,45 @@
     interestRateYearly,
     maxMonthlyRepaymentAmount,
     aflossingsVrijePeriode,
+    totalAmountPaid,
   } from "./stores";
 
-  let options = [
-    { text: "Repay in 35 years.", value: "35years" },
-    { text: "Repay sooner than 35 years.", value: "custom" },
+  import { get } from "svelte/store";
+
+  $: options = [
+    {
+      text:
+        "Repay in 35 years and pay €" +
+        Math.round($monthlyRepaymentAmount * 100) / 100 +
+        " each month. Your total repayment will be €" +
+        Math.round($totalAmountPaid) +
+        ".",
+      value: "35years",
+    },
+    {
+      text: "Repay sooner than 35 years. You will need to pay more per month which saves you money in the long run.",
+      value: "custom",
+    },
   ];
-  let selected = options[1];
+  $: selected = options[1];
 
   $: if (selected === options[0]) $use35years = true;
   else $use35years = false;
-
-  $: lastDate = $data[$data.length - 1].date;
 </script>
 
 <div class="container">
   <h3>Repayment</h3>
   <label class="topdown"
-    >Months between end of study and repayment (0-24)<input
+    >Months between end of study and repayment (0-24)
+
+    <input
+      type="range"
+      min="0"
+      max="24"
       bind:value={$aflossingsVrijePeriode}
       class="topdown"
-      type="number"
-    /></label
+    />
+    {$aflossingsVrijePeriode}</label
   >
 
   {#each options as option}
@@ -44,11 +61,9 @@
 
   <label class="topdown"
     >Monthly repayment amount<input
-      min={monthlyRepaymentAmount}
       disabled={selected === options[0]}
       bind:value={$chosenMonthlyRepaymentAmount}
       class="topdown"
-      type="number"
     /></label
   >
 
@@ -72,10 +87,9 @@
     color: red;
   }
 
-  .container{
+  .container {
     width: 300px;
     display: flex;
     flex-direction: column;
   }
-
 </style>
