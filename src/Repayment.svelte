@@ -10,14 +10,14 @@
     totalAmountPaid,
   } from "./stores";
 
-  import { get } from "svelte/store";
+  import { onMount } from "svelte";
 
   $: options = [
     {
       text:
         "Repay in 35 years and pay €" +
         Math.round($monthlyRepaymentAmount * 100) / 100 +
-        " each month. Your total repayment will be €" +
+        " per month. Your total repayment will be €" +
         Math.round($totalAmountPaid) +
         ".",
       value: "35years",
@@ -27,9 +27,13 @@
       value: "custom",
     },
   ];
-  $: selected = options[1];
 
-  $: if (selected === options[0]) $use35years = true;
+  let selected;
+  onMount(async () => {
+    selected = options[0].value;
+  });
+
+  $: if (selected === options[0].value) $use35years = true;
   else $use35years = false;
 </script>
 
@@ -37,6 +41,7 @@
   <h3>Repayment</h3>
   <label class="topdown"
     >Months between end of study and repayment (0-24)
+    <p>{$aflossingsVrijePeriode}</p>
 
     <input
       type="range"
@@ -45,20 +50,21 @@
       bind:value={$aflossingsVrijePeriode}
       class="topdown"
     />
-    {$aflossingsVrijePeriode}</label
-  >
-
-  {#each options as option}
+  </label>
+  <div class="radio-buttons">
+    {#each options as option}
     <label
       ><input
         bind:group={selected}
         type="radio"
         name="rdo"
-        value={option}
+        value={option.value}
       />{option.text}</label
     >
   {/each}
 
+  </div>
+  
   <label class="topdown"
     >Monthly repayment amount<input
       disabled={selected === options[0]}
@@ -92,4 +98,6 @@
     display: flex;
     flex-direction: column;
   }
+
+
 </style>

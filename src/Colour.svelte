@@ -3,8 +3,8 @@
 </script>
 
 <div class="container">
-  <div class="colour" style="background-color:{colour}"></div>
-  {colour}
+  <div class="colour" style="background-color:{colour.colourName}"></div>
+  {colour.colourName}
 </div>
 
 <style>

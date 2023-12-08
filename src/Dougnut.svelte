@@ -3,6 +3,7 @@
   export let totalDebtNoInterest;
   export let totalInterestPaid;
   export let totalAmountPaid;
+  export let colour;
 
   const width = 100;
   const height = 100;
@@ -20,7 +21,7 @@
   const color = d3
     .scaleOrdinal()
     .domain(["Amortization", "Interest"])
-    .range(d3.schemePaired);
+    .range([colour.darkColour, colour.lightColour]);
     
     
 

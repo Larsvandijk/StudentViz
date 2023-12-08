@@ -39,7 +39,7 @@
       totalAmountPaid: $totalAmountPaid,
     });
     $dataCollection = $dataCollection;
-    $availableColours.shift();
+    if ($availableColours.length != 1) $availableColours.shift();
     $availableColours = $availableColours;
     console.log($dataCollection);
   }

@@ -49,7 +49,7 @@
       totalDebtNoInterest={data.totalDebtNoInterest}
       totalInterestPaid={data.totalInterestPaid}
       totalAmountPaid={data.totalAmountPaid}
-
+      colour={data.colour}
     ></Dougnut></td
   >
   <td>

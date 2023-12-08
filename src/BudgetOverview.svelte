@@ -15,7 +15,6 @@
 </script>
 
 <div class="container">
-  <h3>Recommendation</h3>
   <div class="income-expenses">
     <p>
       Income: <span style="color: green"><strong>€{$totalIncome}</strong></span>
@@ -31,7 +30,7 @@
   <hr>
   {#if $moneyNeeded > 0}
     <p>
-      <span style="color: red"><strong>-€{$moneyNeeded}</strong></span>
+      <span style="color: red"><strong>Recommendation to borrow: €{$moneyNeeded}</strong></span>
       <button on:click={handleClick}>Use this estimate</button>
     </p>
   {:else}

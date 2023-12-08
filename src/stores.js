@@ -195,12 +195,6 @@ export const moneyNeeded = derived(
 
 export const futureSalary = writable(30000);
 
-export const totalMoneySpend = derived(
-  [monthlyRepaymentAmount, repaymentTerm],
-  ([$monthlyRepaymentAmount, $repaymentTerm]) =>
-    $monthlyRepaymentAmount * ($repaymentTerm * 12)
-);
-
 function addYears(date, years) {
   date.setYear(date.getYear() + years);
 
@@ -330,17 +324,16 @@ export const maxMonthlyRepaymentAmount = derived(
 );
 
 export const availableColours = writable([
-  "red",
-  "green",
-  "purple",
-  "yellow",
-  "brown",
-  "blue",
-  "orange",
-  "pink",
-  "cyan",
-  "lime",
-  "violet",
+  {colourName: "red", darkColour:"#de2d26", lightColour: "#fc9272"},
+  {colourName: "green", darkColour: "#2ca25f", lightColour: "#99d8c9"},
+  {colourName: "purple", darkColour: "#756bb1", lightColour: "#bcbddc"},
+  {colourName: "yellow", darkColour: "#e6e600", lightColour: "#ffff99"},
+  {colourName: "brown", darkColour: "#86592d", lightColour: "#e6ccb3"},
+  {colourName: "blue", darkColour: "#3182bd", lightColour:"#9ecae1"},
+  {colourName: "orange", darkColour: "#ff8000", lightColour: "#ffcc99"},
+  {colourName: "pink", darkColour: "#ff00aa", lightColour: "#ff99dd"},
+  {colourName: "cyan", darkColour: "#00ffff", lightColour: "#b3ffff"},
+
 ]);
 
 export const dataCollection = writable([]);
@@ -363,13 +356,13 @@ export const totalDebtNoInterest = derived(
 );
 
 export const totalInterestPaid = derived(
-  [totalDebtNoInterest, data, use35years, monthlyRepaymentAmount, chosenMonthlyRepaymentAmount],
-  ([$totalDebtNoInterest, $data, $use35years, $monthlyRepaymentAmount ,$chosenMonthlyRepaymentAmount]) => {
+  [totalDebtNoInterest, data, use35years, monthlyRepaymentAmount, chosenMonthlyRepaymentAmount, aflossingsVrijePeriode],
+  ([$totalDebtNoInterest, $data, $use35years, $monthlyRepaymentAmount ,$chosenMonthlyRepaymentAmount, $aflossingsVrijePeriode]) => {
     let residu = Math.abs($data[$data.length - 1].amount);
     let monthlyAmount;
     if ($use35years) monthlyAmount = $monthlyRepaymentAmount;
     else monthlyAmount = $chosenMonthlyRepaymentAmount;
-    return ($data.length - 2) * monthlyAmount - $totalDebtNoInterest - residu;
+    return ($data.length - 2 - $aflossingsVrijePeriode) * monthlyAmount - $totalDebtNoInterest - residu;
   }
 );
 

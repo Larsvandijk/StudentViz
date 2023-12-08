@@ -83,7 +83,7 @@
   {#each $dataCollection as datagroup, i}
     <path
       fill="none"
-      stroke={datagroup.colour}
+      stroke={datagroup.colour.colourName}
       stroke-width="1.5"
       d={line(datagroup.data)}
     />
