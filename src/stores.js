@@ -310,6 +310,7 @@ export const data = derived(
       }
     }
 
+    console.log(data)
     return data;
   }
 );
@@ -356,13 +357,13 @@ export const totalDebtNoInterest = derived(
 );
 
 export const totalInterestPaid = derived(
-  [totalDebtNoInterest, data, use35years, monthlyRepaymentAmount, chosenMonthlyRepaymentAmount, aflossingsVrijePeriode],
-  ([$totalDebtNoInterest, $data, $use35years, $monthlyRepaymentAmount ,$chosenMonthlyRepaymentAmount, $aflossingsVrijePeriode]) => {
+  [totalDebtNoInterest, data, use35years, monthlyRepaymentAmount, chosenMonthlyRepaymentAmount, aflossingsVrijePeriode, remainderLoanPeriod],
+  ([$totalDebtNoInterest, $data, $use35years, $monthlyRepaymentAmount ,$chosenMonthlyRepaymentAmount, $aflossingsVrijePeriode, $remainderLoanPeriod]) => {
     let residu = Math.abs($data[$data.length - 1].amount);
     let monthlyAmount;
     if ($use35years) monthlyAmount = $monthlyRepaymentAmount;
     else monthlyAmount = $chosenMonthlyRepaymentAmount;
-    return ($data.length - 2 - $aflossingsVrijePeriode) * monthlyAmount - $totalDebtNoInterest - residu;
+    return ($data.length - 1 - $aflossingsVrijePeriode - $remainderLoanPeriod) * monthlyAmount - $totalDebtNoInterest - residu;
   }
 );
 

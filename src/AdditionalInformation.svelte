@@ -12,14 +12,23 @@
   } from "./stores";
 </script>
 
-<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css"> -->
-
 <div class="additionalinformationcontainer">
   <h3>Loan Information</h3>
 
-  <div class="row">
-    <div class="column">
+  <div class="column">
+    <label class="topdown"
+      >Borrow each month
+      <p class="valueDisplay">€{$chosenMonthlyAmount}</p>
+      <input
+        bind:value={$chosenMonthlyAmount}
+        class="topdown"
+        type="range"
+        min="0"
+        max="1410"
+        step="10"
+      /></label
+    >
+    <div class="row">
       <label class="topdown"
         >Current Debt
         <input
@@ -38,25 +47,11 @@
         /></label
       >
     </div>
-
-    <div class="column">
-      <label class="topdown"
-        >Borrow each month<input
-          bind:value={$chosenMonthlyAmount}
-          class="topdown"
-          type="number"
-        /></label
-      >
-
-      <!-- <label class="topdown"
-        >Expected yearly salary<input
-          bind:value={$futureSalary}
-          class="topdown"
-          type="number"
-        /></label
-      > -->
-    </div>
   </div>
+  <p>
+    My current debt is €{$currentDebt}. I want to borrow €{$chosenMonthlyAmount}
+    for a remainder of {$remainderLoanPeriod} months.
+  </p>
 </div>
 
 <style>
@@ -70,7 +65,16 @@
     flex-direction: column;
   }
 
-  input {
-    width: 150px;
+  input[type="number"] {
+    width: 100px;
+  }
+
+  input[type="range"] {
+    padding: 0;
+    width: 200px;
+  }
+
+  .valueDisplay {
+    margin: 0;
   }
 </style>

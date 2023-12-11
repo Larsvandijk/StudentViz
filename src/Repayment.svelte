@@ -30,10 +30,10 @@
 
   let selected;
   onMount(async () => {
-    selected = options[0].value;
+    selected = "35years";
   });
 
-  $: if (selected === options[0].value) $use35years = true;
+  $: if (selected === "35years") $use35years = true;
   else $use35years = false;
 </script>
 
@@ -41,37 +41,65 @@
   <h3>Repayment</h3>
   <label class="topdown"
     >Months between end of study and repayment (0-24)
-    <p>{$aflossingsVrijePeriode}</p>
-
-    <input
-      type="range"
-      min="0"
-      max="24"
-      bind:value={$aflossingsVrijePeriode}
-      class="topdown"
-    />
+    <div style="display: flex;">
+      <input
+        type="range"
+        min="0"
+        max="24"
+        bind:value={$aflossingsVrijePeriode}
+        class="topdown"
+      />
+      <p>{$aflossingsVrijePeriode}</p>
+    </div>
   </label>
+
   <div class="radio-buttons">
-    {#each options as option}
     <label
       ><input
         bind:group={selected}
         type="radio"
         name="rdo"
-        value={option.value}
-      />{option.text}</label
+        value="35years"
+      />{"Repay in 35 years and pay €" +
+        Math.round($monthlyRepaymentAmount * 100) / 100 +
+        " per month. Your total repayment will be €" +
+        Math.round($totalAmountPaid) +
+        "."}</label
     >
-  {/each}
 
+    <div style="display:flex flex-wrap:wrap flex-direction:row">
+      <input bind:group={selected} type="radio" name="rdo" value="custom" />
+      <span
+        >Repay sooner than 35 years, this will decrease the amount of interest
+        you will pay. You will repay €</span
+      >
+      <span class="euro-sign">
+        <input
+          disabled={selected === "35years"}
+          bind:value={$chosenMonthlyRepaymentAmount}
+          class="topdown"
+          type="number"
+        />
+      </span>
+      <span>
+        per month. Your total repayment will be €{Math.round(
+          $totalAmountPaid
+        )}.</span
+      >
+    </div>
+
+    <!-- 
+    {#each options as option}
+      <label
+        ><input
+          bind:group={selected}
+          type="radio"
+          name="rdo"
+          value={option.value}
+        />{option.text}</label
+      >
+    {/each} -->
   </div>
-  
-  <label class="topdown"
-    >Monthly repayment amount<input
-      disabled={selected === options[0]}
-      bind:value={$chosenMonthlyRepaymentAmount}
-      class="topdown"
-    /></label
-  >
 
   {#if $chosenMonthlyRepaymentAmount < $monthlyRepaymentAmount && !$use35years}
     <p class="warning">
@@ -82,10 +110,6 @@
       >
     </p>
   {/if}
-
-  <!-- <p>Your final payment will be on {lastDate.toLocaleDateString("en-GB")}</p>
-
-  <p>Max repay will be {$maxMonthlyRepaymentAmount}</p> -->
 </div>
 
 <style>
@@ -99,5 +123,23 @@
     flex-direction: column;
   }
 
+  input[type="range"] {
+    padding: 0;
+  }
 
+  input[type="number"] {
+    width: 80px;
+    height: 25px;
+    display: inline-block;
+  }
+
+  /* .euro-sign::before {
+  content: "$";
+  font-family: "Roboto Regular", sans-serif;
+  font-size: 1.5em;
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+} */
 </style>

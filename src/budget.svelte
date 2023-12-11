@@ -24,24 +24,26 @@
   import TableComparison from "./TableComparison.svelte";
 
   function addData() {
-    let monthlyAmount;
-    if ($use35years) monthlyAmount = $monthlyRepaymentAmount;
-    else monthlyAmount = $chosenMonthlyRepaymentAmount;
+    if ($availableColours.length > 0) {
+      let monthlyAmount;
+      if ($use35years) monthlyAmount = $monthlyRepaymentAmount;
+      else monthlyAmount = $chosenMonthlyRepaymentAmount;
 
-    $dataCollection.push({
-      id: Math.random(),
-      data: $data,
-      interest: $interestRateYearly,
-      monthlyRepayment: monthlyAmount,
-      colour: $availableColours[0],
-      totalDebtNoInterest: $totalDebtNoInterest,
-      totalInterestPaid: $totalInterestPaid,
-      totalAmountPaid: $totalAmountPaid,
-    });
-    $dataCollection = $dataCollection;
-    if ($availableColours.length != 1) $availableColours.shift();
-    $availableColours = $availableColours;
-    console.log($dataCollection);
+      $dataCollection.push({
+        id: Math.random(),
+        data: $data,
+        interest: $interestRateYearly,
+        monthlyRepayment: monthlyAmount,
+        colour: $availableColours[0],
+        totalDebtNoInterest: $totalDebtNoInterest,
+        totalInterestPaid: $totalInterestPaid,
+        totalAmountPaid: $totalAmountPaid,
+      });
+      $dataCollection = $dataCollection;
+      $availableColours.shift();
+      $availableColours = $availableColours;
+      console.log($dataCollection);
+    }
   }
 </script>
 
@@ -74,6 +76,7 @@
   .left-side {
     display: flex;
     flex-direction: column;
+    max-width: 300px;
   }
 
   .right-side {
