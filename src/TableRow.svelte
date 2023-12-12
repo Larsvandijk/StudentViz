@@ -54,7 +54,7 @@
   >
   <td>
     <div class="container">
-      <button class="button-delete" on:click={deleteCategory}>Delete</button>
+      <button class="buttonnew" on:click={deleteCategory}>Delete</button>
     </div></td
   >
 </tr>

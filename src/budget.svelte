@@ -53,13 +53,18 @@
     <AdditionalInformation />
 
     <Repayment />
+    <button
+    class="buttonnew"
+      disabled={$chosenMonthlyRepaymentAmount < $monthlyRepaymentAmount &&
+        !$use35years}
+      on:click={addData}>Add alternative</button
+    >
   </div>
 
   <div class="top-down">
     <div class="right-side">
       <LineChart data={$data} />
       <InterestExplorer data={$interestHistory} />
-      <button disabled={$chosenMonthlyRepaymentAmount < $monthlyRepaymentAmount && !$use35years} on:click={addData}>Add data</button>
     </div>
     <TableComparison dataCollection={$dataCollection}></TableComparison>
   </div>
@@ -89,4 +94,10 @@
     display: flex;
     flex-direction: column;
   }
+
+  .buttonnew{
+    font-size: 16px;
+  }
+
+
 </style>
