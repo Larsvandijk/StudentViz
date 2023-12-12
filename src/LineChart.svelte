@@ -87,5 +87,10 @@
       stroke-width="2"
       d={line(datagroup.data)}
     />
+    <!-- Legend of all lines -->
+    <g transform="translate({chartWidth - paddings.right - 50}, {60 + i*12})">
+      <text font-size="10px">{i+1}</text>
+      <rect transform="translate(10, -9)" width = 20 height=10 fill={datagroup.colour.colourName}></rect>
+    </g>
   {/each}
 </svg>

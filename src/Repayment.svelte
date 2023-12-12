@@ -12,22 +12,6 @@
 
   import { onMount } from "svelte";
 
-  $: options = [
-    {
-      text:
-        "Repay in 35 years and pay €" +
-        Math.round($monthlyRepaymentAmount * 100) / 100 +
-        " per month. Your total repayment will be €" +
-        Math.round($totalAmountPaid) +
-        ".",
-      value: "35years",
-    },
-    {
-      text: "Repay sooner than 35 years. You will need to pay more per month which saves you money in the long run.",
-      value: "custom",
-    },
-  ];
-
   let selected;
   onMount(async () => {
     selected = "35years";
@@ -35,6 +19,11 @@
 
   $: if (selected === "35years") $use35years = true;
   else $use35years = false;
+
+  let totalSpend35 = 0;
+  let totalSpendCustom = 0;
+  $: if ($use35years) totalSpend35 = $totalAmountPaid;
+  else totalSpendCustom = $totalAmountPaid;
 </script>
 
 <div class="container">
@@ -63,7 +52,7 @@
       />{"Repay in 35 years and pay €" +
         Math.round($monthlyRepaymentAmount * 100) / 100 +
         " per month. Your total repayment will be €" +
-        Math.round($totalAmountPaid) +
+        Math.round(totalSpend35) +
         "."}</label
     >
 
@@ -83,7 +72,7 @@
       </span>
       <span>
         per month. Your total repayment will be €{Math.round(
-          $totalAmountPaid
+          totalSpendCustom
         )}.</span
       >
     </div>
@@ -134,12 +123,12 @@
   }
 
   input[type="radio"] {
-  vertical-align: baseline;
-}
+    vertical-align: baseline;
+  }
 
   label {
-  vertical-align: baseline;
-}
+    vertical-align: baseline;
+  }
 
   /* .euro-sign::before {
   content: "$";
