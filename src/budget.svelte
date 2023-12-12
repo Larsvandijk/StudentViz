@@ -34,6 +34,7 @@
         data: $data,
         interest: $interestRateYearly,
         monthlyRepayment: monthlyAmount,
+        monthlyLoanAmount: $chosenMonthlyAmount,
         colour: $availableColours[0],
         totalDebtNoInterest: $totalDebtNoInterest,
         totalInterestPaid: $totalInterestPaid,

@@ -37,6 +37,7 @@
   <td style="text-align: center"
     >{data.data[data.data.length - 1].date.toLocaleDateString("en-GB")}</td
   >
+  <td style="text-align: center">€{data.monthlyLoanAmount}</td>
   <td style="text-align: center"
     >€{Math.round(data.monthlyRepayment * 100) / 100}</td
   >
@@ -66,7 +67,7 @@
   }
 
   td {
-    padding: 0;
+    padding: 5px;
   }
   .container {
     display: flex;
