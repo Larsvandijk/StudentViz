@@ -40,7 +40,7 @@
 <div class="container">
   <h3>Repayment</h3>
   <label class="topdown"
-    >Months between end of study and repayment (0-24)
+    >Months between end of study and repayment
     <div style="display: flex;">
       <input
         type="range"
@@ -132,6 +132,14 @@
     height: 25px;
     display: inline-block;
   }
+
+  input[type="radio"] {
+  vertical-align: baseline;
+}
+
+  label {
+  vertical-align: baseline;
+}
 
   /* .euro-sign::before {
   content: "$";

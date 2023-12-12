@@ -76,7 +76,7 @@
   .left-side {
     display: flex;
     flex-direction: column;
-    max-width: 300px;
+    max-width: 320px;
   }
 
   .right-side {

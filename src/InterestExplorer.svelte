@@ -17,7 +17,7 @@
   let xAxis;
   let yAxis;
 
-  let y = 150;
+  let y = 157;
   let draggable = false;
 
   const paddings = {

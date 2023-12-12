@@ -17,8 +17,7 @@
 
   <div class="column">
     <label class="topdown"
-      >Borrow each month
-      <p class="valueDisplay">€{$chosenMonthlyAmount}</p>
+      >Borrow each month: €{$chosenMonthlyAmount}
       <input
         bind:value={$chosenMonthlyAmount}
         class="topdown"
@@ -58,6 +57,7 @@
   .row {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
   }
 
   .column {
@@ -66,7 +66,7 @@
   }
 
   input[type="number"] {
-    width: 100px;
+    width: 80px;
   }
 
   input[type="range"] {
@@ -74,7 +74,7 @@
     width: 200px;
   }
 
-  .valueDisplay {
-    margin: 0;
+  p{
+    margin-bottom: 0px;
   }
 </style>
