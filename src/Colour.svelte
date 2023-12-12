@@ -1,10 +1,14 @@
 <script>
   export let colour;
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 </script>
 
 <div class="container">
   <div class="colour" style="background-color:{colour.colourName}"></div>
-  {colour.colourName}
+    {capitalizeFirstLetter(colour.colourName)}
 </div>
 
 <style>
@@ -16,6 +20,6 @@
   .container{
     display: flex;
     flex-direction: row;
-    justify-content: left;
+    justify-content: space-evenly;
   }
 </style>

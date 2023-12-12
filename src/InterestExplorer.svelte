@@ -257,9 +257,10 @@
   .container {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   input {
-    width: 150px;
+    width: 100px;
   }
 </style>
