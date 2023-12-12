@@ -29,8 +29,8 @@
 <div class="container">
   <h3>Repayment</h3>
   <label class="topdown"
-    >Months between end of study and repayment
-    <div style="display: flex;">
+    >Months between end of study and repayment: {$aflossingsVrijePeriode} months.
+    <div style="display: flex margin-top:0px;">
       <input
         type="range"
         min="0"
@@ -38,11 +38,12 @@
         bind:value={$aflossingsVrijePeriode}
         class="topdown"
       />
-      <p>{$aflossingsVrijePeriode}</p>
     </div>
   </label>
 
   <div class="radio-buttons">
+    <fieldset>
+      <legend>Select a repayment option:</legend>
     <label
       ><input
         bind:group={selected}
@@ -59,8 +60,7 @@
     <div style="display:flex flex-wrap:wrap flex-direction:row">
       <input bind:group={selected} type="radio" name="rdo" value="custom" />
       <span
-        >Repay sooner than 35 years, this will decrease the amount of interest
-        you will pay. You will repay €</span
+        >Repay sooner than 35 years, this will save you money. If you repay €</span
       >
       <span class="euro-sign">
         <input
@@ -71,11 +71,13 @@
         />
       </span>
       <span>
-        per month. Your total repayment will be €{Math.round(
+        per month, your total repayment will be €{Math.round(
           totalSpendCustom
         )}.</span
       >
+    
     </div>
+  </fieldset>
 
     <!-- 
     {#each options as option}

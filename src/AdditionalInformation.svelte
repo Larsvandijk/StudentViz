@@ -48,7 +48,7 @@
     </div>
   </div>
   <p>
-    My current debt is €{$currentDebt}. I want to borrow €{$chosenMonthlyAmount}
+    My current debt is €{$currentDebt}. I want to borrow €{$chosenMonthlyAmount} per month
     for a remainder of {$remainderLoanPeriod} months.
   </p>
 </div>
