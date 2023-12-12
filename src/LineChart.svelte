@@ -84,7 +84,7 @@
     <path
       fill="none"
       stroke={datagroup.colour.colourName}
-      stroke-width="1.5"
+      stroke-width="2"
       d={line(datagroup.data)}
     />
   {/each}

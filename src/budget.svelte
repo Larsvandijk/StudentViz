@@ -59,7 +59,7 @@
     <div class="right-side">
       <LineChart data={$data} />
       <InterestExplorer data={$interestHistory} />
-      <button on:click={addData}>Add data</button>
+      <button disabled={$chosenMonthlyRepaymentAmount < $monthlyRepaymentAmount && !$use35years} on:click={addData}>Add data</button>
     </div>
     <TableComparison dataCollection={$dataCollection}></TableComparison>
   </div>
