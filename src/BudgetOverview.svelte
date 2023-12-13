@@ -1,5 +1,12 @@
 <script>
-  import { totalExpenses, totalIncome, moneyNeeded, pageIndex, chosenMonthlyAmount } from "./stores";
+  import {
+    totalExpenses,
+    totalIncome,
+    moneyNeeded,
+    pageIndex,
+    chosenMonthlyAmount,
+    currentDebt,
+  } from "./stores";
 
   function goToIncome() {
     $pageIndex = 0;
@@ -9,7 +16,7 @@
     $pageIndex = 1;
   }
 
-  function handleClick(){
+  function handleClick() {
     $chosenMonthlyAmount = Math.round($moneyNeeded);
   }
 </script>
@@ -17,25 +24,35 @@
 <div class="container">
   <div class="income-expenses">
     <p>
-      Income: <span style="color: green"><strong>€{$totalIncome}</strong></span>
+      Income: <span><strong>€{$totalIncome}</strong></span>
       <button on:click={goToIncome}>Edit</button>
     </p>
     <p>
-      Expenses: <span style="color: red"><strong>€{$totalExpenses}</strong></span>
+      Expenses: <span><strong>€{$totalExpenses}</strong></span>
       <button on:click={goToExpenses}>Edit</button>
     </p>
-
   </div>
 
-  <hr>
+  <div style="display:flex; flex-direction: row; justify-content: right; align-items: center">
+    <label style="margin-right: 10px" for="currentdebt">Prior Debt</label>
+    <input
+      id="currentdebt"
+      data-type="currency"
+      class="topdown"
+      type="number"
+      bind:value={$currentDebt}
+    />
+  </div>
+
+  <hr />
   {#if $moneyNeeded > 0}
     <p>
-      <span style="color: red"><strong>Recommendation to borrow: €{$moneyNeeded}</strong></span>
+      <span><strong>Recommendation to borrow: €{$moneyNeeded}</strong></span>
       <button on:click={handleClick}>Use this estimate</button>
     </p>
   {:else}
     <p>
-      <span style="color: green"><strong>+€{Math.abs($moneyNeeded)}</strong></span>
+      <span><strong>+€{Math.abs($moneyNeeded)}</strong></span>
     </p>
   {/if}
 </div>
@@ -46,12 +63,21 @@
     text-align: center;
   }
 
-  p{
+  p {
     margin-bottom: 0;
     margin-top: 0;
   }
 
-  .income-expenses{
+  .income-expenses {
     text-align: end;
+  }
+
+  label {
+    display: inline-block;
+    text-align: right;
+  }
+
+  input[type="number"] {
+    width: 80px;
   }
 </style>

@@ -120,7 +120,7 @@ export const interestRateDecimalMonthly = derived(
 export const currentDebt = writable(0);
 export const chosenMonthlyRepaymentAmount = writable(100);
 export const repaymentTerm = writable(35);
-export const remainderLoanPeriod = writable(0);
+export const remainderLoanPeriod = writable(36);
 export const aflossingsVrijePeriode = writable(12);
 
 export const principal = derived(
@@ -309,8 +309,6 @@ export const data = derived(
         data.push({ date: newDate, amount: newAmount });
       }
     }
-
-    console.log(data)
     return data;
   }
 );

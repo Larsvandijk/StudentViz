@@ -72,12 +72,26 @@
       x="0"
       y="150"
       transform="rotate(-90 20,130)"
-      alignment-baseline="middle">Total Debt</text
+      alignment-baseline="middle">Current Debt</text
     >
   </g>
 
   <!-- Path of movable line -->
   <path fill="none" stroke="black" stroke-width="1.5" d={line(data)} />
+
+  <!-- Rectangle around the legend -->
+  {#if $dataCollection.length > 0}
+  <rect
+    rx="8"
+    width="50"
+    height={20 + $dataCollection.length * 12}
+    x={chartWidth - paddings.right - 55}
+    y="40"
+    fill="rgb(255,255,255)"
+    stroke-width="3"
+    stroke="rgb(0,0,0)"
+  ></rect>
+  {/if}
 
   <!-- Paths of all data collections lines -->
   {#each $dataCollection as datagroup, i}
@@ -88,9 +102,16 @@
       d={line(datagroup.data)}
     />
     <!-- Legend of all lines -->
-    <g transform="translate({chartWidth - paddings.right - 50}, {60 + i*12})">
-      <text font-size="10px">{i+1}</text>
-      <rect transform="translate(10, -7)" width = 20 height=5 fill={datagroup.colour.colourName}></rect>
+    <g transform="translate({chartWidth - paddings.right - 50}, {60 + i * 12})">
+      <text font-size="10px">{i + 1}</text>
+      <rect
+        transform="translate(10, -7)"
+        width="20"
+        height="5"
+        fill={datagroup.colour.colourName}
+      ></rect>
     </g>
   {/each}
+
+  
 </svg>

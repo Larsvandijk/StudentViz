@@ -43,7 +43,6 @@
       $dataCollection = $dataCollection;
       $availableColours.shift();
       $availableColours = $availableColours;
-      console.log($dataCollection);
     }
   }
 </script>
@@ -67,7 +66,7 @@
       <LineChart data={$data} />
       <InterestExplorer data={$interestHistory} />
     </div>
-    <TableComparison dataCollection={$dataCollection}></TableComparison>
+    <TableComparison></TableComparison>
   </div>
 </div>
 
@@ -83,6 +82,9 @@
     display: flex;
     flex-direction: column;
     max-width: 320px;
+    overflow-y: scroll;
+    height: 100vh;
+    margin-bottom: 15px;
   }
 
   .right-side {

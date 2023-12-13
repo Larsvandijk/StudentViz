@@ -14,8 +14,6 @@
   export let i;
   export let id;
 
-  console.log("data val", data.totalDebtNoInterest)
-
   function deleteCategory() {
     let itemToDelete = $dataCollection.findIndex((x) => x.id == id);
     $availableColours.push($dataCollection[itemToDelete].colour);
@@ -38,13 +36,11 @@
     >{data.data[data.data.length - 1].date.toLocaleDateString("en-GB")}</td
   >
   <td style="text-align: center">€{data.monthlyLoanAmount}</td>
+  <td style="text-align: center">€{data.totalAmountPaid}</td>
   <td style="text-align: center"
     >€{Math.round(data.monthlyRepayment * 100) / 100}</td
   >
-  <!-- <td
-    ><HorizontalBarChart index={i} amount={data.monthlyRepayment} colour={data.colour}
-    ></HorizontalBarChart></td
-  > -->
+
   <td
     ><Dougnut
       totalDebtNoInterest={data.totalDebtNoInterest}
@@ -67,7 +63,7 @@
   }
 
   td {
-    padding: 5px;
+    padding: 0px;
   }
   .container {
     display: flex;

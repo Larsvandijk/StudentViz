@@ -1,27 +1,39 @@
 <script>
   import TableRow from "./TableRow.svelte";
+  import { dataCollection } from "./stores";
 
-  export let dataCollection;
+  let sortInterestToHigh = false;
+  function sortOnInterest() {
+    $dataCollection.sort((a, b) => {
+      return a.interest - b.interest;
+    });
+    if (sortInterestToHigh) $dataCollection.reverse();
+    sortInterestToHigh = !sortInterestToHigh;
+    $dataCollection = $dataCollection;
+  }
 </script>
 
 <table cellspacing="0">
   <tr>
     <th>Index</th>
     <th>Colour</th>
-    <th>Interest Rate</th>
+    <th>Interest Rate <button on:click={sortOnInterest}>Sort</button></th>
     <th>Final Repayment Date</th>
+    <th>Total Paid</th>
     <th>Monthly Loan Amount</th>
     <th>Monthly Repayment</th>
     <th>Interest Proportion & Total Repayment</th>
     <th>Delete</th>
   </tr>
 
-  {#each dataCollection as data, i (data.id)}
+  {#each $dataCollection as data, i (data.id)}
     <TableRow {data} {i} id={data.id}></TableRow>
   {/each}
 </table>
-{#if dataCollection.length < 1}
-<p style="text-align: center;"><strong>Add alternatives to compare them in this table!</strong></p>
+{#if $dataCollection.length < 1}
+  <p style="text-align: center;">
+    <strong>Add alternatives to compare them in this table!</strong>
+  </p>
 {/if}
 
 <style>

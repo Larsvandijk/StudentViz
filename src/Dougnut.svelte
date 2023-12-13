@@ -16,7 +16,6 @@
     interest: totalInterestPaid,
     amortization: totalDebtNoInterest,
   };
-  console.log(dataDougnut);
 
   const color = d3
     .scaleOrdinal()
@@ -58,6 +57,13 @@
   <g class="chart-inner">
     {#each data_ready as slice}
       <path d={arc(slice)} fill={color(slice.data[1])} stroke="white" />
+      <polyline stroke="black" stroke-width="1" fill="none" points={function(d) {var posA = arc.centroid(d) // line insertion in the slice
+        var posB = outerArc.centroid(d) // line break: we use the other arc generator that has been built only for that
+        var posC = outerArc.centroid(d); // Label position = almost the same as posB
+        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
+        posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1);
+        console.log(posA, posB, posC) // multiply by 1 or -1 to put it on the right or on the left
+        return [posA, posB, posC]}}></polyline>
     {/each}
     <text
       text-anchor="middle"

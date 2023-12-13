@@ -27,29 +27,20 @@
         step="10"
       /></label
     >
-    <div class="row">
-      <label class="topdown"
-        >Current Debt
-        <input
-          data-type="currency"
-          class="topdown"
-          type="number"
-          bind:value={$currentDebt}
-        />
-      </label>
 
-      <label class="topdown"
-        >Remaining months<input
-          bind:value={$remainderLoanPeriod}
-          class="topdown"
-          type="number"
-        /></label
-      >
-    </div>
+    <label class="topdown"
+      >Borrow for a duration of {$remainderLoanPeriod} months.<input
+        bind:value={$remainderLoanPeriod}
+        class="topdown"
+        type="range"
+        min="0"
+        max="240"
+      /></label
+    >
   </div>
   <p>
-    My current debt is €{$currentDebt}. I want to borrow €{$chosenMonthlyAmount} per month
-    for a remainder of {$remainderLoanPeriod} months.
+    My current debt is €{$currentDebt}. I want to borrow €{$chosenMonthlyAmount}
+    per month for a duration of {$remainderLoanPeriod} months.
   </p>
 </div>
 
@@ -65,16 +56,12 @@
     flex-direction: column;
   }
 
-  input[type="number"] {
-    width: 80px;
-  }
-
   input[type="range"] {
     padding: 0;
-    width: 200px;
+    width: 300px;
   }
 
-  p{
+  p {
     margin-bottom: 0px;
   }
 </style>

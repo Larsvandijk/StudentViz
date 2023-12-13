@@ -29,7 +29,7 @@
 <div class="container">
   <h3>Repayment</h3>
   <label class="topdown"
-    >Months between end of study and repayment: {$aflossingsVrijePeriode} months.
+    >After my study, I will start repaying in {$aflossingsVrijePeriode} months.
     <div style="display: flex margin-top:0px;">
       <input
         type="range"
@@ -50,9 +50,9 @@
         type="radio"
         name="rdo"
         value="35years"
-      />{"Repay in 35 years and pay €" +
+      />{"I will repay in 35 years and pay €" +
         Math.round($monthlyRepaymentAmount * 100) / 100 +
-        " per month. Your total repayment will be €" +
+        " per month. My total repayment will be €" +
         Math.round(totalSpend35) +
         "."}</label
     >
@@ -60,7 +60,7 @@
     <div style="display:flex flex-wrap:wrap flex-direction:row">
       <input bind:group={selected} type="radio" name="rdo" value="custom" />
       <span
-        >Repay sooner than 35 years, this will save you money. If you repay €</span
+        >I will repay sooner than 35 years which will save money. If I repay €</span
       >
       <span class="euro-sign">
         <input
@@ -71,7 +71,7 @@
         />
       </span>
       <span>
-        per month, your total repayment will be €{Math.round(
+        per month, my total repayment will be €{Math.round(
           totalSpendCustom
         )}.</span
       >
@@ -79,17 +79,6 @@
     </div>
   </fieldset>
 
-    <!-- 
-    {#each options as option}
-      <label
-        ><input
-          bind:group={selected}
-          type="radio"
-          name="rdo"
-          value={option.value}
-        />{option.text}</label
-      >
-    {/each} -->
   </div>
 
   {#if $chosenMonthlyRepaymentAmount < $monthlyRepaymentAmount && !$use35years}
@@ -132,13 +121,10 @@
     vertical-align: baseline;
   }
 
-  /* .euro-sign::before {
-  content: "$";
-  font-family: "Roboto Regular", sans-serif;
-  font-size: 1.5em;
-  position: absolute;
-  left: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-} */
+  fieldset{
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+
+  
 </style>
