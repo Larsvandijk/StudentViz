@@ -45,11 +45,11 @@
 </div>
 
 <style>
-  .row {
+  /* .row {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-  }
+  } */
 
   .column {
     display: flex;

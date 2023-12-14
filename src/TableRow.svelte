@@ -31,12 +31,12 @@
       style: "percent",
       minimumFractionDigits: 2,
     })}</td
-  >
+  >                                            
   <td style="text-align: center"
     >{data.data[data.data.length - 1].date.toLocaleDateString("en-GB")}</td
   >
+  <td style="text-align: center">€{Math.round(data.totalAmountPaid)}</td>
   <td style="text-align: center">€{data.monthlyLoanAmount}</td>
-  <td style="text-align: center">€{data.totalAmountPaid}</td>
   <td style="text-align: center"
     >€{Math.round(data.monthlyRepayment * 100) / 100}</td
   >

@@ -63,8 +63,8 @@
 
   <div class="top-down">
     <div class="right-side">
-      <LineChart data={$data} />
       <InterestExplorer data={$interestHistory} />
+      <LineChart data={$data} />
     </div>
     <TableComparison></TableComparison>
   </div>

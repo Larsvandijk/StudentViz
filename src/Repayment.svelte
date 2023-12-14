@@ -44,41 +44,39 @@
   <div class="radio-buttons">
     <fieldset>
       <legend>Select a repayment option:</legend>
-    <label
-      ><input
-        bind:group={selected}
-        type="radio"
-        name="rdo"
-        value="35years"
-      />{"I will repay in 35 years and pay €" +
-        Math.round($monthlyRepaymentAmount * 100) / 100 +
-        " per month. My total repayment will be €" +
-        Math.round(totalSpend35) +
-        "."}</label
-    >
-
-    <div style="display:flex flex-wrap:wrap flex-direction:row">
-      <input bind:group={selected} type="radio" name="rdo" value="custom" />
-      <span
-        >I will repay sooner than 35 years which will save money. If I repay €</span
+      <label
+        ><input
+          bind:group={selected}
+          type="radio"
+          name="rdo"
+          value="35years"
+        />{"I will repay in 35 years and pay €" +
+          Math.round($monthlyRepaymentAmount * 100) / 100 +
+          " per month. My total repayment will be €" +
+          Math.round(totalSpend35) +
+          "."}</label
       >
-      <span class="euro-sign">
-        <input
-          disabled={selected === "35years"}
-          bind:value={$chosenMonthlyRepaymentAmount}
-          class="topdown"
-          type="number"
-        />
-      </span>
-      <span>
-        per month, my total repayment will be €{Math.round(
-          totalSpendCustom
-        )}.</span
-      >
-    
-    </div>
-  </fieldset>
 
+      <div style="display:flex flex-wrap:wrap flex-direction:row">
+        <input bind:group={selected} type="radio" name="rdo" value="custom" />
+        <span
+          >I will repay sooner than 35 years which will save money. If I repay €</span
+        >
+        <span class="euro-sign">
+          <input
+            disabled={selected === "35years"}
+            bind:value={$chosenMonthlyRepaymentAmount}
+            class="topdown"
+            type="number"
+          />
+        </span>
+        <span>
+          per month, my total repayment will be €{Math.round(
+            totalSpendCustom
+          )}.</span
+        >
+      </div>
+    </fieldset>
   </div>
 
   {#if $chosenMonthlyRepaymentAmount < $monthlyRepaymentAmount && !$use35years}
@@ -105,6 +103,7 @@
 
   input[type="range"] {
     padding: 0;
+    width: 300px;
   }
 
   input[type="number"] {
@@ -121,10 +120,8 @@
     vertical-align: baseline;
   }
 
-  fieldset{
+  fieldset {
     margin-bottom: 15px;
     margin-top: 15px;
   }
-
-  
 </style>
