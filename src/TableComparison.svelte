@@ -87,8 +87,8 @@
 
 <table cellspacing="0">
   <tr>
-    <th>Index</th>
-    <th>Colour</th>
+    <th style="width: 40px;">Index</th>
+    <th style="width: 40px;">Colour</th>
     <th
       ><div class="sort-button-container">
         Interest Rate <button on:click={sortOnInterest}
@@ -142,7 +142,7 @@
       </div></th
     >
     <th>Interest Proportion</th>
-    <th>Delete</th>
+    <th style="width: 40px;">Delete</th>
   </tr>
 
   {#each $dataCollection as data, i (data.id)}

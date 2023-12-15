@@ -5,10 +5,10 @@
     dataCollection,
     interestHistory,
   } from "./stores";
-  import { get } from "svelte/store";
-
+  import { onDestroy, onMount } from "svelte";
   export let data;
 
+  let copy;
   $: $interestRateYearly = Math.round(yScale.invert(y) * 100) / 100;
 
   const chartWidth = 300;
@@ -18,6 +18,7 @@
   let yAxis;
 
   let y = 157;
+
   let draggable = false;
 
   const paddings = {
@@ -27,6 +28,7 @@
     bottom: 50,
   };
 
+  // Change the years in the store from year in strings to date objects
   let parseDate = d3.timeParse("%Y");
   data.forEach(function (d) {
     if (!(d.year instanceof Date)) d.year = parseDate(d.year);
@@ -44,6 +46,12 @@
 
   $: d3.select(yAxis).call(d3.axisLeft(yScale));
   $: d3.select(xAxis).call(d3.axisBottom(xScale).ticks(7));
+
+  const unsubscribe = interestRateYearly.subscribe((value) => {
+    copy = 225 - value * (225 / 6.09) + 25;
+  });
+
+  $: y = copy;
 
   // FOLLOWING MOUSE MOVEMENT
   const idContainer = "interest-container";
@@ -72,47 +80,18 @@
 
   function handleDragLeave() {
     // console.log("Drag leave");
-    // draggable = false;
+    draggable = false;
   }
 
   function handleDrag(event, d) {
-    // y = event.y;
-    // console.log(event);
-    // y += event.dy
-    // console.log(event);
-    // let x = d3.event.dx;
-    // let y = d3.event.dy;
-
-    // let line = d3.select(this);
-
-    // // Update the line properties
-    // let attributes = {
-    //   // x1: parseInt(line.attr('x1')) + x,
-    //   y1: parseInt(line.attr("y1")) + y,
-
-    //   // x2: parseInt(line.attr('x2')) + x,
-    //   y2: parseInt(line.attr("y2")) + y,
-    // };
-
-    // line.attr(attributes);
     followMouse(event);
     if (mousePosition.y != null) y = mousePosition.y;
-    // let container = d3.select(".grabbable");
-    // container.attr("transform", "translate(0, " + mousePosition.y + ")");
   }
 
   function handleDragStart() {
-    // console.log("drag start");
-    // draggable = true;
+    draggable = true;
   }
-
-  // var drag = d3.drag().on("drag", handleDrag);
-
-  // let line = d3.select(".draggable");
-  // line.call(drag);
-
 </script>
-
 
 <div class="container">
   <h3>Interest Explorer</h3>
@@ -127,7 +106,17 @@
     on:mousemove={followMouse}
     on:mouseleave={removePointer}
   >
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 {y} 25 25"  width="25px" height="25px"><path style="fill:#232326" d="M24 12.001H2.914l5.294-5.295-.707-.707L1 12.501l6.5 6.5.707-.707-5.293-5.293H24v-1z" data-name="Left"/></svg>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 {y} 25 25"
+      width="25px"
+      height="25px"
+      ><path
+        style="fill:#232326"
+        d="M24 12.001H2.914l5.294-5.295-.707-.707L1 12.501l6.5 6.5.707-.707-5.293-5.293H24v-1z"
+        data-name="Left"
+      /></svg
+    >
     <!-- X AND Y SCALE LINES -->
     <g>
       <line
