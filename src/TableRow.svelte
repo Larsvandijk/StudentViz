@@ -25,18 +25,34 @@
 
 <tr>
   <td style="text-align: center">{i + 1}</td>
+
   <td style="text-align: center"><Colour colour={data.colour}></Colour></td>
+
   <td style="text-align: center"
     >{Number(data.interest / 100).toLocaleString(undefined, {
       style: "percent",
       minimumFractionDigits: 2,
     })}</td
-  >                                            
+  >
+
   <td style="text-align: center"
     >{data.data[data.data.length - 1].date.toLocaleDateString("en-GB")}</td
   >
-  <td style="text-align: center">€{Math.round(data.totalAmountPaid)}</td>
-  <td style="text-align: center">€{data.monthlyLoanAmount}</td>
+
+  <td style="text-align: center"><HorizontalBarChart
+      amount={Math.round(data.totalAmountPaid)}
+      colour={data.colour}
+      displayedContent={"totalAmountPaid"}
+    ></HorizontalBarChart></td>
+
+  <td style="text-align: center">
+    <HorizontalBarChart
+      amount={data.monthlyLoanAmount}
+      colour={data.colour}
+      displayedContent={"monthlyLoanAmount"}
+    ></HorizontalBarChart></td
+  >
+
   <td style="text-align: center"
     >€{Math.round(data.monthlyRepayment * 100) / 100}</td
   >
@@ -72,5 +88,8 @@
 
   button {
     width: 60px;
+    height: 30px;
+    text-align: center;
+    padding: 5px;
   }
 </style>

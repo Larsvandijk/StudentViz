@@ -64,4 +64,13 @@
   p {
     margin-bottom: 0px;
   }
+
+  .additionalinformationcontainer{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  h3{
+    text-align: center;
+  }
 </style>

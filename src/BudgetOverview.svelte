@@ -25,11 +25,11 @@
   <div class="income-expenses">
     <p>
       Income: <span><strong>€{$totalIncome}</strong></span>
-      <button on:click={goToIncome}>Edit</button>
+      <button on:click={goToIncome} class="buttonnew">Edit</button>
     </p>
     <p>
       Expenses: <span><strong>€{$totalExpenses}</strong></span>
-      <button on:click={goToExpenses}>Edit</button>
+      <button on:click={goToExpenses} class="buttonnew">Edit</button>
     </p>
   </div>
 

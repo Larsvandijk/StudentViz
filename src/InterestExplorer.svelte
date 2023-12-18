@@ -184,6 +184,33 @@
       stroke-width="2"
     />
 
+    <g transform="translate(200, {y - 16})"
+    >
+      <path
+      style="transform: scale(0.5)"
+        d="M29 35v13.6l-2.8-3.1-4.4 4L32 61l10.2-11.5-4.4-4-2.8 3.1V35m0-6V15.4l2.8 3.1 4.4-4L32 3 21.8 14.5l4.4 4 2.8-3.1V29"
+        stroke-width="2"
+        stroke-miterlimit="10"
+        stroke-linecap="round"
+        stroke="#202020"
+        fill="none"
+        data-name="layer2"
+        stroke-linejoin="round"
+      />
+      <path
+      style= "transform: scale(0.5)"
+      class="arrow"
+        d="M6 29h52v6H6z"
+        stroke-width="2"
+        stroke-miterlimit="10"
+        stroke-linecap="round"
+        stroke="#202020"
+        fill="none"
+        data-name="layer1"
+        stroke-linejoin="round"
+      />
+    </g>
+
     <line
       class="grabbable"
       on:dragstart={handleDragStart}

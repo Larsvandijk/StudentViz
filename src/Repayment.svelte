@@ -114,6 +114,7 @@
 
   input[type="radio"] {
     vertical-align: baseline;
+    margin: 10px 0px;
   }
 
   label {
@@ -123,5 +124,9 @@
   fieldset {
     margin-bottom: 15px;
     margin-top: 15px;
+  }
+
+  h3{
+    text-align: center;
   }
 </style>

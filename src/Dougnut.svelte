@@ -5,8 +5,8 @@
   export let totalAmountPaid;
   export let colour;
 
-  const width = 100;
-  const height = 100;
+  const width = 40;
+  const height = 40;
   const margin = 0;
 
   let radius = Math.min(width, height) / 2 - margin;
@@ -65,7 +65,7 @@
         console.log(posA, posB, posC) // multiply by 1 or -1 to put it on the right or on the left
         return [posA, posB, posC]}}></polyline>
     {/each}
-    <text
+    <!-- <text
       text-anchor="middle"
       font-size="13"
       font-weight="bold"
@@ -74,7 +74,7 @@
       Total <tspan text-anchor="middle" y="12" x="-2"
         >€{Math.round(totalAmountPaid)}</tspan
       >
-    </text>
+    </text> -->
   </g>
 </svg>
 </div>

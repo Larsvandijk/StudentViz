@@ -1,62 +1,61 @@
 <script>
   import * as d3 from "d3";
-  import { dataCollection, allDataForAxes } from "./stores";
+  import { dataCollection } from "./stores";
 
   export let amount;
-  export let index;
+  export let colour;
+  export let displayedContent;
 
-  const width = 100;
-  const height = 50;
+  const width = 150;
+  const height = 30;
 
   const paddings = {
-    top: 50,
-    left: 100,
-    right: 50,
-    bottom: 50,
+    top: 10,
+    left: 10,
+    right: 10,
+    bottom: 10,
   };
-  let xAxis;
-  let yAxis;
 
-  $: xScale = d3
-    .scaleLinear()
-    .domain(
-      0,
-      d3.extent($allDataForAxes, (d) => d.monthlyRepayment)
-    )
-    .range([paddings.left, width - paddings.right]);
+  let maxValue;
 
-  $: yScale = d3
-    .scaleBand()
-    .domain([0, 1])
-    .range([height - paddings.bottom, paddings.top]);
+  $: if (displayedContent == "monthlyLoanAmount")
+    maxValue = d3.max($dataCollection, (d) => d.monthlyLoanAmount);
+  else if (displayedContent == "monthlyRepayment")
+    maxValue = d3.max($dataCollection, (d) => d.monthlyRepayment);
+  else if(displayedContent == "totalAmountPaid") maxValue = d3.max($dataCollection, (d) => d.totalAmountPaid);
+ 
+  // $: console.log(maxValue);
+
+  // $: xScale = d3
+  //   .scaleLinear()
+  //   .domain(
+  //     0,
+  //     d3.max($dataCollection, (d) => d.monthlyLoanAmount)
+  //   )
+  //   .range([paddings.left, width - paddings.right]);
+
+  $: yScale = d3.scaleBand().range([height - paddings.bottom, paddings.top]);
 </script>
 
 <svg {width} {height}>
-  <g transform={`translate(${paddings.left}, ${paddings.top})`}>
-    <text
-      text-anchor="end"
-      x={-10}
-      y={height/2}
-      dy=".35em"
-    >
-      {index}
-    </text>
-
+  <g transform={`translate(${0}, ${0})`}>
     <rect
-      x={0}
+      x={paddings.left}
       y={yScale(0)}
-      width={xScale(amount)}
-      height={height/2}
+      width={width * (amount / maxValue) - paddings.right}
+      {height}
+      fill={colour.lightColour}
     />
 
     <text
+      font-weight="bold"
       text-anchor="start"
-      x={xScale(amount)}
+      x={0}
       dx="10"
-      y={height/2}
+      y={height / 2}
       dy=".35em"
     >
-    {amount}
+      €{amount}
     </text>
   </g>
 </svg>
