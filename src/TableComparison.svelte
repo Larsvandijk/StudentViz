@@ -9,6 +9,7 @@
   let sortTotalPaidToHigh = false;
   let sortMonthlyLoanAmountToHigh = false;
   let sortMonthlyRepaymentToHigh = false;
+  let sortInterestProportionToHigh = false;
 
   function sortOnInterest() {
     $dataCollection.sort((a, b) => {
@@ -58,11 +59,23 @@
     $dataCollection = $dataCollection;
   }
 
+  function sortOnInterestPropotion(){
+    $dataCollection.sort((a, b) => {
+      return (a.totalInterestPaid / a.totalAmountPaid) - (b.totalInterestPaid / b.totalAmountPaid) ;
+    });
+
+    if (sortInterestProportionToHigh) $dataCollection.reverse();
+    sortInterestProportionToHigh = !sortInterestProportionToHigh;
+    $dataCollection = $dataCollection;
+
+  }
+
   let interestSortingImageIndex = 0;
   let finalDateSortingImageIndex = 0;
   let totalPaidSortingImageIndex = 0;
   let monthlyLoanAmountSortingImageIndex = 0;
   let monthlyRepaymentSortingImageIndex = 0;
+  let interestPropotionSortingImageIndex = 0;
 
   $: sortInterestToHigh
     ? (interestSortingImageIndex = 0)
@@ -83,6 +96,10 @@
   $: sortMonthlyRepaymentToHigh
     ? (monthlyRepaymentSortingImageIndex = 0)
     : (monthlyRepaymentSortingImageIndex = 1);
+  
+    $: sortInterestProportionToHigh
+    ? (interestPropotionSortingImageIndex = 0)
+    : (interestPropotionSortingImageIndex = 1);
 </script>
 
 <table cellspacing="0">
@@ -99,26 +116,7 @@
         >
       </div></th
     >
-    <th
-      ><div class="sort-button-container">
-        Final Repayment Date <button on:click={sortOnFinalDate}
-          ><img
-            src={PNGSortingImages[finalDateSortingImageIndex]}
-            alt="sortingpng"
-          /></button
-        >
-      </div></th
-    >
-    <th
-      ><div class="sort-button-container">
-        Total Paid <button on:click={sortOnTotalPaid}
-          ><img
-            src={PNGSortingImages[totalPaidSortingImageIndex]}
-            alt="sortingpng"
-          /></button
-        >
-      </div></th
-    >
+    
     <th>
       <div class="sort-button-container">
         Monthly Loan Amount
@@ -141,7 +139,38 @@
         >
       </div></th
     >
-    <th>Interest Proportion</th>
+
+    <th
+    ><div class="sort-button-container">
+      Total Paid <button on:click={sortOnTotalPaid}
+        ><img
+          src={PNGSortingImages[totalPaidSortingImageIndex]}
+          alt="sortingpng"
+        /></button
+      >
+    </div></th
+  >
+    
+    <th><div class="sort-button-container">
+      Interest Propotion <button on:click={sortOnInterestPropotion}
+        ><img
+          src={PNGSortingImages[interestPropotionSortingImageIndex]}
+          alt="sortingpng"
+        /></button
+      >
+    </div></th>
+
+    <th
+      ><div class="sort-button-container">
+        Final Repayment Date <button on:click={sortOnFinalDate}
+          ><img
+            src={PNGSortingImages[finalDateSortingImageIndex]}
+            alt="sortingpng"
+          /></button
+        >
+      </div></th
+    >
+
     <th style="width: 40px;">Delete</th>
   </tr>
 
@@ -168,6 +197,7 @@
     background-color: #54585d;
     color: #ffffff;
     font-weight: bold;
+    position: sticky; top: 0;
   }
 
   img {

@@ -10,6 +10,7 @@
     totalInterestPaid,
     totalAmountPaid,
   } from "./stores";
+  import StackedBarChart from "./StackedBarChart.svelte";
   export let data;
   export let i;
   export let id;
@@ -35,16 +36,6 @@
     })}</td
   >
 
-  <td style="text-align: center"
-    >{data.data[data.data.length - 1].date.toLocaleDateString("en-GB")}</td
-  >
-
-  <td style="text-align: center"><HorizontalBarChart
-      amount={Math.round(data.totalAmountPaid)}
-      colour={data.colour}
-      displayedContent={"totalAmountPaid"}
-    ></HorizontalBarChart></td>
-
   <td style="text-align: center">
     <HorizontalBarChart
       amount={data.monthlyLoanAmount}
@@ -54,16 +45,40 @@
   >
 
   <td style="text-align: center"
-    >€{Math.round(data.monthlyRepayment * 100) / 100}</td
+    ><HorizontalBarChart
+      amount={Math.round(data.monthlyRepayment * 100) / 100}
+      colour={data.colour}
+      displayedContent={"monthlyRepayment"}
+    ></HorizontalBarChart></td
   >
 
-  <td
+  <td style="text-align: center"
+    ><HorizontalBarChart
+      amount={Math.round(data.totalAmountPaid)}
+      colour={data.colour}
+      displayedContent={"totalAmountPaid"}
+    ></HorizontalBarChart></td
+  >
+
+  <!-- <td
     ><Dougnut
       totalDebtNoInterest={data.totalDebtNoInterest}
       totalInterestPaid={data.totalInterestPaid}
       totalAmountPaid={data.totalAmountPaid}
       colour={data.colour}
     ></Dougnut></td
+  > -->
+
+  <td
+    ><StackedBarChart
+      totalDebtNoInterest={data.totalDebtNoInterest}
+      totalInterestPaid={data.totalInterestPaid}
+      totalAmountPaid={data.totalAmountPaid}
+      colour={data.colour}
+    ></StackedBarChart></td
+  >
+  <td style="text-align: center"
+    >{data.data[data.data.length - 1].date.toLocaleDateString("en-GB")}</td
   >
   <td>
     <div class="container">
@@ -76,6 +91,10 @@
   /* tr:hover {background-color: grey;} */
   tr:nth-child(even) {
     background-color: #f2f2f2;
+  }
+
+  tr{
+    max-height: 30px;
   }
 
   td {

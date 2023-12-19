@@ -6,7 +6,7 @@
   export let colour;
   export let displayedContent;
 
-  const width = 150;
+  const width = 145;
   const height = 30;
 
   const paddings = {
@@ -42,7 +42,7 @@
     <rect
       x={paddings.left}
       y={yScale(0)}
-      width={width * (amount / maxValue) - paddings.right}
+      width={(width - paddings.right) * (amount / maxValue)}
       {height}
       fill={colour.lightColour}
     />
