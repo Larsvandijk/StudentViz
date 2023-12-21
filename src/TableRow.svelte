@@ -25,9 +25,7 @@
 </script>
 
 <tr>
-  <td style="text-align: center">{i + 1}</td>
-
-  <td style="text-align: center"><Colour colour={data.colour}></Colour></td>
+  <td style="text-align: center">{i + 1} <Colour colour={data.colour}></Colour></td>
 
   <td style="text-align: center"
     >{Number(data.interest / 100).toLocaleString(undefined, {

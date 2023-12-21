@@ -105,8 +105,11 @@
 
 <style>
   .studiefinanciering {
+    padding : 8px;
     border: 1px solid black;
+    border-radius: 5px;
     width: 400px;
+    vertical-align: top;
   }
 
   p {

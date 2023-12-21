@@ -2,7 +2,6 @@
   import * as d3 from "d3";
   export let totalDebtNoInterest;
   export let totalInterestPaid;
-  export let totalAmountPaid;
   export let colour;
 
   const width = 40;

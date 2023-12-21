@@ -1,7 +1,12 @@
 <script>
   import FinanceCategory from "./financeCategory.svelte";
   import Studiefinanciering from "./studiefinanciering.svelte";
-  import { pageIndex, incomeList, totalIncomeCategories, totalIncome } from "./stores";
+  import {
+    pageIndex,
+    incomeList,
+    totalIncomeCategories,
+    totalIncome,
+  } from "./stores";
 
   function addIncomeCategory() {
     let newCategory = {
@@ -21,19 +26,20 @@
   }
 </script>
 
+<h1 style="text-align: center;">Monthly Income</h1>
 <div class="container">
-  <h1>Monthly Income</h1>
+  <div class="studentgrant">
+    <Studiefinanciering></Studiefinanciering>
+  </div>
 
-  <Studiefinanciering></Studiefinanciering>
-
-  <p>
-    Enter your income manually, or use the national averages with the button
-    below.
-  </p>
-  <button class="button-1" on:click={fillInIncomeAverages}
-    >Use national averages</button
-  >
-  <div class="form-container">
+  <div class="formcontainer">
+    <p>
+      Enter your income manually, or use the national averages with the button
+      below.
+    </p>
+    <button class="buttonnew" on:click={fillInIncomeAverages}
+      >Use national averages</button
+    >
     <form>
       <div class="incomecontainer">
         {#each $incomeList as category, index (category.id)}
@@ -47,7 +53,7 @@
       </div>
       <p>Total income per month: €{$totalIncome}</p>
 
-      <button class="button-1" on:click|preventDefault={addIncomeCategory}
+      <button class="buttonnew" on:click|preventDefault={addIncomeCategory}
         >Add new category</button
       >
       <button class="button-3" on:click={() => ($pageIndex += 1)}
@@ -67,8 +73,14 @@
   }
   .container {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    align-items: top;
+    justify-content: space-evenly;
+    flex-direction: row;
+  }
+
+  .formcontainer {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 8px;
   }
 </style>

@@ -104,8 +104,7 @@
 
 <table cellspacing="0">
   <tr>
-    <th style="width: 40px;">Index</th>
-    <th style="width: 40px;">Colour</th>
+    <th style="width: 40px;">Plan</th>
     <th
       ><div class="sort-button-container">
         Interest Rate <button on:click={sortOnInterest}

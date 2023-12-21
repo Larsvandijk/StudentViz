@@ -35,17 +35,17 @@ export const interestHistory = readable([
 ]);
 
 export const incomeList = writable([
-  { id: Math.random(), name: "Side job", value: 0, editable: false },
-  { id: Math.random(), name: "Rental allowance", value: 0, editable: false },
+  { id: Math.random(), name: "Side job per month", value: 0, editable: false },
+  { id: Math.random(), name: "Rental allowance per month", value: 0, editable: false },
   {
     id: Math.random(),
-    name: "Healthcare allowance",
+    name: "Healthcare allowance per month",
     value: 0,
     editable: false,
   },
   {
     id: Math.random(),
-    name: "External financial contribution",
+    name: "External financial contribution per month",
     value: 0,
     editable: false,
   },
