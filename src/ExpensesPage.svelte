@@ -33,7 +33,9 @@
     Enter your expenses manually, or use the national averages with the button
     below.
   </p>
-  <button on:click={fillInExpenseAverages}>Use National Averages</button>
+  <button class="buttonnew" on:click={fillInExpenseAverages}
+    >Use National Averages</button
+  >
   <div class="formcontainer">
     <form>
       <div class="expensecontainer">
@@ -47,15 +49,19 @@
         {/each}
       </div>
 
-      <p>Total Expenses per month: €{$totalExpenses}</p>
+      <p>Total Expenses per month: <strong>€{$totalExpenses}</strong></p>
 
-      <button class="button-1" on:click|preventDefault={addExpenseCategory}
-        >Add new category</button
-      >
       <div>
-        <button on:click={() => ($pageIndex -= 1)}>Previous</button>
-        <button class="button-3" on:click={() => ($pageIndex += 1)}
-          >Next</button
+        <button class="buttonnew" on:click|preventDefault={addExpenseCategory}
+          >Add new category</button
+        >
+        <button class="buttonnew" on:click={() => ($pageIndex -= 1)}
+          >Previous</button
+        >
+        <button
+          class="buttonnew"
+          style="background-color: #298e46; color: #fff;"
+          on:click={() => ($pageIndex += 1)}>Next</button
         >
       </div>
     </form>

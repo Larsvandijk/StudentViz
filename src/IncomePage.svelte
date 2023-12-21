@@ -51,13 +51,15 @@
           />
         {/each}
       </div>
-      <p>Total income per month: €{$totalIncome}</p>
+      <p>Total income per month: <strong>€{$totalIncome}</strong></p>
 
       <button class="buttonnew" on:click|preventDefault={addIncomeCategory}
         >Add new category</button
       >
-      <button class="button-3" on:click={() => ($pageIndex += 1)}
-        >Go to expenses</button
+      <button
+        style="background-color: #298e46; color: #fff;"
+        class="buttonnew"
+        on:click={() => ($pageIndex += 1)}>Go to expenses</button
       >
     </form>
   </div>
