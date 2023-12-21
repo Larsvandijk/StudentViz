@@ -103,6 +103,7 @@
 </script>
 
 <table cellspacing="0">
+  <caption>Comparison Table</caption>
   <tr>
     <th style="width: 40px;">Plan</th>
     <th

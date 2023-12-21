@@ -57,14 +57,14 @@
     class="buttonnew"
       disabled={$chosenMonthlyRepaymentAmount < $monthlyRepaymentAmount &&
         !$use35years}
-      on:click={addData}>Add alternative</button
+      on:click={addData}>Add to comparison table</button
     >
   </div>
 
   <div class="top-down">
     <div class="right-side">
-      <InterestExplorer data={$interestHistory} />
       <LineChart data={$data} />
+      <InterestExplorer data={$interestHistory} />
     </div>
     <TableComparison></TableComparison>
   </div>
@@ -81,7 +81,7 @@
   .left-side {
     display: flex;
     flex-direction: column;
-    max-width: 320px;
+    max-width: 350px;
     overflow-y: scroll;
     height: 100vh;
     margin-bottom: 15px;
@@ -91,6 +91,7 @@
     display: flex;
     flex-direction: row;
     margin-bottom: 20px;
+    justify-content: space-evenly;
   }
 
   .top-down {

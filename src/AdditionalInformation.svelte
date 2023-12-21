@@ -9,11 +9,16 @@
     aflossingsVrijePeriode,
     monthlyRepaymentAmount,
     principal,
+    moneyNeeded
   } from "./stores";
 </script>
 
 <div class="additionalinformationcontainer">
   <h3>Loan Information</h3>
+  <p>
+    My current debt is €<span><input type="number" bind:value={$currentDebt}></span> . I want to borrow €{$chosenMonthlyAmount}
+    per month for a duration of {$remainderLoanPeriod} months.
+  </p>
 
   <div class="column">
     <label class="topdown"
@@ -24,7 +29,7 @@
         type="range"
         min="0"
         max="1410"
-        step="10"
+        step="1"
       /></label
     >
 
@@ -38,10 +43,7 @@
       /></label
     >
   </div>
-  <p>
-    My current debt is €{$currentDebt}. I want to borrow €{$chosenMonthlyAmount}
-    per month for a duration of {$remainderLoanPeriod} months.
-  </p>
+
 </div>
 
 <style>
@@ -62,7 +64,7 @@
   }
 
   p {
-    margin-bottom: 0px;
+    margin-bottom: 15px;
   }
 
   .additionalinformationcontainer{
@@ -72,5 +74,12 @@
 
   h3{
     text-align: center;
+    margin-bottom: 0px;
+  }
+
+  input[type="number"] {
+    width: 80px;
+    height: 25px;
+    display: inline-block;
   }
 </style>

@@ -1,6 +1,16 @@
 <script>
   import ExpenseCategory from "./ExpenseCategory.svelte";
-  import { pageIndex, expenseList, totalExpenses } from "./stores";
+  import { pageIndex, expenseList, totalExpenses, chosenMonthlyAmount, moneyNeeded } from "./stores";
+
+  function goToMainPage(){
+    $pageIndex += 1
+    if($moneyNeeded >= 0 && $moneyNeeded <= 1410){
+      $chosenMonthlyAmount = Math.round($moneyNeeded);
+    }
+    else if($moneyNeeded >= 1410 ) $chosenMonthlyAmount = 1410;
+    else if($moneyNeeded < 0) $chosenMonthlyAmount = 0
+
+  }
 
   function addExpenseCategory() {
     let newCategory = {
@@ -61,7 +71,7 @@
         <button
           class="buttonnew"
           style="background-color: #298e46; color: #fff;"
-          on:click={() => ($pageIndex += 1)}>Next</button
+          on:click={goToMainPage}>Next</button
         >
       </div>
     </form>

@@ -24,31 +24,21 @@
 <div class="container">
   <div class="income-expenses">
     <p>
-      Income: <span><strong>€{$totalIncome}</strong></span>
-      <button on:click={goToIncome} class="buttonnew">Edit</button>
+      Income: <strong>€{$totalIncome}</strong>
+      <button on:click={goToIncome} class="buttonnew"><img src="images/editicon.png" alt="edit icon"></button>
     </p>
     <p>
-      Expenses: <span><strong>€{$totalExpenses}</strong></span>
-      <button on:click={goToExpenses} class="buttonnew">Edit</button>
+      Expenses: <strong>€{$totalExpenses}</strong>
+      <button on:click={goToExpenses} class="buttonnew"><img src="images/editicon.png" alt="edit icon"></button>
     </p>
   </div>
 
-  <div style="display:flex; flex-direction: row; justify-content: right; align-items: center">
-    <label style="margin-right: 10px" for="currentdebt">Prior Debt</label>
-    <input
-      id="currentdebt"
-      data-type="currency"
-      class="topdown"
-      type="number"
-      bind:value={$currentDebt}
-    />
-  </div>
 
   <hr />
   {#if $moneyNeeded > 0}
     <p>
       <span><strong>Recommendation to borrow: €{$moneyNeeded}</strong></span>
-      <button on:click={handleClick}>Use this estimate</button>
+      <!-- <button on:click={handleClick}>Use this estimate</button> -->
     </p>
   {:else}
     <p>
@@ -59,25 +49,36 @@
 
 <style>
   .container {
-    width: 200px;
+    width: 320px;
     text-align: center;
   }
 
-  p {
+  .income-expenses {
+    width: 320px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+
+  }
+
+  p{
+    display: inline;
     margin-bottom: 0;
     margin-top: 0;
   }
 
-  .income-expenses {
-    text-align: end;
+button{
+  padding: 0px;
+  width: 30px;
+  height: 30px;
+}
+
+img {
+    width: 20px;
+    height: 20px;
   }
 
-  label {
-    display: inline-block;
-    text-align: right;
-  }
-
-  input[type="number"] {
-    width: 80px;
+  hr{
+    width: 100%;
   }
 </style>

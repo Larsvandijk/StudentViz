@@ -95,7 +95,6 @@
 
 <div class="container">
   <h3>Interest Explorer</h3>
-
   <input bind:value={$interestRateYearly} class="topdown" type="number" />
 
   <svg
