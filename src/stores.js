@@ -322,18 +322,31 @@ export const maxMonthlyRepaymentAmount = derived(
   }
 );
 
-export const availableColours = writable([
-  {colourName: "red", darkColour:"#de2d26", lightColour: "#fc9272"},
-  {colourName: "green", darkColour: "#2ca25f", lightColour: "#99d8c9"},
-  {colourName: "purple", darkColour: "#756bb1", lightColour: "#bcbddc"},
-  {colourName: "yellow", darkColour: "#e6e600", lightColour: "#ffff99"},
-  {colourName: "brown", darkColour: "#86592d", lightColour: "#e6ccb3"},
-  {colourName: "blue", darkColour: "#3182bd", lightColour:"#9ecae1"},
-  {colourName: "orange", darkColour: "#ff8000", lightColour: "#ffcc99"},
-  {colourName: "pink", darkColour: "#ff00aa", lightColour: "#ff99dd"},
-  {colourName: "cyan", darkColour: "#00ffff", lightColour: "#b3ffff"},
+// export const availableColours = writable([
+//   {colourName: "red", darkColour:"#de2d26", lightColour: "#fc9272"},
+//   {colourName: "green", darkColour: "#2ca25f", lightColour: "#99d8c9"},
+//   {colourName: "purple", darkColour: "#756bb1", lightColour: "#bcbddc"},
+//   {colourName: "yellow", darkColour: "#e6e600", lightColour: "#ffff99"},
+//   {colourName: "brown", darkColour: "#86592d", lightColour: "#e6ccb3"},
+//   {colourName: "blue", darkColour: "#3182bd", lightColour:"#9ecae1"},
+//   {colourName: "orange", darkColour: "#ff8000", lightColour: "#ffcc99"},
+//   {colourName: "pink", darkColour: "#ff00aa", lightColour: "#ff99dd"},
+//   {colourName: "cyan", darkColour: "#00ffff", lightColour: "#b3ffff"},
 
-]);
+// ]);
+
+export const availableColours = writable(['#a6cee3',
+  '#1f78b4',
+  '#b2df8a',
+  '#33a02c',
+  '#fb9a99',
+  '#e31a1c',
+  '#fdbf6f',
+  '#ff7f00',
+  '#cab2d6',
+  '#6a3d9a',
+  '#ffff99',
+  '#b15928'])
 
 export const dataCollection = writable([]);
 

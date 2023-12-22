@@ -37,7 +37,7 @@
   <hr />
   {#if $moneyNeeded > 0}
     <p>
-      <span><strong>Recommendation to borrow: €{$moneyNeeded}</strong></span>
+      <span>Recommendation to borrow: <strong>€{$moneyNeeded}</strong></span>
       <!-- <button on:click={handleClick}>Use this estimate</button> -->
     </p>
   {:else}

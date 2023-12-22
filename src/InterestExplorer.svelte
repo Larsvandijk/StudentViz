@@ -232,7 +232,7 @@
         y1={yScale(datagroup.interest)}
         y2={yScale(datagroup.interest)}
         stroke-width="3"
-        stroke={datagroup.colour.colourName}
+        stroke={datagroup.colour}
       />
     {/each}
   </svg>

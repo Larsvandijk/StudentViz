@@ -44,7 +44,7 @@
       y={yScale(0)}
       width={(width - paddings.right) * (amount / maxValue)}
       {height}
-      fill={colour.lightColour}
+      fill={colour}
     />
 
     <text

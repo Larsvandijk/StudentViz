@@ -75,6 +75,7 @@
   h3{
     text-align: center;
     margin-bottom: 0px;
+    margin-top:0px;
   }
 
   input[type="number"] {

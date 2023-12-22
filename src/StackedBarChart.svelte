@@ -24,7 +24,7 @@
     y={yScale(0)}
     width={width}
     {height}
-    fill={colour.lightColour}
+    fill={"#d3d3d3"}
   />
 
   <rect
@@ -32,7 +32,7 @@
     y={yScale(0)}
     width={(totalInterestPaid / totalAmountPaid) * (width - paddings.left)}
     {height}
-    fill={colour.darkColour}
+    fill={colour}
   />
 
   <text

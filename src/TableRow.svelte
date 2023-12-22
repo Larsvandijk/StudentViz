@@ -25,7 +25,7 @@
 </script>
 
 <tr>
-  <td style="text-align: center">{i + 1} <Colour colour={data.colour}></Colour></td>
+  <td style="text-align: center"><div class="colour">{i + 1} <Colour colour={data.colour}></Colour></div></td>
 
   <td style="text-align: center"
     >{Number(data.interest / 100).toLocaleString(undefined, {
@@ -80,7 +80,7 @@
   >
   <td>
     <div class="container">
-      <button class="buttonnew" on:click={deleteCategory}>Delete</button>
+      <button class="buttonnew" on:click={deleteCategory}><img src="/images/delete.png" alt="deleteicon"></button>
     </div></td
   >
 </tr>
@@ -104,9 +104,20 @@
   }
 
   button {
-    width: 60px;
+    width: 30px;
     height: 30px;
     text-align: center;
     padding: 5px;
+  }
+
+  img{
+    width: 20px;
+    height: 20px;
+  }
+
+  .colour{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
   }
 </style>

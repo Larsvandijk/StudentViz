@@ -171,7 +171,7 @@
       </div></th
     >
 
-    <th style="width: 40px;">Delete</th>
+    <th style="width: 40px;"></th>
   </tr>
 
   {#each $dataCollection as data, i (data.id)}

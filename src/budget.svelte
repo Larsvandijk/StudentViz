@@ -55,6 +55,7 @@
     <Repayment />
     <button
     class="buttonnew"
+    style="margin-bottom: 0px;"
       disabled={$chosenMonthlyRepaymentAmount < $monthlyRepaymentAmount &&
         !$use35years}
       on:click={addData}>Add to comparison table</button
@@ -82,9 +83,11 @@
     display: flex;
     flex-direction: column;
     max-width: 350px;
-    overflow-y: scroll;
-    height: 100vh;
-    margin-bottom: 15px;
+
+    margin-bottom: 0px;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 8px;
   }
 
   .right-side {
