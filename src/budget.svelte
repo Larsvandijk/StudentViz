@@ -22,6 +22,7 @@
   import Repayment from "./Repayment.svelte";
   import InterestExplorer from "./InterestExplorer.svelte";
   import TableComparison from "./TableComparison.svelte";
+  import FilterBar from "./FilterBar.svelte";
 
   function addData() {
     if ($availableColours.length > 0) {
@@ -60,7 +61,9 @@
         !$use35years}
       on:click={addData}>Add to comparison table</button
     >
+    
   </div>
+  
 
   <div class="top-down">
     <div class="right-side">

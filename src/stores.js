@@ -35,19 +35,36 @@ export const interestHistory = readable([
 ]);
 
 export const incomeList = writable([
-  { id: Math.random(), name: "Side job per month", value: 0, editable: false },
-  { id: Math.random(), name: "Rental allowance per month", value: 0, editable: false },
+  {
+    id: Math.random(),
+    name: "Side job per month",
+    value: 0,
+    editable: false,
+    tooltip: "How much you earn each month with your side job. ",
+  },
+  {
+    id: Math.random(),
+    name: "Rental allowance per month",
+    value: 0,
+    editable: false,
+    tooltip:
+      "Some student can receive rental allowance. This is based on the income of your caretakers.",
+  },
   {
     id: Math.random(),
     name: "Healthcare allowance per month",
     value: 0,
     editable: false,
+    tooltip:
+      "Most students are entitled to healthcare allowance in order to pay for their health insurance. ",
   },
   {
     id: Math.random(),
     name: "External financial contribution per month",
     value: 0,
     editable: false,
+    tooltip:
+      "The amount you receive each month by for example your caretakers, family or friends.",
   },
 ]);
 
@@ -56,45 +73,51 @@ export const totalIncomeCategories = derived(incomeList, ($incomeList) =>
 );
 
 export const expenseList = writable([
-  { id: Math.random(), name: "Tuition", value: 0, editable: false },
-  { id: Math.random(), name: "Study Material", value: 0, editable: false },
+  { id: Math.random(), name: "Tuition", value: 0, editable: false, tooltip:"Monthly costs of tuition" },
+  { id: Math.random(), name: "Study Material", value: 0, editable: false, tooltip: "Monthly costs of books, notebooks and other study material" },
   {
     id: Math.random(),
     name: "Healthcare insurance",
     value: 0,
     editable: false,
+    tooltip: "Monthly cost of your healthcare insurance"
   },
   {
     id: Math.random(),
     name: "Rent (incl gas electra etc)",
     value: 0,
     editable: false,
+    tooltip: "The total rent you pay each month, including gas, electra WiFi etc."
   },
-  { id: Math.random(), name: "Phone", value: 0, editable: false },
-  { id: Math.random(), name: "Transport", value: 0, editable: false },
+  { id: Math.random(), name: "Phone", value: 0, editable: false, tooltip: "Monthly costs of your mobile phone subscription" },
+  { id: Math.random(), name: "Transport", value: 0, editable: false, tooltip:"This includes public transport (bus, metro, train) as well as private transport (gas for car)" },
   {
     id: Math.random(),
     name: "Groceries",
     value: 0,
     editable: false,
+    tooltip: "How much you spend each month on your groceries"
   },
   {
     id: Math.random(),
     name: "Clothes",
     value: 0,
     editable: false,
+    tooltip:"How much you spend each month on buying clothes"
   },
   {
     id: Math.random(),
     name: "Monthly subscriptions",
     value: 0,
     editable: false,
+    tooltip: "Streaming subscriptions like Netflix, but also perhaps a bike rental subscription"
   },
   {
     id: Math.random(),
     name: "Leisure Activities, going out, sports",
     value: 0,
     editable: false,
+    tooltip: "How much you spend on your hobbies and activities you do in your spare time"
   },
 ]);
 
@@ -335,18 +358,20 @@ export const maxMonthlyRepaymentAmount = derived(
 
 // ]);
 
-export const availableColours = writable(['#a6cee3',
-  '#1f78b4',
-  '#b2df8a',
-  '#33a02c',
-  '#fb9a99',
-  '#e31a1c',
-  '#fdbf6f',
-  '#ff7f00',
-  '#cab2d6',
-  '#6a3d9a',
-  '#ffff99',
-  '#b15928'])
+export const availableColours = writable([
+  "#a6cee3",
+  "#1f78b4",
+  "#b2df8a",
+  "#33a02c",
+  "#fb9a99",
+  "#e31a1c",
+  "#fdbf6f",
+  "#ff7f00",
+  "#cab2d6",
+  "#6a3d9a",
+  "#ffff99",
+  "#b15928",
+]);
 
 export const dataCollection = writable([]);
 
@@ -368,13 +393,34 @@ export const totalDebtNoInterest = derived(
 );
 
 export const totalInterestPaid = derived(
-  [totalDebtNoInterest, data, use35years, monthlyRepaymentAmount, chosenMonthlyRepaymentAmount, aflossingsVrijePeriode, remainderLoanPeriod],
-  ([$totalDebtNoInterest, $data, $use35years, $monthlyRepaymentAmount ,$chosenMonthlyRepaymentAmount, $aflossingsVrijePeriode, $remainderLoanPeriod]) => {
+  [
+    totalDebtNoInterest,
+    data,
+    use35years,
+    monthlyRepaymentAmount,
+    chosenMonthlyRepaymentAmount,
+    aflossingsVrijePeriode,
+    remainderLoanPeriod,
+  ],
+  ([
+    $totalDebtNoInterest,
+    $data,
+    $use35years,
+    $monthlyRepaymentAmount,
+    $chosenMonthlyRepaymentAmount,
+    $aflossingsVrijePeriode,
+    $remainderLoanPeriod,
+  ]) => {
     let residu = Math.abs($data[$data.length - 1].amount);
     let monthlyAmount;
     if ($use35years) monthlyAmount = $monthlyRepaymentAmount;
     else monthlyAmount = $chosenMonthlyRepaymentAmount;
-    return ($data.length - 1 - $aflossingsVrijePeriode - $remainderLoanPeriod) * monthlyAmount - $totalDebtNoInterest - residu;
+    return (
+      ($data.length - 1 - $aflossingsVrijePeriode - $remainderLoanPeriod) *
+        monthlyAmount -
+      $totalDebtNoInterest -
+      residu
+    );
   }
 );
 

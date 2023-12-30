@@ -67,7 +67,7 @@
 
   <!-- AXIS LABELS -->
   <g>
-    <text x={paddings.left} y={chartHeight} text-anchor="middle">Time</text>
+    <text x={(0.5*chartWidth)} y={chartHeight} text-anchor="middle">Time</text>
     <text
       x="0"
       y="150"

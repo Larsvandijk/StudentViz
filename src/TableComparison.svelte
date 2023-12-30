@@ -1,6 +1,7 @@
 <script>
   import TableRow from "./TableRow.svelte";
   import { data, dataCollection } from "./stores";
+  import FilterBar from "./FilterBar.svelte";
 
   let PNGSortingImages = ["images/Ascending.png", "images/Descending.png"];
 
@@ -59,15 +60,17 @@
     $dataCollection = $dataCollection;
   }
 
-  function sortOnInterestPropotion(){
+  function sortOnInterestPropotion() {
     $dataCollection.sort((a, b) => {
-      return (a.totalInterestPaid / a.totalAmountPaid) - (b.totalInterestPaid / b.totalAmountPaid) ;
+      return (
+        a.totalInterestPaid / a.totalAmountPaid -
+        b.totalInterestPaid / b.totalAmountPaid
+      );
     });
 
     if (sortInterestProportionToHigh) $dataCollection.reverse();
     sortInterestProportionToHigh = !sortInterestProportionToHigh;
     $dataCollection = $dataCollection;
-
   }
 
   let interestSortingImageIndex = 0;
@@ -96,8 +99,8 @@
   $: sortMonthlyRepaymentToHigh
     ? (monthlyRepaymentSortingImageIndex = 0)
     : (monthlyRepaymentSortingImageIndex = 1);
-  
-    $: sortInterestProportionToHigh
+
+  $: sortInterestProportionToHigh
     ? (interestPropotionSortingImageIndex = 0)
     : (interestPropotionSortingImageIndex = 1);
 </script>
@@ -116,7 +119,7 @@
         >
       </div></th
     >
-    
+
     <th>
       <div class="sort-button-container">
         Monthly Loan Amount
@@ -126,7 +129,9 @@
             alt="sortingpng"
           /></button
         >
-      </div></th
+      </div>
+      <FilterBar width={130} height={30} indentifier={"monthlyLoanAmount"}
+      ></FilterBar></th
     >
     <th
       ><div class="sort-button-container">
@@ -141,24 +146,26 @@
     >
 
     <th
-    ><div class="sort-button-container">
-      Total Paid <button on:click={sortOnTotalPaid}
-        ><img
-          src={PNGSortingImages[totalPaidSortingImageIndex]}
-          alt="sortingpng"
-        /></button
-      >
-    </div></th
-  >
-    
-    <th><div class="sort-button-container">
-      Interest Propotion <button on:click={sortOnInterestPropotion}
-        ><img
-          src={PNGSortingImages[interestPropotionSortingImageIndex]}
-          alt="sortingpng"
-        /></button
-      >
-    </div></th>
+      ><div class="sort-button-container">
+        Total Paid <button on:click={sortOnTotalPaid}
+          ><img
+            src={PNGSortingImages[totalPaidSortingImageIndex]}
+            alt="sortingpng"
+          /></button
+        >
+      </div></th
+    >
+
+    <th
+      ><div class="sort-button-container">
+        Interest Propotion <button on:click={sortOnInterestPropotion}
+          ><img
+            src={PNGSortingImages[interestPropotionSortingImageIndex]}
+            alt="sortingpng"
+          /></button
+        >
+      </div></th
+    >
 
     <th
       ><div class="sort-button-container">
@@ -197,7 +204,8 @@
     background-color: #54585d;
     color: #ffffff;
     font-weight: bold;
-    position: sticky; top: 0;
+    position: sticky;
+    top: 0;
   }
 
   img {

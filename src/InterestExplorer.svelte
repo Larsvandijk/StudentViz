@@ -79,17 +79,19 @@
   }
 
   function handleDragLeave() {
-    // console.log("Drag leave");
+    console.log("Drag leave");
     draggable = false;
   }
 
   function handleDrag(event, d) {
     followMouse(event);
     if (mousePosition.y != null) y = mousePosition.y;
+    console.log("dragging")
   }
 
   function handleDragStart() {
     draggable = true;
+    console.log("handle drag start")
   }
 </script>
 
@@ -239,7 +241,7 @@
 </div>
 
 <style>
-  svg text {
+  /* svg text {
     pointer-events: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -249,7 +251,7 @@
   svg text::selection {
     pointer-events: none;
     background: none;
-  }
+  } */
 
   text {
     user-select: none;

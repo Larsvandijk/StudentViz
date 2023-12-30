@@ -34,7 +34,7 @@
 
   <div class="formcontainer">
     <p>
-      Enter your income manually, or use the national averages with the button
+      Enter your monthly income manually, or use the national averages with the button
       below.
     </p>
     <button class="buttonnew" on:click={fillInIncomeAverages}
@@ -48,6 +48,7 @@
             value={category.value}
             editable={category.editable}
             id={category.id}
+            tooltiptext={category.tooltip}
           />
         {/each}
       </div>

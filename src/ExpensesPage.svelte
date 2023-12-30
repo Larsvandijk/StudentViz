@@ -55,6 +55,7 @@
             value={category.value}
             editable={category.editable}
             id={category.id}
+            tooltiptext={category.tooltip}
           />
         {/each}
       </div>
