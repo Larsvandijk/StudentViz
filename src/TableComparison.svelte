@@ -117,7 +117,8 @@
             alt="sortingpng"
           /></button
         >
-      </div></th
+      </div><FilterBar width={150} height={30} indentifier={"interestRate"}
+      ></FilterBar></th
     >
 
     <th>
@@ -130,7 +131,7 @@
           /></button
         >
       </div>
-      <FilterBar width={130} height={30} indentifier={"monthlyLoanAmount"}
+      <FilterBar width={150} height={30} indentifier={"monthlyLoanAmount"}
       ></FilterBar></th
     >
     <th
@@ -142,7 +143,8 @@
             alt="sortingpng"
           /></button
         >
-      </div></th
+      </div><FilterBar width={150} height={30} indentifier={"monthlyRepayment"}
+      ></FilterBar></th
     >
 
     <th
@@ -153,7 +155,8 @@
             alt="sortingpng"
           /></button
         >
-      </div></th
+      </div><FilterBar width={150} height={30} indentifier={"totalAmountPaid"}
+      ></FilterBar></th
     >
 
     <th
@@ -195,7 +198,7 @@
   table {
     table-layout: fixed;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    width: 1100px;
+    width: 1200px;
   }
 
   th {
@@ -204,6 +207,7 @@
     background-color: #54585d;
     color: #ffffff;
     font-weight: bold;
+    font-size: 14px;
     position: sticky;
     top: 0;
   }
@@ -224,5 +228,6 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    margin-bottom: 10px;
   }
 </style>

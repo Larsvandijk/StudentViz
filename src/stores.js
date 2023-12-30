@@ -5,11 +5,11 @@ export const draagvoet = readable(0.04);
 export const pageIndex = writable(2);
 
 export const selectionBoundaries = writable({
-  interestRate: { minimum: 0, maximum: 0 },
-  monthlyLoanAmount: { minimum: 0, maximum: 0 },
-  monthlyRepayment: { minimum: 0, maximum: 0 },
-  totalPaid: { minimum: 0, maximum: 0 },
-  interestProportion: {minimum: 0, maximum: 0}
+  interestRate: { minimum: undefined, maximum: undefined },
+  monthlyLoanAmount: { minimum: undefined, maximum: undefined },
+  monthlyRepayment: { minimum: undefined, maximum: undefined },
+  totalPaid: { minimum: undefined, maximum: undefined },
+  interestProportion: { minimum: undefined, maximum: undefined },
 });
 
 export const interestHistory = readable([
