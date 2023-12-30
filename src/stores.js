@@ -4,6 +4,14 @@ export const minimumWageYearly = readable(23212);
 export const draagvoet = readable(0.04);
 export const pageIndex = writable(2);
 
+export const selectionBoundaries = writable({
+  interestRate: { minimum: 0, maximum: 0 },
+  monthlyLoanAmount: { minimum: 0, maximum: 0 },
+  monthlyRepayment: { minimum: 0, maximum: 0 },
+  totalPaid: { minimum: 0, maximum: 0 },
+  interestProportion: {minimum: 0, maximum: 0}
+});
+
 export const interestHistory = readable([
   { year: 1998, interest: 6.09 },
   { year: 1999, interest: 4.89 },
@@ -73,51 +81,79 @@ export const totalIncomeCategories = derived(incomeList, ($incomeList) =>
 );
 
 export const expenseList = writable([
-  { id: Math.random(), name: "Tuition", value: 0, editable: false, tooltip:"Monthly costs of tuition" },
-  { id: Math.random(), name: "Study Material", value: 0, editable: false, tooltip: "Monthly costs of books, notebooks and other study material" },
+  {
+    id: Math.random(),
+    name: "Tuition",
+    value: 0,
+    editable: false,
+    tooltip: "Monthly costs of tuition",
+  },
+  {
+    id: Math.random(),
+    name: "Study Material",
+    value: 0,
+    editable: false,
+    tooltip: "Monthly costs of books, notebooks and other study material",
+  },
   {
     id: Math.random(),
     name: "Healthcare insurance",
     value: 0,
     editable: false,
-    tooltip: "Monthly cost of your healthcare insurance"
+    tooltip: "Monthly cost of your healthcare insurance",
   },
   {
     id: Math.random(),
     name: "Rent (incl gas electra etc)",
     value: 0,
     editable: false,
-    tooltip: "The total rent you pay each month, including gas, electra WiFi etc."
+    tooltip:
+      "The total rent you pay each month, including gas, electra WiFi etc.",
   },
-  { id: Math.random(), name: "Phone", value: 0, editable: false, tooltip: "Monthly costs of your mobile phone subscription" },
-  { id: Math.random(), name: "Transport", value: 0, editable: false, tooltip:"This includes public transport (bus, metro, train) as well as private transport (gas for car)" },
+  {
+    id: Math.random(),
+    name: "Phone",
+    value: 0,
+    editable: false,
+    tooltip: "Monthly costs of your mobile phone subscription",
+  },
+  {
+    id: Math.random(),
+    name: "Transport",
+    value: 0,
+    editable: false,
+    tooltip:
+      "This includes public transport (bus, metro, train) as well as private transport (gas for car)",
+  },
   {
     id: Math.random(),
     name: "Groceries",
     value: 0,
     editable: false,
-    tooltip: "How much you spend each month on your groceries"
+    tooltip: "How much you spend each month on your groceries",
   },
   {
     id: Math.random(),
     name: "Clothes",
     value: 0,
     editable: false,
-    tooltip:"How much you spend each month on buying clothes"
+    tooltip: "How much you spend each month on buying clothes",
   },
   {
     id: Math.random(),
     name: "Monthly subscriptions",
     value: 0,
     editable: false,
-    tooltip: "Streaming subscriptions like Netflix, but also perhaps a bike rental subscription"
+    tooltip:
+      "Streaming subscriptions like Netflix, but also perhaps a bike rental subscription",
   },
   {
     id: Math.random(),
     name: "Leisure Activities, going out, sports",
     value: 0,
     editable: false,
-    tooltip: "How much you spend on your hobbies and activities you do in your spare time"
+    tooltip:
+      "How much you spend on your hobbies and activities you do in your spare time",
   },
 ]);
 
