@@ -23,6 +23,9 @@
     maxValue = d3.max($dataCollection, (d) => d.totalAmountPaid);
   else if (indentifier == "interestRate")
     maxValue = d3.max($dataCollection, (d) => d.interest);
+  else if (indentifier == "interestProportion")
+    maxValue = d3.max($dataCollection, (d) => (d.totalInterestPaid / d.totalAmountPaid * 100));
+
 
   $: xScale = d3
     .scaleLinear()
@@ -65,6 +68,11 @@
     $selectionBoundaries.interestRate.maximum = maximum;
   }
 
+  $: if (indentifier == "interestProportion") {
+    $selectionBoundaries.interestProportion.minimum = minimum;
+    $selectionBoundaries.interestProportion.maximum = maximum;
+  }
+
   function brush(e) {
     if (indentifier == "interestRate") {
       minimum =
@@ -82,8 +90,7 @@
     if (e.selection == null) {
       minimum = undefined;
       maximum = undefined;
-      console.log($selectionBoundaries)
-
+      console.log($selectionBoundaries);
     }
   }
 </script>

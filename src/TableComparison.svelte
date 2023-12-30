@@ -167,7 +167,8 @@
             alt="sortingpng"
           /></button
         >
-      </div></th
+      </div><FilterBar width={150} height={30} indentifier={"interestProportion"}
+      ></FilterBar></th
     >
 
     <th
