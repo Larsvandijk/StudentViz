@@ -57,7 +57,7 @@
     width: 320px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between
+    justify-content: space-between;
 
   }
 
@@ -69,8 +69,8 @@
 
 button{
   padding: 0px;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 }
 
 img {

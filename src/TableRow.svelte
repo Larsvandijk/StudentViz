@@ -1,7 +1,5 @@
 <script>
-  import { get } from "svelte/store";
   import Colour from "./Colour.svelte";
-  import Dougnut from "./Dougnut.svelte";
   import HorizontalBarChart from "./HorizontalBarChart.svelte";
   import {
     availableColours,
@@ -9,23 +7,97 @@
     totalDebtNoInterest,
     totalInterestPaid,
     totalAmountPaid,
+    selectionBoundaries,
   } from "./stores";
   import StackedBarChart from "./StackedBarChart.svelte";
   export let data;
   export let i;
   export let id;
 
-  function deleteCategory() {
+  let shouldBeDisplayed = true;
+
+  $: deleteCategory = () => {
     let itemToDelete = $dataCollection.findIndex((x) => x.id == id);
     $availableColours.push($dataCollection[itemToDelete].colour);
     $availableColours = $availableColours;
     $dataCollection.splice(itemToDelete, 1);
     $dataCollection = $dataCollection;
-  }
+  };
+
+  $: isInsideInterestRateBoundaries = () => {
+    if ($selectionBoundaries.interestRate.minimum == undefined) return true;
+    else if (
+      $selectionBoundaries.interestRate.minimum <= data.interestRate &&
+      $selectionBoundaries.interestRate.maximum >= data.interestRate
+    )
+      return true;
+    else return false;
+  };
+
+  $: isInsideMonthlyLoanAmountBoundaries = () => {
+    console.log($selectionBoundaries.monthlyLoanAmount.minimum, $selectionBoundaries.monthlyLoanAmount.maximum, data.monthlyLoanAmount)
+    if ($selectionBoundaries.monthlyLoanAmount.minimum == undefined)
+      return true;
+    else if (
+      $selectionBoundaries.monthlyLoanAmount.minimum <=
+        data.monthlyLoanAmount &&
+      $selectionBoundaries.monthlyLoanAmount.maximum >= data.monthlyLoanAmount
+    )
+      return true;
+    else return false;
+  };
+
+  $: isInsideMonthlyRepaymentBoundaries = () => {
+    if ($selectionBoundaries.monthlyRepayment.minimum == undefined) return true;
+    else if (
+      $selectionBoundaries.monthlyRepayment.minimum <= data.monthlyRepayment &&
+      $selectionBoundaries.monthlyRepayment.maximum >= data.monthlyRepayment
+    )
+      return true;
+    else return false;
+  };
+
+  $: isInsideTotalPaidBoundaries = () => {
+    if ($selectionBoundaries.totalPaid.minimum == undefined) return true;
+    else if (
+      $selectionBoundaries.totalPaid.minimum <= data.totalPaid &&
+      $selectionBoundaries.totalPaid.maximum >= data.totalPaid
+    )
+      return true;
+    else return false;
+  };
+
+  $: isInsideInterestProportionBoundaries = () => {
+    if ($selectionBoundaries.interestProportion.minimum == undefined)
+      return true;
+    else if (
+      $selectionBoundaries.interestProportion.minimum <=
+        (data.totalInterestPaid / data.totalAmountPaid) * 100 &&
+      $selectionBoundaries.interestProportion.maximum >=
+        (data.totalInterestPaid / data.totalAmountPaid) * 100
+    )
+      return true;
+    else return false;
+  };
+
+  $: shouldBeDisplayed =
+    (isInsideInterestRateBoundaries() &&
+    isInsideMonthlyLoanAmountBoundaries() &&
+    isInsideMonthlyRepaymentBoundaries() &&
+    isInsideTotalPaidBoundaries() &&
+    isInsideInterestProportionBoundaries());
 </script>
 
 <tr>
-  <td style="text-align: center"><div class="colour">{i + 1} <Colour colour={data.colour}></Colour></div></td>
+  <td style="text-align: center"
+    ><div class="colour">
+      {i + 1}
+      {#if shouldBeDisplayed}
+        <p>disp</p>
+      {/if}
+      <Colour colour={data.colour}></Colour>
+    </div></td
+  >
 
   <td style="text-align: center"
     >{Number(data.interest / 100).toLocaleString(undefined, {
@@ -80,7 +152,9 @@
   >
   <td>
     <div class="container">
-      <button class="buttonnew" on:click={deleteCategory}><img src="/images/delete.png" alt="deleteicon"></button>
+      <button class="buttonnew" on:click={deleteCategory}
+        ><img src="/images/delete.png" alt="deleteicon" /></button
+      >
     </div></td
   >
 </tr>
@@ -91,7 +165,7 @@
     background-color: #f2f2f2;
   }
 
-  tr{
+  tr {
     max-height: 30px;
   }
 
@@ -110,12 +184,12 @@
     padding: 5px;
   }
 
-  img{
+  img {
     width: 20px;
     height: 20px;
   }
 
-  .colour{
+  .colour {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;

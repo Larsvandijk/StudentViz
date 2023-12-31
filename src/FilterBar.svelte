@@ -90,7 +90,6 @@
     if (e.selection == null) {
       minimum = undefined;
       maximum = undefined;
-      console.log($selectionBoundaries);
     }
   }
 </script>
