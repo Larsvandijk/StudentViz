@@ -78,6 +78,10 @@
     margin-top:0px;
   }
 
+  p{
+    margin-top: 8px;
+  }
+
   input[type="number"] {
     width: 80px;
     height: 25px;

@@ -128,6 +128,7 @@
 
   h3{
     margin-top: 0px;
+    margin-bottom: 8px;
     text-align: center;
   }
 </style>
