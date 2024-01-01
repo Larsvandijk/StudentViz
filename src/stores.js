@@ -466,3 +466,10 @@ export const totalAmountPaid = derived(
     return $totalInterestPaid + $totalDebtNoInterest;
   }
 );
+
+export const alternativeCounter = writable(0)
+export const interestRatesEnteredList = writable([])
+
+export const uniqueInterestRatesEntered = derived(interestRatesEnteredList, ($interestRatesEnteredList)=>{
+  return Array.from(new Set($interestRatesEnteredList)).length
+})

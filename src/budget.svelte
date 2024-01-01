@@ -14,6 +14,9 @@
     totalInterestPaid,
     totalDebtNoInterest,
     totalAmountPaid,
+    alternativeCounter,
+    interestRatesEnteredList,
+    uniqueInterestRatesEntered
   } from "./stores";
   import { get } from "svelte/store";
   import AdditionalInformation from "./AdditionalInformation.svelte";
@@ -44,6 +47,11 @@
       $dataCollection = $dataCollection;
       $availableColours.shift();
       $availableColours = $availableColours;
+      $alternativeCounter++
+      console.log("Alternatives compared: ", $alternativeCounter)
+      $interestRatesEnteredList.push($interestRateYearly)
+      $interestRatesEnteredList = $interestRatesEnteredList
+      console.log("Unique interest rates explored: ", $uniqueInterestRatesEntered)
     }
   }
 </script>

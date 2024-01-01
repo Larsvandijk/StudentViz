@@ -47,7 +47,6 @@
   };
 
   $: isInsideMonthlyRepaymentBoundaries = () => {
-    console.log(data.monthlyRepayment)
     if ($selectionBoundaries.monthlyRepayment.minimum == undefined) return true;
     else if (
       $selectionBoundaries.monthlyRepayment.minimum <= data.monthlyRepayment &&
@@ -139,7 +138,6 @@
 
   <td
     ><StackedBarChart
-      totalDebtNoInterest={data.totalDebtNoInterest}
       totalInterestPaid={data.totalInterestPaid}
       totalAmountPaid={data.totalAmountPaid}
       colour={data.colour}
