@@ -27,8 +27,8 @@
   $: isInsideInterestRateBoundaries = () => {
     if ($selectionBoundaries.interestRate.minimum == undefined) return true;
     else if (
-      $selectionBoundaries.interestRate.minimum <= data.interestRate &&
-      $selectionBoundaries.interestRate.maximum >= data.interestRate
+      $selectionBoundaries.interestRate.minimum <= data.interest &&
+      $selectionBoundaries.interestRate.maximum >= data.interest
     )
       return true;
     else return false;
@@ -60,8 +60,8 @@
   $: isInsideTotalPaidBoundaries = () => {
     if ($selectionBoundaries.totalPaid.minimum == undefined) return true;
     else if (
-      $selectionBoundaries.totalPaid.minimum <= data.totalPaid &&
-      $selectionBoundaries.totalPaid.maximum >= data.totalPaid
+      $selectionBoundaries.totalPaid.minimum <= data.totalAmountPaid &&
+      $selectionBoundaries.totalPaid.maximum >= data.totalAmountPaid
     )
       return true;
     else return false;
