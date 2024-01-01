@@ -35,7 +35,6 @@
   };
 
   $: isInsideMonthlyLoanAmountBoundaries = () => {
-    console.log($selectionBoundaries.monthlyLoanAmount.minimum, $selectionBoundaries.monthlyLoanAmount.maximum, data.monthlyLoanAmount)
     if ($selectionBoundaries.monthlyLoanAmount.minimum == undefined)
       return true;
     else if (
@@ -48,6 +47,7 @@
   };
 
   $: isInsideMonthlyRepaymentBoundaries = () => {
+    console.log(data.monthlyRepayment)
     if ($selectionBoundaries.monthlyRepayment.minimum == undefined) return true;
     else if (
       $selectionBoundaries.monthlyRepayment.minimum <= data.monthlyRepayment &&
@@ -86,15 +86,13 @@
     isInsideMonthlyRepaymentBoundaries() &&
     isInsideTotalPaidBoundaries() &&
     isInsideInterestProportionBoundaries());
+
 </script>
 
-<tr>
+<tr class:inactive ={!shouldBeDisplayed}>
   <td style="text-align: center"
     ><div class="colour">
       {i + 1}
-      {#if shouldBeDisplayed}
-        <p>disp</p>
-      {/if}
       <Colour colour={data.colour}></Colour>
     </div></td
   >
@@ -193,5 +191,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+  }
+
+  .inactive {
+    opacity: 0.25;
   }
 </style>
