@@ -93,7 +93,16 @@
 </script>
 
 <div class="container">
-  <h3>Interest Explorer</h3>
+  <div style="display: flex;">
+    <h3>Interest Explorer</h3>
+    <div class="tooltip">
+      <img src="images/infoicon.png" alt="information icon" />
+      <span class="tooltiptext"
+        >{"Drag the black horizontal line to adjust the interest rate. Explore how different interest rates impact your situation. The historical data of the interest rate is displayed in the graph to give an indication of probable interest rates."}</span
+      >
+    </div>
+  </div>
+  
   <input bind:value={$interestRateYearly} class="topdown" type="number" />
 
   <svg
@@ -275,5 +284,35 @@
 
   input {
     width: 100px;
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    vertical-align: middle;
+  }
+
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+  }
+
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
   }
 </style>
