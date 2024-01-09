@@ -95,7 +95,6 @@
     flex-direction: column;
     max-width: 350px;
     max-height: 100vh;
-
     margin-bottom: 0px;
     border: 2px solid black;
     border-radius: 5px;

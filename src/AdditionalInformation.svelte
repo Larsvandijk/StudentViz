@@ -11,6 +11,9 @@
     principal,
     moneyNeeded
   } from "./stores";
+
+  $: blockXmoneyNeeded= $moneyNeeded / (1410 + 20)  * 300 + 5;
+  let blockXduration = 36/240 * 300 + 2.5;
 </script>
 
 <div class="additionalinformationcontainer">
@@ -32,6 +35,9 @@
         step="1"
       /></label
     >
+    <svg width=300px height=5px>
+      <rect width=5px height=5px x={blockXmoneyNeeded} y=0 fill=rgb(0,117,255)></rect>
+    </svg>
 
     <label class="topdown"
       >Borrow for a duration of {$remainderLoanPeriod} months.<input
@@ -42,6 +48,9 @@
         max="240"
       /></label
     >
+    <svg width=300px height=5px>
+      <rect width=5px height=5px x={blockXduration} y=0 fill=rgb(0,117,255)></rect>
+    </svg>
   </div>
 
 </div>
@@ -86,5 +95,9 @@
     width: 80px;
     height: 25px;
     display: inline-block;
+  }
+
+  .topdown{
+    margin-bottom: 0px;
   }
 </style>

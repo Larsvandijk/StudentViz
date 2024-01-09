@@ -8,6 +8,7 @@
     maxMonthlyRepaymentAmount,
     aflossingsVrijePeriode,
     totalAmountPaid,
+    availableColours,
   } from "./stores";
 
   import { onMount } from "svelte";
@@ -79,6 +80,15 @@
     </fieldset>
   </div>
 
+  {#if $availableColours.length < 1}
+  <p class="warning">
+    <strong
+      >A maximum of 12 alternatives have been added to the table. Delete alternatives in order to add new ones.</strong
+    >
+  </p>
+  {/if}
+
+
   {#if $chosenMonthlyRepaymentAmount < $monthlyRepaymentAmount && !$use35years}
     <p class="warning">
       <strong
@@ -93,6 +103,7 @@
 <style>
   .warning {
     color: red;
+    margin: 0px;
   }
 
   .container {

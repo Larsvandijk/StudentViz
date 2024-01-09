@@ -98,7 +98,7 @@
   <g
     bind:this={xAxis}
     transform="translate({padding.left},{0})"
-    {width}
+    width ={width - padding.right}
     {height}
   />
   <g bind:this={brushelement} {width} {height} />

@@ -10,6 +10,7 @@ export const selectionBoundaries = writable({
   monthlyRepayment: { minimum: undefined, maximum: undefined },
   totalPaid: { minimum: undefined, maximum: undefined },
   interestProportion: { minimum: undefined, maximum: undefined },
+  finalDate:{ minimum: undefined, maximum: undefined }
 });
 
 export const interestHistory = readable([
@@ -380,19 +381,6 @@ export const maxMonthlyRepaymentAmount = derived(
     return result;
   }
 );
-
-// export const availableColours = writable([
-//   {colourName: "red", darkColour:"#de2d26", lightColour: "#fc9272"},
-//   {colourName: "green", darkColour: "#2ca25f", lightColour: "#99d8c9"},
-//   {colourName: "purple", darkColour: "#756bb1", lightColour: "#bcbddc"},
-//   {colourName: "yellow", darkColour: "#e6e600", lightColour: "#ffff99"},
-//   {colourName: "brown", darkColour: "#86592d", lightColour: "#e6ccb3"},
-//   {colourName: "blue", darkColour: "#3182bd", lightColour:"#9ecae1"},
-//   {colourName: "orange", darkColour: "#ff8000", lightColour: "#ffcc99"},
-//   {colourName: "pink", darkColour: "#ff00aa", lightColour: "#ff99dd"},
-//   {colourName: "cyan", darkColour: "#00ffff", lightColour: "#b3ffff"},
-
-// ]);
 
 export const availableColours = writable([
   "#a6cee3",

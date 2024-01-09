@@ -83,11 +83,13 @@
   }
 
   function handleDrag(event, d) {
+    console.log("dragging", draggable);
     followMouse(event);
     if (mousePosition.y != null) y = mousePosition.y;
   }
 
   function handleDragStart() {
+    console.log("start");
     draggable = true;
   }
 </script>
@@ -102,7 +104,7 @@
       >
     </div>
   </div>
-  
+
   <input bind:value={$interestRateYearly} class="topdown" type="number" />
 
   <svg
@@ -113,7 +115,7 @@
     on:mousemove={followMouse}
     on:mouseleave={removePointer}
   >
-    <svg
+    <!-- <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 {y} 25 25"
       width="25px"
@@ -122,7 +124,7 @@
         style="fill:#232326"
         d="M24 12.001H2.914l5.294-5.295-.707-.707L1 12.501l6.5 6.5.707-.707-5.293-5.293H24v-1z"
         data-name="Left"
-      /></svg
+      /></svg -->
     >
     <!-- X AND Y SCALE LINES -->
     <g>
@@ -203,18 +205,6 @@
         data-name="layer2"
         stroke-linejoin="round"
       />
-      <path
-        style="transform: scale(0.5)"
-        class="arrow"
-        d="M6 29h52v6H6z"
-        stroke-width="2"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke="#202020"
-        fill="none"
-        data-name="layer1"
-        stroke-linejoin="round"
-      />
     </g>
 
     <line
@@ -231,7 +221,7 @@
       stroke-opacity="0"
     />
 
-    <!-- HERE NEW INTEREST LINES -->
+    <!-- DRAW NEW INTEREST LINES -->
     {#each $dataCollection as datagroup, i}
       <line
         x1={paddings.left}
@@ -246,7 +236,7 @@
 </div>
 
 <style>
-  /* svg text {
+  svg text {
     pointer-events: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -256,7 +246,7 @@
   svg text::selection {
     pointer-events: none;
     background: none;
-  } */
+  }
 
   text {
     user-select: none;
@@ -284,6 +274,7 @@
 
   input {
     width: 100px;
+    margin: 0px;
   }
 
   img {
@@ -293,9 +284,10 @@
 
   .tooltip {
     position: relative;
-    display: inline-block;
+    display: table-cell;
     width: 30px;
     vertical-align: middle;
+    padding-top: 15px;
   }
 
   .tooltip .tooltiptext {

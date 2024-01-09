@@ -108,7 +108,7 @@
 <table cellspacing="0">
   <caption>Comparison Table</caption>
   <tr>
-    <th style="width: 40px;">Plan</th>
+    <th style="width: 20px;">Plan</th>
     <th
       ><div class="sort-button-container">
         Interest Rate <button on:click={sortOnInterest}
@@ -117,7 +117,7 @@
             alt="sortingpng"
           /></button
         >
-      </div><FilterBar width={150} height={30} indentifier={"interestRate"}
+      </div><FilterBar width={150} height={35} indentifier={"interestRate"}
       ></FilterBar></th
     >
 
@@ -131,7 +131,7 @@
           /></button
         >
       </div>
-      <FilterBar width={150} height={30} indentifier={"monthlyLoanAmount"}
+      <FilterBar width={150} height={35} indentifier={"monthlyLoanAmount"}
       ></FilterBar></th
     >
     <th
@@ -143,7 +143,7 @@
             alt="sortingpng"
           /></button
         >
-      </div><FilterBar width={150} height={30} indentifier={"monthlyRepayment"}
+      </div><FilterBar width={150} height={35} indentifier={"monthlyRepayment"}
       ></FilterBar></th
     >
 
@@ -155,7 +155,7 @@
             alt="sortingpng"
           /></button
         >
-      </div><FilterBar width={150} height={30} indentifier={"totalAmountPaid"}
+      </div><FilterBar width={150} height={35} indentifier={"totalAmountPaid"}
       ></FilterBar></th
     >
 
@@ -167,7 +167,7 @@
             alt="sortingpng"
           /></button
         >
-      </div><FilterBar width={150} height={30} indentifier={"interestProportion"}
+      </div><FilterBar width={150} height={35} indentifier={"interestProportion"}
       ></FilterBar></th
     >
 
@@ -182,7 +182,7 @@
       </div></th
     >
 
-    <th style="width: 40px;"></th>
+    <th style="width: 20px;"></th>
   </tr>
 
   {#each $dataCollection as data, i (data.id)}
